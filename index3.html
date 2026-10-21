@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/jpeg" href="ava.jpg">
+  <title>Ôn Tập Giữa Kỳ I - Tin Học 8</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="index1.css">
+</head>
+<body>
+
+  <!-- SVG Filter Liquid Glass -->
+  <svg style="display:none; position:absolute;" xmlns="http://www.w3.org/2000/svg">
+    <filter id="container-glass" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" id="glassDisplacement" />
+    </filter>
+  </svg>
+
+  <!-- Góc Trên Bên Trái: Avatar & Tên -->
+  <div class="top-left-profile">
+    <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
+    <span class="user-name">chisaki167</span>
+  </div>
+
+  <!-- Góc Trên Bên Phải: Nút Bật/Tắt Nền Video -->
+  <div class="top-right-controls">
+    <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">
+      🎬 Nền: Tắt
+    </button>
+  </div>
+
+  <!-- Video Nền -->
+  <video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  <div class="bg-overlay hidden" id="bgOverlay"></div>
+
+  <!-- Header -->
+  <header class="profile wrap">
+    <h1>ÔN TẬP GIỮA KỲ I <span class="highlight">(2026 - 2027)</span></h1>
+    <h2>MÔN TIN HỌC 8 — KHỐI 8</h2>
+  </header>
+
+  <!-- Navigation Tab Liquid Glass -->
+  <div class="wrap filter-container">
+    <div class="filter-tabs glassContainer" id="filterTabs">
+      <div class="liquid-pill" id="liquidPill"></div>
+      <button class="glassBtn active" data-index="0" onclick="switchTab('trac-nghiem', event)">
+        <i class="fa-solid fa-list-check"></i> PHẦN I. TRẮC NGHIỆM
+      </button>
+      <button class="glassBtn" data-index="1" onclick="switchTab('tu-luan', event)">
+        <i class="fa-solid fa-pen-nib"></i> PHẦN II. TỰ LUẬN
+      </button>
+    </div>
+  </div>
+
+  <main class="wrap">
+
+    <!-- ================= PHẦN I. TRẮC NGHIỆM ================= -->
+    <div id="trac-nghiem" class="tab-content active">
+      <h3 class="section-title"><i class="fa-solid fa-laptop-code"></i> CÂU HỎI TRẮC NGHIỆM TƯƠNG TÁC (TRÁO CÂU HỎI & ĐÁP ÁN)</h3>
+      <div class="quiz-container" id="quiz-tin-hoc"></div>
+    </div>
+
+    <!-- ================= PHẦN II. TỰ LUẬN ================= -->
+    <div id="tu-luan" class="tab-content">
+      <h3 class="section-title"><i class="fa-solid fa-book-open"></i> PHẦN TỰ LUẬN VÀ GỢI Ý LỜI GIẢI</h3>
+
+      <div class="card">
+        <div class="question-title">Câu 1: Đạo đức và văn hóa trong môi trường số được hiểu là gì?</div>
+        <div class="essay-content">
+          <p><strong>• Đạo đức trong môi trường số:</strong> Là việc tuân thủ các chuẩn mực đạo đức con người khi tương tác trên không gian mạng, bao gồm sự trung thực, tôn trọng bản quyền, bảo vệ quyền riêng tư cá nhân và không thực hiện các hành vi gây hại cho người khác.</p>
+          <p><strong>• Văn hóa trong môi trường số:</strong> Là ứng xử lịch sự, văn minh, có trách nhiệm khi giao tiếp trực tuyến; sử dụng ngôn từ chuẩn mực, không phát tán nội dung độc hại, tôn trọng sự đa dạng ý kiến và tuân thủ pháp luật mạng.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Câu 2: Vì sao nói thông tin trên môi trường số phong phú nhưng cũng tiềm ẩn rủi ro?</div>
+        <div class="essay-content">
+          <p><strong>• Phong phú:</strong> Do khả năng lưu trữ khổng lồ và kết nối toàn cầu, bất kỳ ai cũng có thể đóng góp và chia sẻ tri thức nhanh chóng.</p>
+          <p><strong>• Tiềm ẩn rủi ro:</strong> Do tính chất tự do đăng tải và ẩn danh, môi trường số chứa nhiều tin giả (fake news), thông tin sai lệch, lừa đảo trực tuyến, độc hại hoặc vi phạm bản quyền. Nếu thiếu tư duy phản biện, người dùng dễ bị dẫn dắt và chịu thiệt hại.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Câu 3: Việc đưa thông tin lên môi trường số (Internet) có ưu điểm nổi bật nào về mặt không gian và thời gian?</div>
+        <div class="essay-content">
+          <p><strong>• Về mặt không gian:</strong> Xóa nhòa ranh giới địa lý. Thông tin đăng tải ở một vị trí có thể được tiếp cận từ bất kỳ đâu trên thế giới có kết nối mạng.</p>
+          <p><strong>• Về mặt thời gian:</strong> Tốc độ truyền tải gần như tức thời (thời gian thực), tiếp cận 24/7 không bị gián đoạn.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Câu 4: Tin giả (Fake news) trên mạng xã hội thường có đặc điểm gì?</div>
+        <div class="essay-content">
+          <ul>
+            <li>Tiêu đề giật gân, kích động cảm xúc (sợ hãi, phẫn nộ) để giục giã chia sẻ.</li>
+            <li>Nguồn tin mập mờ, giả mạo các tổ chức/báo chí uy tín.</li>
+            <li>Không có bằng chứng kiểm chứng, hình ảnh cắt ghép hoặc dùng bối cảnh cũ.</li>
+            <li>Thường yêu cầu người đọc "chia sẻ ngay" hoặc thực hiện các hành động thiếu cơ sở khoa học.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Câu 5: Tài sản số của một cá nhân có thể bao gồm những gì?</div>
+        <div class="essay-content">
+          <p>Tài sản số của cá nhân bao gồm:</p>
+          <ul>
+            <li>Các tài khoản trực tuyến (Email, Mạng xã hội, Tài khoản Ngân hàng/Ví điện tử).</li>
+            <li>Dữ liệu cá nhân (Hình ảnh, video, tài liệu, dự án học tập, tệp mã nguồn).</li>
+            <li>Sản phẩm sáng tạo số (Tác phẩm nghệ thuật số, tên miền, kênh truyền thông sở hữu).</li>
+            <li>Thông tin định danh kỹ thuật số và dấu chân kỹ thuật số (Digital footprint).</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="wrap">
+    Ôn tập Giữa Kỳ I · Tin Học 8 · Khối 8 · Github by chisaki167
+  </footer>
+
+  <script src="index3.js"></script>
+</body>
+</html>
