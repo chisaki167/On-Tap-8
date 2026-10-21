@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/jpeg" href="ava.jpg">
+  <title>Trang Chủ Ôn Tập - Khối 8</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="index1.css">
+</head>
+<body>
+
+  <!-- Góc Trên Bên Trái: Avatar ava.jpg & Tên chisaki167 -->
+  <div class="top-left-profile">
+    <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
+    <span class="user-name">chisaki167</span>
+  </div>
+
+  <!-- Góc Trên Bên Phải: Nút Bật/Tắt Nền -->
+  <div class="top-right-controls">
+    <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">
+      🎬 Nền: Tắt
+    </button>
+  </div>
+
+  <!-- Video Nền (Mặc định ẩn) -->
+  <video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  <div class="bg-overlay hidden" id="bgOverlay"></div>
+
+  <!-- Header -->
+  <header class="profile wrap">
+    <h1>KHO LƯU TRỮ ÔN TẬP <span class="highlight">(2025 - 2026)</span></h1>
+    <h2>VUI LÒNG CHỌN MÔN HỌC ĐỂ BẮT ĐẦU ÔN TẬP</h2>
+  </header>
+
+  <!-- Danh sách các môn học (Card điều hướng) -->
+  <main class="wrap" style="max-width: 600px; margin-top: 20px;">
+    
+    <!-- Môn KHTN -->
+    <div class="card" onclick="window.location.href='index2.html'" style="cursor: pointer; text-align: center; padding: 30px;">
+      <div class="question-title" style="font-size: 1.3rem; color: #60A5FA; margin-bottom: 8px;">
+        <i class="fa-solid fa-atom"></i> Khoa Học Tự Nhiên (KHTN)
+      </div>
+      <div class="essay-content" style="color: var(--muted);">
+        Bấm vào đây để chuyển đến trang ôn tập môn KHTN 
+      </div>
+    </div>
+
+    <!-- Môn LS - ĐL -->
+    <div class="card" onclick="window.location.href='index1.html'" style="cursor: pointer; text-align: center; padding: 30px;">
+      <div class="question-title" style="font-size: 1.3rem; color: #34D399; margin-bottom: 8px;">
+        <i class="fa-solid fa-earth-americas"></i> Lịch Sử & Địa Lý (LS-ĐL)
+      </div>
+      <div class="essay-content" style="color: var(--muted);">
+        Bấm vào đây để chuyển đến trang ôn tập môn Lịch Sử & Địa Lý 
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="wrap">
+    Hệ thống ôn tập trực tuyến · Khối 8A11 · Tạo bởi chisaki167
+  </footer>
+
+  <script>
+    /* Hiệu ứng Spotlight riêng cho các Card */
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+          const r = card.getBoundingClientRect();
+          const x = e.clientX - r.left;
+          const y = e.clientY - r.top;
+          card.style.setProperty('--mouse-x', x + 'px');
+          card.style.setProperty('--mouse-y', y + 'px');
+        });
+      });
+    });
+
+    /* Hàm Bật/Tắt Video Nền */
+    function toggleBackground() {
+      const v = document.getElementById('bgVideo');
+      const o = document.getElementById('bgOverlay');
+      const b = document.getElementById('bgToggleBtn');
+
+      v.classList.toggle('hidden');
+      o.classList.toggle('hidden');
+
+      if (v.classList.contains('hidden')) {
+        b.innerHTML = '🎬 Nền: Tắt';
+      } else {
+        b.innerHTML = '🎬 Nền: Bật';
+      }
+    }
+  </script>
+</body>
+</html>

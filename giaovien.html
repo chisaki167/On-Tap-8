@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" type="image/jpeg" href="ava.jpg">
+<title>Bảng điểm giáo viên · KHTN 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+<!-- Liên kết tệp CSS riêng -->
+<link rel="stylesheet" href="giaovien.css">
+</head>
+<body>
+
+<header class="top wrap">
+  <div class="eyebrow">Khoa học tự nhiên 8 · Cổng Giáo Viên · Github by chisaki167</div>
+  <h1>Quản Lý Điểm & Quy Đổi Kết Quả</h1>
+</header>
+
+<main class="wrap">
+  <!-- Nhập mã học sinh -->
+  <div class="card">
+    <h2>1. Nhận mã kết quả học sinh</h2>
+    <p class="lead">Dán các đoạn mã hoặc nội dung tin nhắn học sinh gửi vào ô dưới đây (hệ thống tự lọc mã của Bài 5 và Bài 6), sau đó bấm <b>Thêm kết quả</b>.</p>
+    <textarea id="pasteBox" placeholder="Dán mã kết quả hoặc tin nhắn..."></textarea>
+    <div class="row"><button class="btn primary" id="addCodes">Thêm kết quả</button><button class="btn" id="clearData">Xóa toàn bộ danh sách</button><span class="explain" id="addMsg"></span></div>
+  </div>
+
+  <!-- Quy đổi điểm cộng -->
+  <div class="card">
+    <h2>2. Cấu hình quy đổi điểm cộng</h2>
+    <p class="lead">Thiết lập mức phần trăm hoàn thành tối thiểu để học sinh được cộng thêm điểm vào điểm trắc nghiệm tổng kết.</p>
+    <div class="bonusrows">
+      <div class="row"><label for="bm0">Từ</label><input id="bm0" inputmode="numeric" value="90"><span>% hoàn thành trở lên → cộng</span><input id="bp0" inputmode="decimal" value="1"><span>điểm</span></div>
+      <div class="row"><label for="bm1">Từ</label><input id="bm1" inputmode="numeric" value="70"><span>% hoàn thành trở lên → cộng</span><input id="bp1" inputmode="decimal" value="0.5"><span>điểm</span></div>
+      <div class="row"><label for="bm2">Từ</label><input id="bm2" inputmode="numeric" value=""><span>% hoàn thành trở lên → cộng</span><input id="bp2" inputmode="decimal" value=""><span>điểm</span></div>
+    </div>
+    <div class="row"><button class="btn primary" id="saveBonus">Lưu mức quy đổi</button><span class="explain" id="bonusMsg"></span></div>
+  </div>
+
+  <!-- Bảng điểm tổng hợp -->
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <div class="field"><label for="clsFilter">Lọc theo lớp</label><select id="clsFilter"><option value="">Tất cả các lớp</option></select></div>
+      <button class="btn primary" id="exportCsv">Tải bảng điểm (CSV)</button>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div class="table-wrap"><table class="res" id="resTable"></table></div>
+    <span class="explain" id="exportMsg"></span>
+  </div>
+</main>
+
+<footer class="wrap">Trang quản lý điểm giáo viên · KHTN 8 · Tính năng thử nghiệm</footer>
+
+<!-- Liên kết tệp JS riêng -->
+<script src="giaovien.js"></script>
+</body>
+</html>

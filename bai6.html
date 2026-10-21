@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" type="image/jpeg" href="ava.jpg">
+<title>Bài 6 · Tính theo PTHH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="bai6.css">
+</head>
+<body>
+
+<header class="top wrap">
+  <div class="eyebrow">Khoa học tự nhiên 8 · Chương I: Phản ứng hóa học</div>
+  <h1><span class="lesson">Bài 6.</span> Tính theo phương trình hóa học[cite: 3]</h1>
+  <div class="law"><span class="chip">m, V</span><span class="eq">→</span><span class="chip">n<sub>đã biết</sub></span><span class="eq">→</span><span class="chip">n<sub>cần tìm</sub></span><span class="eq">→</span><span class="chip">m, V</span></div>
+  <div class="student" id="studentBar">
+    <div class="field name"><label for="stName">Họ và tên học sinh</label><input id="stName" autocomplete="off" placeholder="Ví dụ: Nguyễn Văn An" maxlength="60"></div>
+    <div class="field cls"><label for="stClass">Lớp</label><input id="stClass" autocomplete="off" placeholder="8A" maxlength="10"></div>
+    <div class="meter"><div class="lbl"><span>Mức hoàn thành</span><b id="pctTop">0%</b></div><div class="bar"><i id="barTop"></i></div></div>
+    <button class="btn primary" id="goSubmit">Nộp kết quả →</button>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Các phần ôn tập">
+  <div class="wrap" role="tablist">
+    <button role="tab" data-tab="kienthuc" aria-selected="true">1. Kiến thức</button>
+    <button role="tab" data-tab="tungbuoc" aria-selected="false">2. Giải từng bước</button>
+    <button role="tab" data-tab="congthuc" aria-selected="false">3. Luyện công thức</button>
+    <button role="tab" data-tab="baitap" aria-selected="false">4. Bài tập vận dụng</button>
+    <button role="tab" data-tab="tracnghiem" aria-selected="false">5. Trắc nghiệm</button>
+    <button role="tab" data-tab="thuctien" aria-selected="false">6. Liên hệ thực tiễn</button>
+    <button role="tab" data-tab="nopbai" aria-selected="false">7. Nộp kết quả</button>
+    <button role="tab" data-tab="giaovien" aria-selected="false" class="teacher" id="teacherTab" hidden>Giáo viên</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- 1. KIẾN THỨC -->
+<section class="panel" id="p-kienthuc">
+  <div class="card">
+    <span class="eyebrow">Ôn lại: các công thức chuyển đổi</span>
+    <h2>Số mol, khối lượng và thể tích khí</h2>
+    <div class="ftable">
+      <div><div class="formula">n = <sup>m</sup>⁄<sub>M</sub></div><span class="explain">Tính số mol từ khối lượng</span></div>
+      <div><div class="formula">m = n × M</div><span class="explain">Tính khối lượng từ số mol</span></div>
+      <div><div class="formula">V = n × 24,79</div><span class="explain">Thể tích khí (L) ở điều kiện chuẩn</span></div>
+      <div><div class="formula">n = <sup>V</sup>⁄<sub>24,79</sub></div><span class="explain">Tính số mol khí từ thể tích</span></div>
+    </div>
+    <p class="explain">n: số mol (mol) · m: khối lượng (g) · M: khối lượng mol (g/mol) · V: thể tích khí (L). Điều kiện chuẩn (đkc): 25 °C và 1 bar, khi đó 1 mol khí bất kì chiếm 24,79 L.</p>
+    <div class="table-wrap"><table class="mtable"><tr><th>Nguyên tố</th><td>H</td><td>C</td><td>N</td><td>O</td><td>Na</td><td>Mg</td><td>Al</td><td>S</td><td>Cl</td><td>K</td><td>Ca</td><td>Fe</td><td>Cu</td><td>Zn</td></tr><tr><th>Khối lượng nguyên tử</th><td>1</td><td>12</td><td>14</td><td>16</td><td>23</td><td>24</td><td>27</td><td>32</td><td>35,5</td><td>39</td><td>40</td><td>56</td><td>64</td><td>65</td></tr></table></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <span class="eyebrow">I. Tính lượng chất trong phương trình hóa học</span>
+      <h2>Các bước giải</h2>
+      <ol class="steps">
+        <li><div><b>Viết phương trình hóa học</b> của phản ứng (nhớ cân bằng).</div></li>
+        <li><div><b>Tính số mol chất đã biết</b> theo khối lượng hoặc thể tích.</div></li>
+        <li><div><b>Dựa vào tỉ lệ hệ số trong PTHH</b>, tìm số mol chất cần tìm.</div></li>
+        <li><div><b>Tính khối lượng hoặc thể tích</b> chất cần tìm.</div></li>
+      </ol>
+      <div class="note"><b>Mẹo nhớ tỉ lệ:</b> n<sub>cần tìm</sub> = n<sub>đã biết</sub> × <sup>hệ số chất cần tìm</sup>⁄<sub>hệ số chất đã biết</sub></div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Ví dụ giải mẫu</span>
+      <h3>Cho 13 g zinc tác dụng hết với dung dịch hydrochloric acid. Tính thể tích khí hydrogen thu được ở đkc.</h3>
+      <ol class="steps">
+        <li><div>Zn + 2HCl → ZnCl<sub>2</sub> + H<sub>2</sub></div></li>
+        <li><div>n<sub>Zn</sub> = 13 : 65 = 0,2 (mol)</div></li>
+        <li><div>Theo PTHH: 1 mol Zn tạo 1 mol H<sub>2</sub> ⇒ n<sub>H₂</sub> = n<sub>Zn</sub> = 0,2 (mol)</div></li>
+        <li><div>V<sub>H₂</sub> = 0,2 × 24,79 = <b>4,958 (L)</b></div></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card ratio">
+    <span class="eyebrow">Thử nghiệm tỉ lệ mol</span>
+    <h2>4Al + 3O<sub>2</sub> → 2Al<sub>2</sub>O<sub>3</sub></h2>
+    <p class="lead">Kéo thanh trượt để thay đổi số mol aluminium. Quan sát số mol oxygen cần dùng và số mol aluminium oxide tạo thành luôn theo tỉ lệ 4 : 3 : 2.</p>
+    <label for="alRange">Số mol Al: <b id="alVal">0,4</b> mol</label>
+    <input type="range" id="alRange" min="1" max="20" value="4">
+    <div class="rgrid">
+      <div><div class="f">Al</div><div class="v" id="rAl"></div><div class="s" id="mAl"></div></div>
+      <div><div class="f">O<sub>2</sub></div><div class="v" id="rO2"></div><div class="s" id="mO2"></div></div>
+      <div><div class="f">Al<sub>2</sub>O<sub>3</sub></div><div class="v" id="rAl2O3"></div><div class="s" id="mAl2O3"></div></div>
+    </div>
+    <p class="explain">Kiểm tra lại định luật bảo toàn khối lượng: m<sub>Al</sub> + m<sub>O₂</sub> = m<sub>Al₂O₃</sub>.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <span class="eyebrow">Khi biết lượng cả hai chất tham gia</span>
+      <h2>Chất phản ứng hết, chất dư</h2>
+      <p>Với phản ứng aA + bB → sản phẩm, so sánh hai tỉ số <b>n<sub>A</sub> : a</b> và <b>n<sub>B</sub> : b</b>.</p>
+      <ul class="clean">
+        <li>Tỉ số nào <b>nhỏ hơn</b> thì chất đó phản ứng hết; chất còn lại dư.</li>
+        <li>Tính lượng sản phẩm <b>theo chất phản ứng hết</b>.</li>
+      </ul>
+      <p class="explain">Ví dụ: 0,2 mol Zn + 0,3 mol HCl. Zn: 0,2 : 1 = 0,2; HCl: 0,3 : 2 = 0,15 ⇒ HCl hết, Zn dư. n<sub>H₂</sub> = 0,3 : 2 = 0,15 mol.</p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">II. Hiệu suất phản ứng</span>
+      <h2>Hiệu suất phản ứng</h2>
+      <div class="formula">H = <sup>lượng sản phẩm thực tế</sup>⁄<sub>lượng sản phẩm lí thuyết</sub> × 100%</div>
+      <ul class="clean">
+        <li>Lượng lí thuyết: tính theo PTHH (coi phản ứng xảy ra hoàn toàn).</li>
+        <li>Lượng thực tế: lượng thu được trong thí nghiệm hoặc sản xuất.</li>
+        <li>Hiệu suất luôn ≤ 100%.</li>
+      </ul>
+      <p class="explain">Ví dụ: nung 50 g CaCO<sub>3</sub>, theo lí thuyết thu được 28 g CaO nhưng thực tế chỉ thu được 22,4 g. H = 22,4 : 28 × 100% = 80%.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Ghi nhớ</h3>
+    <ul class="clean">
+      <li>Bốn bước: viết PTHH → tính n chất đã biết → tìm n chất cần tìm theo tỉ lệ hệ số → tính m hoặc V.</li>
+      <li>Ở đkc (25 °C, 1 bar), 1 mol khí chiếm 24,79 L.</li>
+      <li>Có chất dư: tính sản phẩm theo chất phản ứng hết.</li>
+      <li>Hiệu suất = thực tế : lí thuyết × 100%.</li>
+    </ul>
+    <button class="btn donebtn" id="ktDone">Em đã học xong phần kiến thức</button>
+  </div>
+</section>
+
+<!-- 2. GIẢI TỪNG BƯỚC -->
+<section class="panel" id="p-tungbuoc" hidden>
+  <div class="card">
+    <h2>Giải từng bước có hướng dẫn</h2>
+    <p class="lead">Làm lần lượt từng bước. Mỗi bước đúng thì bước tiếp theo mới mở ra. Làm đúng hết các bước là hoàn thành bài.</p>
+    <div class="eqlist" id="gList"></div>
+  </div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><b id="gTitle"></b><span class="explain" id="gPos"></span></div>
+    <p id="gText"></p>
+    <div class="formula" id="gEq"></div>
+    <div class="gsteps" id="gSteps"></div>
+    <div class="row"><button class="btn" id="gNext">Bài tiếp →</button></div>
+  </div>
+</section>
+
+<!-- 3. LUYỆN CÔNG THỨC -->
+<section class="panel" id="p-congthuc" hidden>
+  <div class="card">
+    <h2>Luyện công thức n, m, V</h2>
+    <p class="lead">Mỗi lượt máy ra một câu ngẫu nhiên. Làm đúng 10 câu là hoàn thành phần này. Dùng bảng khối lượng nguyên tử ở phần Kiến thức để tính khối lượng mol.</p>
+    <div class="row"><span class="tag" id="drillCount">Đúng 0/10</span></div>
+    <div class="drill" id="drillQ"></div>
+    <div class="row" style="justify-content:center"><input id="drillA" inputmode="decimal" autocomplete="off" aria-label="Đáp số" style="width:8em;padding:10px 12px;border:1px solid var(--line-solid);border-radius:10px;background:var(--surface);color:var(--accent);font:inherit;font-weight:700;text-align:center"><span id="drillU"></span></div>
+    <div class="row" style="justify-content:center"><button class="btn primary" id="drillCheck">Kiểm tra</button><button class="btn" id="drillHint">Gợi ý</button><button class="btn" id="drillNew">Câu khác</button></div>
+    <div id="drillMsg" hidden></div>
+  </div>
+</section>
+
+<!-- 4. BÀI TẬP -->
+<section class="panel" id="p-baitap" hidden>
+  <div class="card">
+    <h2>Bài tập vận dụng</h2>
+    <p class="lead">Giải ra giấy theo bốn bước rồi nhập đáp số (dùng dấu phẩy hoặc dấu chấm đều được). Kết quả thể tích làm tròn đến 2 chữ số thập phân.</p>
+    <p class="note"><b>Lưu ý:</b> bài nào em bấm "Xem lời giải" trước khi tự làm đúng sẽ không được tính điểm.</p>
+    <div id="probs"></div>
+  </div>
+</section>
+
+<!-- 5. TRẮC NGHIỆM -->
+<section class="panel" id="p-tracnghiem" hidden>
+  <div class="card">
+    <h2>Trắc nghiệm</h2>
+    <p class="lead">13 câu theo ba mức: <span class="tag">Nhận biết</span> <span class="tag th">Thông hiểu</span> <span class="tag vd">Vận dụng</span>. Chọn đáp án rồi bấm <b>Nộp bài</b> ở cuối. <b>Chỉ lần nộp đầu tiên được tính điểm</b>, sau đó em có thể luyện lại thoải mái.</p>
+  </div>
+  <div class="card" id="quiz"></div>
+  <div class="card">
+    <div class="score"><button class="btn primary" id="submitQuiz">Nộp bài</button><button class="btn" id="resetQuiz" hidden>Luyện lại (không tính điểm)</button><span id="scoreOut" class="explain">Chưa nộp bài.</span></div>
+  </div>
+</section>
+
+<!-- 6. THỰC TIỄN -->
+<section class="panel" id="p-thuctien" hidden>
+  <div class="card">
+    <h2>Liên hệ thực tiễn</h2>
+    <p class="lead">Suy nghĩ câu trả lời trước, rồi bấm vào từng câu hỏi để xem giải thích.</p>
+  </div>
+  <details><summary>Vì sao các nhà máy phải tính theo phương trình hóa học trước khi sản xuất?</summary><p>Để biết cần bao nhiêu nguyên liệu cho một lượng sản phẩm mong muốn. Ví dụ lò vôi tính được: muốn có 56 tấn vôi sống CaO thì cần nung 100 tấn đá vôi CaCO<sub>3</sub> (theo lí thuyết). Tính trước giúp tiết kiệm nguyên liệu, chi phí và hạn chế chất thải.</p></details>
+  <details><summary>Vì sao trong thực tế hiệu suất phản ứng thường nhỏ hơn 100%?</summary><p>Phản ứng có thể xảy ra không hoàn toàn, nguyên liệu có lẫn tạp chất, có phản ứng phụ tạo chất khác, và sản phẩm bị hao hụt khi thu gom, lọc, chuyển bình.</p></details>
+  <details><summary>Túi khí ô tô bung ra trong tích tắc nhờ phản ứng nào? Người ta tính lượng hóa chất thế nào?</summary><p>Túi khí chứa sodium azide, khi va chạm bị phân hủy rất nhanh: 2NaN<sub>3</sub> → 2Na + 3N<sub>2</sub>. Khí nitrogen làm phồng túi. Nhà sản xuất tính theo PTHH để có lượng NaN<sub>3</sub> vừa đủ tạo ra thể tích khí cần thiết: quá ít túi không đủ căng, quá nhiều túi có thể bị nổ.</p></details>
+  <details><summary>Khi đun bếp, nếu thiếu không khí thì ngọn lửa có màu vàng, nhiều muội. Vì sao?</summary><p>Theo PTHH, nhiên liệu cần một lượng oxygen nhất định để cháy hoàn toàn thành carbon dioxide và nước. Thiếu oxygen thì nhiên liệu cháy không hoàn toàn, sinh muội than (carbon) và có thể sinh khí carbon monoxide rất độc. Vì vậy cần đun bếp ở nơi thoáng khí.</p></details>
+  <details><summary>Vì sao khi đốt than trong lò công nghiệp, người ta thường thổi dư không khí?</summary><p>Để than (chất cần sử dụng hết) phản ứng hết, cháy hoàn toàn, tỏa nhiều nhiệt và ít tạo khí carbon monoxide. Oxygen trong không khí là chất dư, có sẵn và không tốn tiền mua.</p></details>
+</section>
+
+<!-- 7. NỘP KẾT QUẢ -->
+<section class="panel" id="p-nopbai" hidden>
+  <div class="grid2">
+    <div class="card">
+      <h2>Mức hoàn thành của em</h2>
+      <p class="lead">Chỉ tính phần em <b>tự làm đúng</b>: không tính câu đã xem đáp án hoặc lời giải trước, trắc nghiệm tính lần nộp đầu. Kết quả được lưu trên máy em đang dùng. Hãy dùng cùng một máy và trình duyệt cho đến khi nộp kết quả.</p>
+      <div class="prog" id="progList"></div>
+    </div>
+    <div class="card">
+      <h2>Gửi kết quả cho giáo viên</h2>
+      <ol class="steps">
+        <li><div>Điền <b>họ tên</b> và <b>lớp</b> ở đầu trang.</div></li>
+        <li><div>Bấm <b>Tạo mã kết quả</b>.</div></li>
+        <li><div>Bấm <b>Sao chép mã</b> rồi gửi mã cho giáo viên qua nhóm lớp hoặc theo cách thầy cô hướng dẫn.</div></li>
+      </ol>
+      <div class="row"><button class="btn primary" id="makeCode">Tạo mã kết quả</button><button class="btn" id="copyCode" hidden>Sao chép mã</button></div>
+      <div id="codeMsg" hidden></div>
+      <div class="codebox" id="codeBox" hidden></div>
+      <p class="explain">Lưu ý: nếu em xóa tiến độ để làm lại, giáo viên sẽ thấy điều đó trong bảng kết quả. Mã chứa họ tên, lớp và kết quả các phần. Em có thể làm thêm rồi tạo mã mới; giáo viên sẽ giữ lại lần gửi mới nhất.</p>
+      <div class="row"><button class="btn" id="resetAll">Xóa tiến độ trên máy này</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- GIÁO VIÊN -->
+<section class="panel" id="p-giaovien" hidden>
+  <div class="card">
+    <h2>Bảng theo dõi của giáo viên</h2>
+    <p class="lead">Mục này chỉ hiện với giáo viên (chủ trang). Dán các mã học sinh gửi vào ô dưới (dán nguyên đoạn tin nhắn cũng được, trang tự lọc ra các mã), rồi bấm <b>Thêm kết quả</b>.</p>
+    <textarea id="pasteBox" aria-label="Dán mã kết quả của học sinh" placeholder="Dán mã dạng KHTN8B6-…"></textarea>
+    <div class="row"><button class="btn primary" id="addCodes">Thêm kết quả</button><span class="explain" id="addMsg"></span></div>
+    <p class="explain" id="dbNote"></p>
+  </div>
+  <div class="card">
+    <h3>Quy đổi điểm cộng</h3>
+    <p class="explain">Học sinh đạt từ mức phần trăm nào thì được cộng bao nhiêu điểm. Dòng nào để trống sẽ được bỏ qua. Học sinh không đạt mức nào thì điểm cộng là 0.</p>
+    <div class="bonusrows">
+      <div class="row"><label for="bm0">Từ</label><input id="bm0" inputmode="numeric" autocomplete="off"><span>% trở lên → cộng</span><input id="bp0" inputmode="decimal" autocomplete="off" aria-label="Điểm cộng mức 1"><span>điểm</span></div>
+      <div class="row"><label for="bm1">Từ</label><input id="bm1" inputmode="numeric" autocomplete="off"><span>% trở lên → cộng</span><input id="bp1" inputmode="decimal" autocomplete="off" aria-label="Điểm cộng mức 2"><span>điểm</span></div>
+      <div class="row"><label for="bm2">Từ</label><input id="bm2" inputmode="numeric" autocomplete="off"><span>% trở lên → cộng</span><input id="bp2" inputmode="decimal" autocomplete="off" aria-label="Điểm cộng mức 3"><span>điểm</span></div>
+    </div>
+    <div class="row"><button class="btn primary" id="saveBonus">Lưu mức quy đổi</button><span class="explain" id="bonusMsg"></span></div>
+  </div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <div class="field"><label for="clsFilter">Lọc theo lớp</label><select id="clsFilter"><option value="">Tất cả các lớp</option></select></div>
+      <button class="btn" id="exportCsv">Tải bảng điểm (CSV)</button>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div class="table-wrap"><table class="res" id="resTable"></table></div>
+    <span class="explain" id="exportMsg"></span>
+  </div>
+</section>
+
+</main>
+<footer class="wrap">Trang ôn tập KHTN 8 · Bài 6 (Chương I: Phản ứng hóa học). Dùng để học sinh tự ôn ở nhà hoặc giáo viên trình chiếu trong tiết ôn tập[cite: 3].</footer>
+
+<script src="bai6.js"></script>
+</body>
+</html>

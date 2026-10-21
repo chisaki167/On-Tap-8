@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" type="image/jpeg" href="ava.jpg">
+<title>Bài 5 · Bảo toàn khối lượng - KHTN 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="bai5.css">
+</head>
+<body>
+
+<header class="top wrap">
+  <div class="eyebrow">Khoa học tự nhiên 8 · Chương I: Phản ứng hóa học</div>
+  <h1><span class="lesson">Bài 5.</span> Định luật bảo toàn khối lượng và phương trình hóa học</h1>
+  <div class="law"><span class="chip">m<sub>chất tham gia</sub></span><span class="eq">=</span><span class="chip">m<sub>sản phẩm</sub></span></div>
+  <div class="student" id="studentBar">
+    <div class="field name"><label for="stName">Họ và tên học sinh</label><input id="stName" autocomplete="off" placeholder="Ví dụ: Nguyễn Văn An" maxlength="60"></div>
+    <div class="field cls"><label for="stClass">Lớp</label><input id="stClass" autocomplete="off" placeholder="8A" maxlength="10"></div>
+    <div class="meter"><div class="lbl"><span>Mức hoàn thành</span><b id="pctTop">0%</b></div><div class="bar"><i id="barTop"></i></div></div>
+    <button class="btn primary" id="goSubmit">Nộp kết quả →</button>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Các phần ôn tập">
+  <div class="wrap" role="tablist">
+    <button role="tab" data-tab="kienthuc" aria-selected="true">1. Kiến thức</button>
+    <button role="tab" data-tab="thinghiem" aria-selected="false">2. Thí nghiệm ảo</button>
+    <button role="tab" data-tab="canbang" aria-selected="false">3. Cân bằng PTHH</button>
+    <button role="tab" data-tab="tinhtoan" aria-selected="false">4. Tính khối lượng</button>
+    <button role="tab" data-tab="tracnghiem" aria-selected="false">5. Trắc nghiệm</button>
+    <button role="tab" data-tab="thuctien" aria-selected="false">6. Liên hệ thực tiễn</button>
+    <button role="tab" data-tab="nopbai" aria-selected="false">7. Nộp kết quả</button>
+    <button role="tab" data-tab="giaovien" aria-selected="false" class="teacher" id="teacherTab" hidden>Giáo viên</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- 1. KIẾN THỨC -->
+<section class="panel" id="p-kienthuc">
+  <div class="grid2">
+    <div class="card">
+      <span class="eyebrow">I. Định luật bảo toàn khối lượng</span>
+      <h2>Phát biểu</h2>
+      <div class="statement">Trong một phản ứng hóa học, tổng khối lượng của các chất sản phẩm bằng tổng khối lượng của các chất tham gia phản ứng.</div>
+      <p class="lead">Định luật do hai nhà khoa học Lomonosov (người Nga) và Lavoisier (người Pháp) tìm ra độc lập với nhau qua các thí nghiệm cân đo chính xác.</p>
+      <h3>Biểu thức</h3>
+      <p>Với phản ứng: A + B → C + D</p>
+      <div class="formula">m<sub>A</sub> + m<sub>B</sub> = m<sub>C</sub> + m<sub>D</sub></div>
+      <p class="explain">Biết khối lượng của (n − 1) chất trong phản ứng có n chất thì tính được khối lượng của chất còn lại.</p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Vì sao khối lượng được bảo toàn?</span>
+      <h2>Giải thích</h2>
+      <p>Trong phản ứng hóa học, chỉ có <b>liên kết giữa các nguyên tử thay đổi</b>. Số nguyên tử của mỗi nguyên tố giữ nguyên và khối lượng của mỗi nguyên tử không đổi, nên tổng khối lượng các chất được bảo toàn.</p>
+      <div class="react" id="molBefore" aria-label="Trước phản ứng: 2 phân tử hydrogen và 1 phân tử oxygen"></div>
+      <div class="counts"><span>Trước: <b>4</b> nguyên tử H, <b>2</b> nguyên tử O</span></div>
+      <div class="react" id="molAfter" aria-label="Sau phản ứng: 2 phân tử nước"></div>
+      <div class="counts"><span>Sau: <b>4</b> nguyên tử H, <b>2</b> nguyên tử O</span></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <span class="eyebrow">II. Phương trình hóa học</span>
+      <h2>Lập phương trình hóa học</h2>
+      <p>Phương trình hóa học (PTHH) biểu diễn ngắn gọn phản ứng hóa học bằng công thức hóa học của các chất.</p>
+      <ol class="steps">
+        <li><div><b>Viết sơ đồ phản ứng</b> gồm công thức hóa học của chất tham gia và sản phẩm.<br><span class="explain">H<sub>2</sub> + O<sub>2</sub> ---→ H<sub>2</sub>O</span></div></li>
+        <li><div><b>Cân bằng số nguyên tử</b> của mỗi nguyên tố ở hai vế bằng cách thêm hệ số vào trước công thức.<br><span class="explain">Vế phải thiếu O → thêm 2 trước H<sub>2</sub>O; vế trái thiếu H → thêm 2 trước H<sub>2</sub>.</span></div></li>
+        <li><div><b>Viết phương trình hóa học</b>, thay mũi tên nét đứt bằng mũi tên liền.<br><span class="explain">2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</span></div></li>
+      </ol>
+      <div class="note"><b>Lưu ý:</b> chỉ được thêm hệ số trước công thức, <b>không được thay đổi chỉ số</b> trong công thức hóa học. Nếu có nhóm nguyên tử (như SO<sub>4</sub>, OH, NO<sub>3</sub>) không đổi trong phản ứng thì cân bằng cả nhóm như một đơn vị.</div>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Ý nghĩa</span>
+      <h2>Phương trình hóa học cho biết gì?</h2>
+      <p>PTHH cho biết <b>tỉ lệ về số nguyên tử, số phân tử</b> giữa các chất cũng như từng cặp chất trong phản ứng.</p>
+      <div class="formula">2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</div>
+      <ul class="clean">
+        <li>Số phân tử H<sub>2</sub> : số phân tử O<sub>2</sub> : số phân tử H<sub>2</sub>O = <b>2 : 1 : 2</b></li>
+        <li>Cứ 2 phân tử H<sub>2</sub> phản ứng với 1 phân tử O<sub>2</sub> tạo ra 2 phân tử H<sub>2</sub>O.</li>
+      </ul>
+      <div class="formula">4Al + 3O<sub>2</sub> → 2Al<sub>2</sub>O<sub>3</sub></div>
+      <ul class="clean">
+        <li>Số nguyên tử Al : số phân tử O<sub>2</sub> : số phân tử Al<sub>2</sub>O<sub>3</sub> = <b>4 : 3 : 2</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Ghi nhớ</h3>
+    <ul class="clean">
+      <li>Tổng khối lượng chất tham gia = tổng khối lượng sản phẩm.</li>
+      <li>Trong phản ứng: liên kết thay đổi; số nguyên tử mỗi nguyên tố và khối lượng nguyên tử không đổi.</li>
+      <li>Lập PTHH qua 3 bước: viết sơ đồ → cân bằng số nguyên tử → viết PTHH.</li>
+      <li>Hệ số đứng trước công thức; chỉ số nằm trong công thức và không được thay đổi.</li>
+    </ul>
+    <button class="btn donebtn" id="ktDone">Em đã học xong phần kiến thức</button>
+  </div>
+</section>
+
+<!-- 2. THÍ NGHIỆM ẢO -->
+<section class="panel" id="p-thinghiem" hidden>
+  <div class="card lab">
+    <h2>Thí nghiệm ảo: cân trước và sau phản ứng</h2>
+    <p class="lead">Chọn một thí nghiệm, quan sát số chỉ của cân rồi bấm <b>Tiến hành</b>. Hãy dự đoán trước: số chỉ của cân sẽ tăng, giảm hay không đổi?</p>
+    <div class="seg" id="scenBtns">
+      <button data-s="A" aria-pressed="true">BaCl<sub>2</sub> + Na<sub>2</sub>SO<sub>4</sub></button>
+      <button data-s="B" aria-pressed="false">Đá vôi + HCl (cốc hở)</button>
+      <button data-s="C" aria-pressed="false">Đá vôi + HCl (cốc có nắp kín)</button>
+    </div>
+    <svg id="labSvg" viewBox="0 0 520 300" role="img" aria-label="Cân điện tử với các cốc hóa chất"></svg>
+    <div class="row"><button class="btn primary" id="runBtn">Tiến hành</button><button class="btn" id="resetBtn">Làm lại</button></div>
+    <div class="result" id="labResult">Số chỉ của cân trước phản ứng: <b id="startMass"></b>.</div>
+  </div>
+</section>
+
+<!-- 3. CÂN BẰNG -->
+<section class="panel" id="p-canbang" hidden>
+  <div class="card">
+    <h2>Luyện cân bằng phương trình hóa học</h2>
+    <p class="lead">Nhập hệ số vào ô trước mỗi công thức (để trống nghĩa là hệ số 1). Bảng đếm nguyên tử bên dưới cập nhật ngay khi em nhập.</p>
+    <div class="eqlist" id="eqList"></div>
+  </div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><span id="eqLevel" class="tag"></span><span class="explain" id="eqPos"></span></div>
+    <div class="equation" id="equation"></div>
+    <div class="table-wrap"><table class="atoms" id="atomTable"></table></div>
+    <div class="row"><button class="btn primary" id="checkBtn">Kiểm tra</button><button class="btn" id="hintBtn">Gợi ý</button><button class="btn" id="ansBtn">Xem đáp án</button><button class="btn" id="nextBtn">Câu tiếp →</button></div>
+    <div id="eqMsg" hidden></div>
+  </div>
+</section>
+
+<!-- 4. TÍNH KHỐI LƯỢNG -->
+<section class="panel" id="p-tinhtoan" hidden>
+  <div class="card">
+    <h2>Vận dụng định luật bảo toàn khối lượng</h2>
+    <p class="lead">Viết biểu thức khối lượng cho phản ứng rồi tính. Nhập đáp số (dùng dấu phẩy hoặc dấu chấm đều được).</p>
+    <p class="note"><b>Lưu ý:</b> bài nào em bấm "Xem lời giải" trước khi tự làm đúng sẽ không được tính điểm.</p>
+    <div id="probs"></div>
+  </div>
+</section>
+
+<!-- 5. TRẮC NGHIỆM -->
+<section class="panel" id="p-tracnghiem" hidden>
+  <div class="card">
+    <h2>Trắc nghiệm</h2>
+    <p class="lead">13 câu theo ba mức: <span class="tag">Nhận biết</span> <span class="tag th">Thông hiểu</span> <span class="tag vd">Vận dụng</span>. Chọn đáp án rồi bấm <b>Nộp bài</b> ở cuối. <b>Chỉ lần nộp đầu tiên được tính điểm</b>, sau đó em có thể luyện lại thoải mái.</p>
+  </div>
+  <div class="card" id="quiz"></div>
+  <div class="card">
+    <div class="score"><button class="btn primary" id="submitQuiz">Nộp bài</button><button class="btn" id="resetQuiz" hidden>Luyện lại (không tính điểm)</button><span id="scoreOut" class="explain">Chưa nộp bài.</span></div>
+  </div>
+</section>
+
+<!-- 6. THỰC TIỄN -->
+<section class="panel" id="p-thuctien" hidden>
+  <div class="card">
+    <h2>Liên hệ thực tiễn</h2>
+    <p class="lead">Suy nghĩ câu trả lời trước, rồi bấm vào từng câu hỏi để xem giải thích.</p>
+  </div>
+  <details><summary>Đốt cháy một cây nến, nến ngắn dần. Như vậy định luật bảo toàn khối lượng có sai không?</summary><p>Không sai. Nến (paraffin) cháy kết hợp với oxygen trong không khí tạo ra khí carbon dioxide và hơi nước bay vào không khí. Nếu thu giữ được hết các sản phẩm thì: m<sub>nến đã cháy</sub> + m<sub>oxygen</sub> = m<sub>carbon dioxide</sub> + m<sub>hơi nước</sub>.</p></details>
+  <details><summary>Vì sao một chiếc đinh sắt để lâu ngoài không khí ẩm bị gỉ lại nặng hơn lúc đầu?</summary><p>Sắt kết hợp với oxygen và hơi nước trong không khí tạo thành gỉ sắt. Khối lượng gỉ bằng khối lượng sắt đã phản ứng cộng với khối lượng oxygen và nước đã kết hợp, nên đinh nặng hơn.</p></details>
+  <details><summary>Nung đá vôi trong lò, khối lượng chất rắn sau khi nung giảm đi. Vì sao?</summary><p>CaCO<sub>3</sub> → CaO + CO<sub>2</sub>. Khí carbon dioxide thoát ra ngoài nên chất rắn còn lại (vôi sống CaO) nhẹ hơn. Theo định luật: m<sub>CaCO₃</sub> = m<sub>CaO</sub> + m<sub>CO₂</sub>.</p></details>
+  <details><summary>Than cháy xong chỉ còn một ít tro. Khối lượng than đã đi đâu?</summary><p>Carbon trong than kết hợp với oxygen tạo khí carbon dioxide bay đi. Tro là phần chất không cháy được còn lại.</p></details>
+  <details><summary>Định luật bảo toàn khối lượng được ứng dụng thế nào trong sản xuất?</summary><p>Giúp tính được lượng nguyên liệu cần dùng hoặc lượng sản phẩm thu được, chẳng hạn tính lượng vôi sống và khí carbon dioxide tạo ra khi nung một lượng đá vôi trong lò vôi, từ đó lập kế hoạch sản xuất và xử lý khí thải.</p></details>
+</section>
+
+<!-- 7. NỘP KẾT QUẢ -->
+<section class="panel" id="p-nopbai" hidden>
+  <div class="grid2">
+    <div class="card">
+      <h2>Mức hoàn thành của em</h2>
+      <p class="lead">Chỉ tính phần em <b>tự làm đúng</b>: không tính câu đã xem đáp án hoặc lời giải trước, trắc nghiệm tính lần nộp đầu. Kết quả được lưu trên máy em đang dùng. Hãy dùng cùng một máy và trình duyệt cho đến khi nộp kết quả.</p>
+      <div class="prog" id="progList"></div>
+    </div>
+    <div class="card">
+      <h2>Gửi kết quả cho giáo viên</h2>
+      <ol class="steps">
+        <li><div>Điền <b>họ tên</b> và <b>lớp</b> ở đầu trang.</div></li>
+        <li><div>Bấm <b>Tạo mã kết quả</b>.</div></li>
+        <li><div>Bấm <b>Sao chép mã</b> rồi gửi mã cho giáo viên qua nhóm lớp hoặc theo cách thầy cô hướng dẫn.</div></li>
+      </ol>
+      <div class="row"><button class="btn primary" id="makeCode">Tạo mã kết quả</button><button class="btn" id="copyCode" hidden>Sao chép mã</button></div>
+      <div id="codeMsg" hidden></div>
+      <div class="codebox" id="codeBox" hidden></div>
+      <p class="explain">Lưu ý: nếu em xóa tiến độ để làm lại, giáo viên sẽ thấy điều đó trong bảng kết quả. Mã chứa họ tên, lớp và kết quả các phần. Em có thể làm thêm rồi tạo mã mới; giáo viên sẽ giữ lại lần gửi mới nhất.</p>
+      <div class="row"><button class="btn" id="resetAll">Xóa tiến độ trên máy này</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- GIÁO VIÊN -->
+<section class="panel" id="p-giaovien" hidden>
+  <div class="card">
+    <h2>Bảng theo dõi của giáo viên</h2>
+    <p class="lead">Mục này chỉ hiện với giáo viên (chủ trang). Dán các mã học sinh gửi vào ô dưới (dán nguyên đoạn tin nhắn cũng được, trang tự lọc ra các mã), rồi bấm <b>Thêm kết quả</b>.</p>
+    <textarea id="pasteBox" aria-label="Dán mã kết quả của học sinh" placeholder="Dán mã dạng KHTN8B5-…"></textarea>
+    <div class="row"><button class="btn primary" id="addCodes">Thêm kết quả</button><span class="explain" id="addMsg"></span></div>
+    <p class="explain" id="dbNote"></p>
+  </div>
+  <div class="card">
+    <h3>Quy đổi điểm cộng</h3>
+    <p class="explain">Học sinh đạt từ mức phần trăm nào thì được cộng bao nhiêu điểm. Dòng nào để trống sẽ được bỏ qua. Học sinh không đạt mức nào thì điểm cộng là 0.</p>
+    <div class="bonusrows">
+      <div class="row"><label for="bm0">Từ</label><input id="bm0" inputmode="numeric" autocomplete="off"><span>% trở lên → cộng</span><input id="bp0" inputmode="decimal" autocomplete="off" aria-label="Điểm cộng mức 1"><span>điểm</span></div>
+      <div class="row"><label for="bm1">Từ</label><input id="bm1" inputmode="numeric" autocomplete="off"><span>% trở lên → cộng</span><input id="bp1" inputmode="decimal" autocomplete="off" aria-label="Điểm cộng mức 2"><span>điểm</span></div>
+      <div class="row"><label for="bm2">Từ</label><input id="bm2" inputmode="numeric" autocomplete="off"><span>% trở lên → cộng</span><input id="bp2" inputmode="decimal" autocomplete="off" aria-label="Điểm cộng mức 3"><span>điểm</span></div>
+    </div>
+    <div class="row"><button class="btn primary" id="saveBonus">Lưu mức quy đổi</button><span class="explain" id="bonusMsg"></span></div>
+  </div>
+  <div class="card">
+    <div class="row" style="justify-style:space-between">
+      <div class="field"><label for="clsFilter">Lọc theo lớp</label><select id="clsFilter"><option value="">Tất cả các lớp</option></select></div>
+      <button class="btn" id="exportCsv">Tải bảng điểm (CSV)</button>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div class="table-wrap"><table class="res" id="resTable"></table></div>
+    <span class="explain" id="exportMsg"></span>
+  </div>
+</section>
+
+</main>
+<footer class="wrap">Trang ôn tập KHTN 8 · Bài 5 (Chương I: Phản ứng hóa học). Dùng để học sinh tự ôn ở nhà hoặc giáo viên trình chiếu trong tiết ôn tập.</footer>
+
+<script src="bai5.js"></script>
+</body>
+</html>
