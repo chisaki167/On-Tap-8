@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/jpeg" href="ava.jpg">
+  <title>Nội Dung & Đề Ôn Tập Kiểm Tra HKI - Ngữ Văn 8</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="index1.css">
+  <style>
+    .poem-block {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 18px;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+      margin: 15px 0;
+      font-style: italic;
+      text-align: center;
+      white-space: pre-line;
+      color: #F8FAFC;
+      line-height: 1.8;
+    }
+    .poem-author {
+      font-style: normal;
+      font-weight: bold;
+      margin-top: 8px;
+      display: block;
+      color: #60A5FA;
+    }
+    .part-header {
+      font-weight: bold;
+      color: #60A5FA;
+      margin: 15px 0 10px 0;
+      text-transform: uppercase;
+      font-size: 1.05rem;
+      border-bottom: 1px dashed rgba(96, 165, 250, 0.3);
+      padding-bottom: 4px;
+    }
+    .toggle-btn {
+      background-color: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #60A5FA;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+    .toggle-btn:hover {
+      background-color: rgba(59, 130, 246, 0.4);
+      color: #FFFFFF;
+    }
+    .answer-box {
+      margin-top: 12px;
+      padding: 14px 18px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--good);
+      border-radius: 10px;
+      display: none;
+      font-size: 0.95rem;
+      color: #E2E8F0;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG Filter Liquid Glass -->
+  <svg style="display:none; position:absolute;" xmlns="http://www.w3.org/2000/svg">
+    <filter id="container-glass" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" id="glassDisplacement" />
+    </filter>
+  </svg>
+
+  <!-- Góc Trên Bên Trái: Avatar & Tên -->
+  <div class="top-left-profile">
+    <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
+    <span class="user-name">chisaki167</span>
+  </div>
+
+  <!-- Góc Trên Bên Phải: Nút Bật/Tắt Nền Video -->
+  <div class="top-right-controls">
+    <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">
+      🎬 Nền: Tắt
+    </button>
+  </div>
+
+  <!-- Video Nền -->
+  <video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  <div class="bg-overlay hidden" id="bgOverlay"></div>
+
+  <!-- Header -->
+  <header class="profile wrap">
+    <h1>NỘI DUNG & ĐỀ ÔN TAP HKI <span class="highlight">(2025 - 2026)</span></h1>
+    <h2>MÔN NGỮ VĂN 8 — KHỐI 8</h2>
+  </header>
+
+  <!-- Navigation Tab Liquid Glass -->
+  <div class="wrap filter-container">
+    <div class="filter-tabs glassContainer" id="filterTabs">
+      <div class="liquid-pill" id="liquidPill"></div>
+      <button class="glassBtn active" data-index="0" onclick="switchTab('noi-dung', event)">
+        <i class="fa-solid fa-book-open"></i> 1. NỘI DUNG
+      </button>
+      <button class="glassBtn" data-index="1" onclick="switchTab('de-1', event)">
+        <i class="fa-solid fa-file-pen"></i> 2. ĐỀ 1
+      </button>
+      <button class="glassBtn" data-index="2" onclick="switchTab('de-2', event)">
+        <i class="fa-solid fa-file-signature"></i> 3. ĐỀ 2
+      </button>
+    </div>
+  </div>
+
+  <main class="wrap">
+
+    <!-- ================= MỤC 1: NỘI DUNG ================= -->
+    <div id="noi-dung" class="tab-content active">
+      <div class="card">
+        <h3 class="section-title"><i class="fa-solid fa-layer-group"></i> NỘI DUNG ÔN TẬP TỔNG HỢP</h3>
+        
+        <div class="part-header">1. Đọc hiểu</div>
+        <div class="essay-content">
+          <ul>
+            <li>Truyện lịch sử</li>
+            <li>Thơ Đường luật</li>
+          </ul>
+        </div>
+
+        <div class="part-header">2. Tiếng Việt</div>
+        <div class="essay-content">
+          <ul>
+            <li>Biệt ngữ xã hội</li>
+            <li>Từ ngữ địa phương</li>
+            <li>Từ tượng hình, từ tượng thanh</li>
+            <li>Biện pháp tu từ Đảo ngữ</li>
+          </ul>
+        </div>
+
+        <div class="part-header">3. Viết đoạn văn</div>
+        <div class="essay-content">
+          <ul>
+            <li>Viết đoạn văn (10-12 câu) phân tích chi tiết truyện.</li>
+            <li>Viết đoạn văn (10-12 câu) phân tích hai câu thơ khiến em có ấn tượng.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MỤC 2: ĐỀ 1 ================= -->
+    <div id="de-1" class="tab-content">
+      <div class="card">
+        <h3 class="section-title"><i class="fa-solid fa-pen-nib"></i> LUYỆN TẬP - ĐỀ 1: THƠ ĐƯỜNG LUẬT</h3>
+        
+        <div class="part-header">PHẦN 1: ĐỌC HIỂU (6.0 điểm)</div>
+        <p style="color: var(--muted); margin-bottom: 10px;">Đọc văn bản sau và trả lời các câu hỏi bên dưới:</p>
+
+        <div class="poem-block">
+<strong>Qua Đèo Ngang</strong>
+
+Bước tới Đèo Ngang bóng xế tà,
+Cỏ cây chen đá, lá chen hoa.
+Lom khom dưới núi, tiều vài chú,
+Lác đác bên sông, chợ mấy nhà.
+Nhớ nước đau lòng, con quốc quốc,
+Thương nhà mỏi miệng, cái gia gia.
+Dừng chân đứng lại, trời, non, nước,
+Một mảnh tình riêng, ta với ta.
+<span class="poem-author">(Bà Huyện Thanh Quan)</span>
+<small style="font-size: 0.8rem; display: block; color: var(--muted); margin-top: 5px;">(In trong Hợp tuyển thơ văn Việt Nam, tập ba, NXB Văn hóa, 1963)</small>
+        </div>
+
+        <!-- Câu 1 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 1: Bài thơ Qua Đèo Ngang được làm theo thể thơ nào? Xác định luật, niêm, vần của bài thơ trên.</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans1_1')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans1_1">
+            • <strong>Thể thơ:</strong> Thất ngôn bát cú Đường luật.<br>
+            • <strong>Vần:</strong> Vần bằng ở cuối các câu 1, 2, 4, 6, 8 (tà - hoa - nhà - gia - ta).<br>
+            • <strong>Niêm:</strong> Câu 1 niêm với câu 8 (tà - ta), câu 2 niêm với câu 3 (đá - núi), câu 4 niêm với câu 5 (sông - lòng), câu 6 niêm với câu 7 (miệng - lại).<br>
+            • <strong>Luật:</strong> Luật bằng (tiếng thứ 2 câu 1 "tới" là thanh trắc -> bài thơ làm theo luật trắc, hoặc xét tiếng thứ 2 câu 1 "tới" - trắc).
+          </div>
+        </div>
+
+        <!-- Câu 2 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 2: Xác định và nêu tác dụng của biện pháp tu từ đảo ngữ trong hai câu thơ:<br>
+          <i>"Lom khom dưới núi, tiều vài chú,<br>Lác đác bên sông, chợ mấy nhà."</i></div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans1_2')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans1_2">
+            • <strong>Biện pháp đảo ngữ:</strong> Đưa từ lót/tính từ "Lom khom", "Lác đác" và cụm từ chỉ vị trí lên đầu câu (Đảo "tiều vài chú" -> "vài chú tiều lom khom", "chợ mấy nhà" -> "mấy nhà chợ lác đác").<br>
+            • <strong>Tác dụng:</strong> Nhấn mạnh sự nhỏ bé, thưa thớt, đắng ngắt của con người và cảnh vật nơi Đèo Ngang; qua đó làm nổi bật khung cảnh hoang sơ, vắng vẻ và tâm trạng cô đơn, trống trải của tác giả.
+          </div>
+        </div>
+
+        <!-- Câu 3 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 3: Cảnh Đèo Ngang được gợi tả bằng những từ ngữ, hình ảnh nào qua bốn câu thơ đầu? Khung cảnh ấy góp phần thể hiện tâm trạng gì của tác giả?</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans1_3')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans1_3">
+            • <strong>Từ ngữ, hình ảnh:</strong> "bóng xế tà", "cỏ cây chen đá, lá chen hoa", "lom khom... tiều vài chú", "lác đác... chợ mấy nhà".<br>
+            • <strong>Tâm trạng:</strong> Khung cảnh thiên nhiên hoang sơ, heo hút và thưa thớt dấu vết con người góp phần thể hiện tâm trạng cô đơn, lẻ loi, phảng phất nỗi buồn man mác của nhà thơ trước cảnh chiều tà.
+          </div>
+        </div>
+
+        <!-- Câu 4 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 4: Em hiểu thế nào về nội dung của câu thơ cuối: <i>"Một mảnh tình riêng, ta với ta"</i>?</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans1_4')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans1_4">
+            • <strong>"Một mảnh tình riêng":</strong> Tình cảm tha hương, nỗi nhớ nhà, nhớ quê hương đất nước vô cùng sâu sắc nhưng chỉ biết giữ riêng cho mình.<br>
+            • <strong>"Ta với ta":</strong> Tác giả đối diện với chính mình giữa đất trời bao la rộng lớn. Sự đối lập giữa vũ trụ mênh mông và con người nhỏ bé nhấn mạnh sự cô đơn tuyệt đối của tác giả.
+          </div>
+        </div>
+
+        <!-- Câu 5 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 5: Xác định cảm hứng chủ đạo của bài thơ.</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans1_5')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans1_5">
+            • <strong>Cảm hứng chủ đạo:</strong> Nỗi buồn hoài cổ, tình yêu thiên nhiên đất nước tha thiết gắn liền với nỗi nhớ quê hương, gia đình sâu sắc của người lữ khách xa nhà.
+          </div>
+        </div>
+
+        <!-- Câu 6 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px;">
+          <div class="question-title">Câu 6: Sau khi đọc bài thơ Qua Đèo Ngang, em nhận thấy thiên nhiên có vai trò như thế nào đối với đời sống tinh thần của con người?</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans1_6')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans1_6">
+            • <strong>Gợi ý:</strong> Thiên nhiên không chỉ là môi trường sống mà còn là nơi soi chiếu tâm trạng, là tri kỷ sẻ chia cảm xúc với con người (tảo cảnh sinh tình). Thiên nhiên giúp con người tĩnh lặng, lắng nghe bản thân và bồi đắp tình yêu quê hương, đất nước.
+          </div>
+        </div>
+
+        <div class="part-header">PHẦN 2: VIẾT (4.0 điểm)</div>
+        <p class="essay-content">Viết đoạn văn (10-12 câu) phân tích hai câu thơ khiến em có ấn tượng nhất trong bài thơ <i>Qua Đèo Ngang</i>.</p>
+      </div>
+    </div>
+
+    <!-- ================= MỤC 3: ĐỀ 2 ================= -->
+    <div id="de-2" class="tab-content">
+      <div class="card">
+        <h3 class="section-title"><i class="fa-solid fa-pen-nib"></i> LUYỆN TẬP - ĐỀ 2: THƠ ĐƯỜNG LUẬT</h3>
+        
+        <div class="part-header">PHẦN 1: ĐỌC HIỂU (6.0 điểm)</div>
+        <p style="color: var(--muted); margin-bottom: 10px;">Đọc văn bản sau và trả lời các câu hỏi bên dưới:</p>
+
+        <div class="poem-block">
+<strong>Vọng nguyệt (Ngắm trăng)</strong>
+<span class="poem-author">- Hồ Chí Minh -</span>
+
+<u>Phiên âm:</u>
+Ngục trung vô tửu diệc vô hoa,
+Đối thử lương tiêu nại nhược hà?
+Nhân hướng tiền song khán minh nguyệt,
+Nguyệt tòng phong kh隙 khán thi gia.
+
+<u>Dịch thơ:</u>
+Trong tù không rượu cũng không hoa,
+Cảnh đẹp đêm nay khó hững hờ;
+Người ngắm trăng soi ngoài cửa sổ,
+Trăng nhòm khe cửa ngắm nhà thơ.
+<span class="poem-author">(Bản dịch của Nam Trân)</span>
+        </div>
+
+        <!-- Câu 1 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 1: Bài thơ Vọng nguyệt (Ngắm trăng) được viết theo thể thơ nào? Nêu những dấu hiệu về Luật, niêm, vần giúp em nhận biết thể thơ đó.</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans2_1')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans2_1">
+            • <strong>Thể thơ:</strong> Thất ngôn tứ tuyệt Đường luật.<br>
+            • <strong>Dấu hiệu:</strong> Gồm 4 câu thơ, mỗi câu 7 chữ.<br>
+            • <strong>Vần:</strong> Chân vần ở các câu 1, 2, 4 ở nguyên tác (hoa - hà - gia) hoặc bản dịch (hoa - hờ - gia).<br>
+            • <strong>Niêm:</strong> Câu 1 niêm câu 4, câu 2 niêm câu 3.
+          </div>
+        </div>
+
+        <!-- Câu 2 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 2: Chỉ ra những từ ngữ, hình ảnh thể hiện vẻ đẹp của thiên nhiên và cuộc ngắm trăng của nhân vật trữ tình trong bài thơ.</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans2_2')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans2_2">
+            • <strong>Vẻ đẹp thiên nhiên:</strong> "lương tiêu" (đêm đẹp), "minh nguyệt" (trăng sáng).<br>
+            • <strong>Cuộc ngắm trăng:</strong> "khán minh nguyệt" (ngắm trăng sáng), "khán thi gia" (ngắm nhà thơ). Cuộc giao hòa giữa người tù thi sĩ và ánh trăng tri kỷ qua song sắt nhà tù.
+          </div>
+        </div>
+
+        <!-- Câu 3 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 3: Biện pháp nghệ thuật nào được sử dụng trong hai câu cuối? Nêu tác dụng của biện pháp nghệ thuật ấy.</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans2_3')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans2_3">
+            • <strong>Biện pháp nghệ thuật:</strong> Phép đối ("Nhân hướng..." - "Nguyệt tòng...") và phép Nhân hóa ("Trăng nhòm khe cửa ngắm nhà thơ").<br>
+            • <strong>Tác dụng:</strong> Biến vầng trăng thành một người bạn tri kỷ có tâm hồn, cảm xúc; làm nổi bật sự giao thoa, tri âm giữa nhà thơ và thiên nhiên vượt qua song sắt nhà tù ngục tù.
+          </div>
+        </div>
+
+        <!-- Câu 4 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 4: Em hiểu như thế nào về mối quan hệ giữa người tù và vầng trăng được thể hiện trong hai câu cuối? Qua đó, em cảm nhận được tình cảm nào của tác giả đối với thiên nhiên?</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans2_4')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans2_4">
+            • Mối quan hệ song hành, giao hòa tri kỷ vượt qua chốn ngục tù lạnh lẽo.<br>
+            • Qua đó thể hiện tình yêu thiên nhiên tha thiết, phong thái tự do tự tại và sức mạnh tinh thần kì diệu của Bác Hồ trong cảnh tù Tưởng Giới Thạch.
+          </div>
+        </div>
+
+        <!-- Câu 5 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+          <div class="question-title">Câu 5: Nhận xét về đẹp tâm hồn của Hồ Chí Minh được thể hiện qua bài thơ.</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans2_5')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans2_5">
+            • <strong>Nhận xét:</strong> Đó là tâm hồn mộng mơ, tinh tế, yêu thiên nhiên sâu sắc hòa quyện cùng bản lĩnh thép vượt lên gian khổ, thiếu thốn nơi ngục tù của người chiến sĩ cách mạng.
+          </div>
+        </div>
+
+        <!-- Câu 6 -->
+        <div style="margin-bottom: 18px; padding-bottom: 12px;">
+          <div class="question-title">Câu 6: Từ bài thơ, em hãy nêu những thay đổi trong suy nghĩ, tình cảm của bản thân về vai trò của thiên nhiên đối với cuộc sống con người.</div>
+          <button class="toggle-btn" onclick="toggleAnswer('ans2_6')"><i class="fa-solid fa-eye"></i> Xem gợi ý lời giải</button>
+          <div class="answer-box" id="ans2_6">
+            • <strong>Gợi ý:</strong> Học sinh tự liên hệ bản thân: Thiên nhiên là nguồn nâng đỡ tâm hồn, mang lại sự bình yên và động lực tinh thần vượt qua khó khăn. Cần biết trân trọng, sống hòa hợp và bảo vệ thiên nhiên.
+          </div>
+        </div>
+
+        <div class="part-header">PHẦN 2: VIẾT (4.0 điểm)</div>
+        <p class="essay-content">Viết đoạn văn (10-12 câu) phân tích hai câu thơ khiến em có ấn tượng nhất trong bài thơ <i>Vọng nguyệt (Ngắm trăng)</i> - Hồ Chí Minh.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="wrap">
+    Ôn tập Giữa Kỳ I · Ngữ Văn 8 · Khối 8 · Github by chisaki167
+  </footer>
+
+  <script>
+    // Hàm đóng/mở câu trả lời gợi ý
+    function toggleAnswer(ansId) {
+      const el = document.getElementById(ansId);
+      if (el.style.display === 'block') {
+        el.style.display = 'none';
+      } else {
+        el.style.display = 'block';
+      }
+    }
+
+    // Hiệu ứng Spotlight chuột trên card
+    function initCardSpotlight() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+          const r = card.getBoundingClientRect();
+          const x = e.clientX - r.left;
+          const y = e.clientY - r.top;
+          card.style.setProperty('--mouse-x', x + 'px');
+          card.style.setProperty('--mouse-y', y + 'px');
+        });
+      });
+    }
+
+    // Chuyển Tab Liquid Glass
+    function switchTab(tabId, event) {
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(c => c.classList.remove('active'));
+
+      const btns = document.querySelectorAll('.glassBtn');
+      btns.forEach(b => b.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      const targetBtn = event.currentTarget;
+      targetBtn.classList.add('active');
+
+      updateLiquidPill(targetBtn);
+    }
+
+    // Cập nhật vị trí thanh trượt Liquid Pill
+    function updateLiquidPill(btn) {
+      const pill = document.getElementById('liquidPill');
+      if (pill && btn) {
+        pill.style.left = btn.offsetLeft + 'px';
+        pill.style.width = btn.offsetWidth + 'px';
+      }
+    }
+
+    // Hiệu ứng dịch chuyển kính lúp (Glass Displacement)
+    function initLiquidGlassInteractions() {
+      const glassNav = document.querySelector('.glassContainer');
+      const displacementMap = document.getElementById('glassDisplacement');
+
+      if (glassNav && displacementMap) {
+        glassNav.addEventListener('mousemove', function(e) {
+          const rect = glassNav.getBoundingClientRect();
+          const relX = (e.clientX - rect.left) / rect.width;
+          const scaleVal = 6 + Math.sin(relX * Math.PI) * 12;
+          displacementMap.setAttribute('scale', scaleVal);
+        });
+
+        glassNav.addEventListener('mouseleave', function() {
+          displacementMap.setAttribute('scale', '8');
+        });
+      }
+    }
+
+    // Bật / Tắt Video Nền
+    function toggleBackground() {
+      const v = document.getElementById('bgVideo');
+      const o = document.getElementById('bgOverlay');
+      const b = document.getElementById('bgToggleBtn');
+
+      if (!v || !o || !b) return;
+
+      v.classList.toggle('hidden');
+      o.classList.toggle('hidden');
+
+      if (v.classList.contains('hidden')) {
+        b.innerHTML = '🎬 Nền: Tắt';
+      } else {
+        b.innerHTML = '🎬 Nền: Bật';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initCardSpotlight();
+
+      const activeBtn = document.querySelector('.glassBtn.active');
+      if (activeBtn) updateLiquidPill(activeBtn);
+
+      window.addEventListener('resize', () => {
+        const ca = document.querySelector('.glassBtn.active');
+        if (ca) updateLiquidPill(ca);
+      });
+
+      initLiquidGlassInteractions();
+    });
+  </script>
+</body>
+</html>
