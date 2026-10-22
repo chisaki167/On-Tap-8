@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-height: 520px;
+    max-height: 460px;
     overflow-y: auto;
     padding-right: 6px;
     scrollbar-width: thin;
@@ -70,6 +70,38 @@
     border-bottom-left-radius: 4px;
   }
 
+  .key-config {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.4);
+    padding: 10px 14px;
+    border-radius: 14px;
+    border: var(--glass-border);
+  }
+  .key-config input {
+    flex: 1;
+    background: rgba(15, 23, 42, 0.6);
+    border: var(--glass-border);
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: var(--ink);
+    font-size: 0.88rem;
+    outline: none;
+  }
+  .key-config button {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    color: var(--accent);
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .key-config button:hover { background: var(--accent); color: #fff; }
+
   .input-area {
     display: flex;
     gap: 10px;
@@ -92,12 +124,10 @@
     height: 48px;
     transition: all 0.3s ease;
   }
-
   .input-area textarea:focus {
     border-color: var(--accent);
     box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
   }
-
   .input-area textarea::placeholder { color: var(--muted); }
 
   .send-btn {
@@ -114,18 +144,12 @@
     gap: 8px;
     transition: all 0.3s ease;
   }
-
   .send-btn:hover {
     background: #2563EB;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
   }
-
-  .send-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 </style>
 </head>
 <body>
@@ -158,10 +182,15 @@
   </header>
 
   <div class="card">
+    <div class="key-config">
+      <input type="password" id="apiKeyInput" placeholder="Nhập Gemini API Key của bạn ở đây...">
+      <button onclick="saveApiKey()">Lưu Key</button>
+    </div>
+
     <div class="chat-box" id="chatBox">
       <div class="msg ai">
         <img src="ava.jpg" class="msg-avatar" alt="AI" onerror="this.src='https://via.placeholder.com/32'">
-        <div class="msg-bubble">Xin chào! Mình có thể giúp gì cho bạn hôm nay?</div>
+        <div class="msg-bubble">Xin chào! Vui lòng nhập API Key ở ô phía trên để bắt đầu trò chuyện nhé.</div>
       </div>
     </div>
 
@@ -177,8 +206,6 @@
 <footer>Trang Trợ Lý AI · Github by chisaki167</footer>
 
 <script>
-  const API_KEY = "AQ.Ab8RN6K8l4U7UTHNLWZrHrZV-n7MtPhFNIEgSsoOdCv5bNLWcQ";
-
   function toggleBackground() {
     const v = document.getElementById('bgVideo');
     const o = document.getElementById('bgOverlay');
@@ -189,7 +216,38 @@
     b.innerHTML = v.classList.contains('hidden') ? '🎬 Nền: Tắt' : '🎬 Nền: Bật';
   }
 
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedKey = localStorage.getItem('gemini_api_key');
+    if (savedKey) {
+      document.getElementById('apiKeyInput').value = savedKey;
+    }
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
+      });
+    });
+  });
+
+  function saveApiKey() {
+    const key = document.getElementById('apiKeyInput').value.trim();
+    if (!key) {
+      alert('Vui lòng nhập API Key hợp lệ!');
+      return;
+    }
+    localStorage.setItem('gemini_api_key', key);
+    alert('Đã lưu API Key thành công trên trình duyệt của bạn!');
+  }
+
   async function sendPrompt() {
+    const apiKey = localStorage.getItem('gemini_api_key') || document.getElementById('apiKeyInput').value.trim();
+    if (!apiKey) {
+      alert('Bạn chưa nhập Gemini API Key!');
+      return;
+    }
+
     const input = document.getElementById('promptInput');
     const sendBtn = document.getElementById('sendBtn');
     const chatBox = document.getElementById('chatBox');
@@ -204,7 +262,7 @@
     const aiMsgDiv = appendMessage('ai', 'Đang suy nghĩ...');
 
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -215,7 +273,7 @@
       if (data.candidates && data.candidates[0].content) {
         aiMsgDiv.querySelector('.msg-bubble').textContent = data.candidates[0].content.parts[0].text;
       } else {
-        aiMsgDiv.querySelector('.msg-bubble').textContent = 'Không nhận được phản hồi từ AI.';
+        aiMsgDiv.querySelector('.msg-bubble').textContent = 'Lỗi: API Key không hợp lệ hoặc đã hết hạn.';
       }
     } catch (err) {
       aiMsgDiv.querySelector('.msg-bubble').textContent = 'Lỗi kết nối máy chủ.';
@@ -230,7 +288,6 @@
     const msg = document.createElement('div');
     msg.className = `msg ${role}`;
 
-    // Nếu là user dùng ảnh anh1.jpg, nếu là ai dùng ảnh ava.jpg
     const avatarSrc = role === 'user' ? 'anh1.jpg' : 'ava.jpg';
     msg.innerHTML = `
       <img src="${avatarSrc}" class="msg-avatar" alt="${role}" onerror="this.src='https://via.placeholder.com/32'">
@@ -247,16 +304,6 @@
       e.preventDefault();
       sendPrompt();
     }
-  });
-
-  window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
-        card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
-      });
-    });
   });
 </script>
 </body>
