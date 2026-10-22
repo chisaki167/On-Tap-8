@@ -162,7 +162,7 @@
 </svg>
 
 <div class="top-left-profile">
-  <img src="anh1.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
+  <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
   <span class="user-name">chisaki167</span>
 </div>
 
@@ -183,14 +183,14 @@
 
   <div class="card">
     <div class="key-config">
-      <input type="password" id="apiKeyInput" placeholder="Nhập Gemini API Key của bạn ở đây...">
+      <input type="password" id="apiKeyInput" placeholder="Dán mã khóa AQ... vào đây...">
       <button onclick="saveApiKey()">Lưu Key</button>
     </div>
 
     <div class="chat-box" id="chatBox">
       <div class="msg ai">
         <img src="ava.jpg" class="msg-avatar" alt="AI" onerror="this.src='https://via.placeholder.com/32'">
-        <div class="msg-bubble">Xin chào! Vui lòng nhập API Key ở ô phía trên để bắt đầu trò chuyện nhé.</div>
+        <div class="msg-bubble">Xin chào! Vui lòng lưu mã khóa và bắt đầu trò chuyện nhé.</div>
       </div>
     </div>
 
@@ -234,17 +234,17 @@
   function saveApiKey() {
     const key = document.getElementById('apiKeyInput').value.trim();
     if (!key) {
-      alert('Vui lòng nhập API Key hợp lệ!');
+      alert('Vui lòng nhập khóa hợp lệ!');
       return;
     }
     localStorage.setItem('gemini_api_key', key);
-    alert('Đã lưu API Key thành công trên trình duyệt của bạn!');
+    alert('Đã lưu mã khóa thành công!');
   }
 
   async function sendPrompt() {
     const apiKey = localStorage.getItem('gemini_api_key') || document.getElementById('apiKeyInput').value.trim();
     if (!apiKey) {
-      alert('Bạn chưa nhập Gemini API Key!');
+      alert('Bạn chưa nhập mã khóa!');
       return;
     }
 
@@ -262,18 +262,23 @@
     const aiMsgDiv = appendMessage('ai', 'Đang suy nghĩ...');
 
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`;
       const res = await fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
         body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
       });
 
       const data = await res.json();
       if (data.candidates && data.candidates[0].content) {
         aiMsgDiv.querySelector('.msg-bubble').textContent = data.candidates[0].content.parts[0].text;
+      } else if (data.error) {
+        aiMsgDiv.querySelector('.msg-bubble').textContent = 'Lỗi từ Google API: ' + (data.error.message || 'Không xác định');
       } else {
-        aiMsgDiv.querySelector('.msg-bubble').textContent = 'Lỗi: API Key không hợp lệ hoặc đã hết hạn.';
+        aiMsgDiv.querySelector('.msg-bubble').textContent = 'Lỗi: Phản hồi không hợp lệ từ máy chủ.';
       }
     } catch (err) {
       aiMsgDiv.querySelector('.msg-bubble').textContent = 'Lỗi kết nối máy chủ.';
@@ -288,7 +293,7 @@
     const msg = document.createElement('div');
     msg.className = `msg ${role}`;
 
-    const avatarSrc = role === 'user' ? 'anh1.jpg' : 'ava.jpg';
+    const avatarSrc = role === 'user' ? 'ava1.jpg' : 'ava.jpg';
     msg.innerHTML = `
       <img src="${avatarSrc}" class="msg-avatar" alt="${role}" onerror="this.src='https://via.placeholder.com/32'">
       <div class="msg-bubble">${text}</div>
