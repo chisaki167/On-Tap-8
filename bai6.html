@@ -8,9 +8,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="bai6.css">
+<link rel="stylesheet" href="index1.css">
 </head>
 <body>
+
+<svg style="display:none;position:absolute;" xmlns="http://www.w3.org/2000/svg">
+  <filter id="container-glass" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" id="glassDisplacement" />
+  </filter>
+</svg>
+
+<div class="top-left-profile">
+  <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
+  <span class="user-name">chisaki167</span>
+</div>
+
+<div class="top-right-controls">
+  <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">🎬 Nền: Tắt</button>
+</div>
+
+<video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
+  <source src="background.mp4" type="video/mp4">
+</video>
+<div class="bg-overlay hidden" id="bgOverlay"></div>
 
 <header class="top wrap">
   <div class="eyebrow">Khoa học tự nhiên 8 · Chương I: Phản ứng hóa học</div>
@@ -24,22 +47,22 @@
   </div>
 </header>
 
-<nav class="tabs" aria-label="Các phần ôn tập">
-  <div class="wrap" role="tablist">
-    <button role="tab" data-tab="kienthuc" aria-selected="true">1. Kiến thức</button>
-    <button role="tab" data-tab="tungbuoc" aria-selected="false">2. Giải từng bước</button>
-    <button role="tab" data-tab="congthuc" aria-selected="false">3. Luyện công thức</button>
-    <button role="tab" data-tab="baitap" aria-selected="false">4. Bài tập vận dụng</button>
-    <button role="tab" data-tab="tracnghiem" aria-selected="false">5. Trắc nghiệm</button>
-    <button role="tab" data-tab="thuctien" aria-selected="false">6. Liên hệ thực tiễn</button>
-    <button role="tab" data-tab="nopbai" aria-selected="false">7. Nộp kết quả</button>
-    <button role="tab" data-tab="giaovien" aria-selected="false" class="teacher" id="teacherTab" hidden>Giáo viên</button>
+<div class="wrap filter-container">
+  <div class="filter-tabs glassContainer" id="filterTabs" role="tablist">
+    <div class="liquid-pill" id="liquidPill"></div>
+    <button class="glassBtn active" role="tab" data-tab="kienthuc" aria-selected="true">1. Kiến thức</button>
+    <button class="glassBtn" role="tab" data-tab="tungbuoc" aria-selected="false">2. Giải từng bước</button>
+    <button class="glassBtn" role="tab" data-tab="congthuc" aria-selected="false">3. Luyện công thức</button>
+    <button class="glassBtn" role="tab" data-tab="baitap" aria-selected="false">4. Bài tập vận dụng</button>
+    <button class="glassBtn" role="tab" data-tab="tracnghiem" aria-selected="false">5. Trắc nghiệm</button>
+    <button class="glassBtn" role="tab" data-tab="thuctien" aria-selected="false">6. Liên hệ thực tiễn</button>
+    <button class="glassBtn" role="tab" data-tab="nopbai" aria-selected="false">7. Nộp kết quả</button>
+    <button class="glassBtn teacher" role="tab" data-tab="giaovien" aria-selected="false" id="teacherTab" hidden>Giáo viên</button>
   </div>
-</nav>
+</div>
 
 <main class="wrap">
 
-<!-- 1. KIẾN THỨC -->
 <section class="panel" id="p-kienthuc">
   <div class="card">
     <span class="eyebrow">Ôn lại: các công thức chuyển đổi</span>
@@ -128,7 +151,6 @@
   </div>
 </section>
 
-<!-- 2. GIẢI TỪNG BƯỚC -->
 <section class="panel" id="p-tungbuoc" hidden>
   <div class="card">
     <h2>Giải từng bước có hướng dẫn</h2>
@@ -144,7 +166,6 @@
   </div>
 </section>
 
-<!-- 3. LUYỆN CÔNG THỨC -->
 <section class="panel" id="p-congthuc" hidden>
   <div class="card">
     <h2>Luyện công thức n, m, V</h2>
@@ -157,7 +178,6 @@
   </div>
 </section>
 
-<!-- 4. BÀI TẬP -->
 <section class="panel" id="p-baitap" hidden>
   <div class="card">
     <h2>Bài tập vận dụng</h2>
@@ -167,7 +187,6 @@
   </div>
 </section>
 
-<!-- 5. TRẮC NGHIỆM -->
 <section class="panel" id="p-tracnghiem" hidden>
   <div class="card">
     <h2>Trắc nghiệm</h2>
@@ -179,7 +198,6 @@
   </div>
 </section>
 
-<!-- 6. THỰC TIỄN -->
 <section class="panel" id="p-thuctien" hidden>
   <div class="card">
     <h2>Liên hệ thực tiễn</h2>
@@ -192,7 +210,6 @@
   <details><summary>Vì sao khi đốt than trong lò công nghiệp, người ta thường thổi dư không khí?</summary><p>Để than (chất cần sử dụng hết) phản ứng hết, cháy hoàn toàn, tỏa nhiều nhiệt và ít tạo khí carbon monoxide. Oxygen trong không khí là chất dư, có sẵn và không tốn tiền mua.</p></details>
 </section>
 
-<!-- 7. NỘP KẾT QUẢ -->
 <section class="panel" id="p-nopbai" hidden>
   <div class="grid2">
     <div class="card">
@@ -216,7 +233,6 @@
   </div>
 </section>
 
-<!-- GIÁO VIÊN -->
 <section class="panel" id="p-giaovien" hidden>
   <div class="card">
     <h2>Bảng theo dõi của giáo viên</h2>
@@ -236,7 +252,7 @@
     <div class="row"><button class="btn primary" id="saveBonus">Lưu mức quy đổi</button><span class="explain" id="bonusMsg"></span></div>
   </div>
   <div class="card">
-    <div class="row" style="justify-content:space-between">
+    <div class="row" style="justify-style:space-between">
       <div class="field"><label for="clsFilter">Lọc theo lớp</label><select id="clsFilter"><option value="">Tất cả các lớp</option></select></div>
       <button class="btn" id="exportCsv">Tải bảng điểm (CSV)</button>
     </div>
@@ -249,6 +265,72 @@
 </main>
 <footer class="wrap">Trang ôn tập KHTN 8 · Bài 6 (Chương I: Phản ứng hóa học). Dùng để học sinh tự ôn ở nhà hoặc giáo viên trình chiếu trong tiết ôn tập[cite: 3].</footer>
 
+<script>
+  function updateLiquidPill(btn) {
+    const pill = document.getElementById('liquidPill');
+    if (pill && btn) {
+      pill.style.left = btn.offsetLeft + 'px';
+      pill.style.width = btn.offsetWidth + 'px';
+    }
+  }
+
+  function toggleBackground() {
+    const v = document.getElementById('bgVideo');
+    const o = document.getElementById('bgOverlay');
+    const b = document.getElementById('bgToggleBtn');
+    if (!v || !o || !b) return;
+    v.classList.toggle('hidden');
+    o.classList.toggle('hidden');
+    b.innerHTML = v.classList.contains('hidden') ? '🎬 Nền: Tắt' : '🎬 Nền: Bật';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const activeBtn = document.querySelector('.glassBtn.active');
+    if (activeBtn) updateLiquidPill(activeBtn);
+
+    const switchTab = (tabId) => {
+      document.querySelectorAll('.glassBtn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+        if(b.getAttribute('data-tab') === tabId) {
+          b.classList.add('active');
+          b.setAttribute('aria-selected', 'true');
+          updateLiquidPill(b);
+        }
+      });
+      document.querySelectorAll('.panel').forEach(p => p.hidden = true);
+      const targetPanel = document.getElementById('p-' + tabId);
+      if (targetPanel) targetPanel.hidden = false;
+    };
+
+    document.querySelectorAll('.glassBtn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        switchTab(btn.getAttribute('data-tab'));
+      });
+    });
+
+    const goSubmitBtn = document.getElementById('goSubmit');
+    if(goSubmitBtn) {
+      goSubmitBtn.addEventListener('click', () => {
+        switchTab('nopbai');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      const ca = document.querySelector('.glassBtn.active');
+      if (ca) updateLiquidPill(ca);
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', function(e) {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
+      });
+    });
+  });
+</script>
 <script src="bai6.js"></script>
 </body>
 </html>

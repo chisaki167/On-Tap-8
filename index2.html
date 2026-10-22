@@ -4,98 +4,100 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link rel="icon" type="image/jpeg" href="ava.jpg">
-  <title>KHTN 8 - Ôn tập Hoá học - Thầy Chisaki</title>
+  <title>KHTN 8 - Ôn tập Hoá học - chisaki167</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="index1.css">
   <link rel="stylesheet" href="bai5.css">
-  <style>
-    .hero-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 24px;
-    }
-    .lesson-card {
-      background: var(--surface);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: var(--glass-border);
-      border-radius: var(--r);
-      padding: 24px;
-      box-shadow: var(--shadow-glass), var(--inner-glow);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .lesson-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover), var(--inner-glow);
-      border-color: var(--accent);
-    }
-    .badge {
-      display: inline-block;
-      align-self: flex-start;
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      background: var(--accent-soft);
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-  </style>
 </head>
 <body>
+  <svg style="display:none;position:absolute;" xmlns="http://www.w3.org/2000/svg">
+    <filter id="container-glass" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" id="glassDisplacement" />
+    </filter>
+  </svg>
 
-<header class="top wrap">
-  <div class="eyebrow">Hệ thống Ôn tập Trực tuyến · Khoa học Tự nhiên 8</div>
-  <h1>Chương I: <span class="lesson">Phản ứng Hóa học</span></h1>
-  <p class="lead" style="margin-top: 8px;">Cổng tương tác học tập, làm bài thí nghiệm ảo và ôn luyện trắc nghiệm KHTN 8.</p>
-</header>
-
-<main class="wrap">
-  <div class="hero-grid">
-    <div class="lesson-card">
-      <div>
-        <span class="badge">Bài 5</span>
-        <h2>Định luật bảo toàn khối lượng và phương trình hóa học</h2>
-        <p class="lead" style="margin-top: 10px; font-size: 0.95rem;">Tìm hiểu nguyên lý bảo toàn khối lượng, làm thí nghiệm ảo, thực hành cân bằng phương trình và bài tập tính toán.</p>
-      </div>
-      <div style="margin-top: 20px;">
-        <a href="bai5.html" class="btn primary" style="display: inline-block; text-decoration: none; width: 100%; text-align: center;">Vào học Bài 5 →</a>
-      </div>
-    </div>
-
-    <div class="lesson-card">
-      <div>
-        <span class="badge">Bài 6</span>
-        <h2>Tính theo phương trình hóa học</h2>
-        <p class="lead" style="margin-top: 10px; font-size: 0.95rem;">Tính lượng chất tham gia và sản phẩm theo PTHH, khái niệm chất dư - chất hết và hiệu suất phản ứng.</p>
-      </div>
-      <div style="margin-top: 20px;">
-        <a href="bai6.html" class="btn primary" style="display: inline-block; text-decoration: none; width: 100%; text-align: center;">Vào học Bài 6 →</a>
-      </div>
-    </div>
-
-    <div class="lesson-card">
-      <div>
-        <span class="badge" style="background: var(--amber-soft); color: var(--amber);">Dành cho Giáo viên</span>
-        <h2>Quản lý & Tổng hợp kết quả</h2>
-        <p class="lead" style="margin-top: 10px; font-size: 0.95rem;">Xem tổng hợp báo cáo tiến độ học tập, điểm trắc nghiệm và xuất dữ liệu báo cáo danh sách học sinh.</p>
-      </div>
-      <div style="margin-top: 20px;">
-        <a href="giaovien.html" class="btn" style="display: inline-block; text-decoration: none; width: 100%; text-align: center;">Vào trang quản lý →</a>
-      </div>
-    </div>
+  <div class="top-left-profile">
+    <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
+    <span class="user-name">chisaki167</span>
   </div>
-</main>
 
-<footer class="wrap">
-  Trang ôn tập Khoa học Tự nhiên 8 · Hóa học
-</footer>
+  <div class="top-right-controls">
+    <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">🎬 Nền: Tắt</button>
+  </div>
 
+  <video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  <div class="bg-overlay hidden" id="bgOverlay"></div>
+
+  <header class="top wrap">
+    <div class="eyebrow">Hệ thống Ôn tập Trực tuyến · Khoa học Tự nhiên 8</div>
+    <h1>Chương I: <span class="lesson">Phản ứng Hóa học</span></h1>
+    <p class="lead" style="margin-top:8px;">Cổng tương tác học tập, làm bài thí nghiệm ảo và ôn luyện trắc nghiệm KHTN 8.</p>
+  </header>
+
+  <main class="wrap">
+    <div class="hero-grid">
+      <div class="lesson-card">
+        <div>
+          <span class="badge">Bài 5</span>
+          <h2>Định luật bảo toàn khối lượng và phương trình hóa học</h2>
+          <p class="lead" style="margin-top:10px;font-size:0.95rem;">Tìm hiểu nguyên lý bảo toàn khối lượng, làm thí nghiệm ảo, thực hành cân bằng phương trình và bài tập tính toán.</p>
+        </div>
+        <div style="margin-top:20px;">
+          <a href="bai5.html" class="btn primary" style="display:inline-block;text-decoration:none;width:100%;text-align:center;">Vào học Bài 5 →</a>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div>
+          <span class="badge">Bài 6</span>
+          <h2>Tính theo phương trình hóa học</h2>
+          <p class="lead" style="margin-top:10px;font-size:0.95rem;">Tính lượng chất tham gia và sản phẩm theo PTHH, khái niệm chất dư - chất hết và hiệu suất phản ứng.</p>
+        </div>
+        <div style="margin-top:20px;">
+          <a href="bai6.html" class="btn primary" style="display:inline-block;text-decoration:none;width:100%;text-align:center;">Vào học Bài 6 →</a>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div>
+          <span class="badge" style="background:var(--amber-soft);color:var(--amber);">Dành cho Giáo viên</span>
+          <h2>Quản lý & Tổng hợp kết quả</h2>
+          <p class="lead" style="margin-top:10px;font-size:0.95rem;">Xem tổng hợp báo cáo tiến độ học tập, điểm trắc nghiệm và xuất dữ liệu báo cáo danh sách học sinh.</p>
+        </div>
+        <div style="margin-top:20px;">
+          <a href="giaovien.html" class="btn" style="display:inline-block;text-decoration:none;width:100%;text-align:center;">Vào trang quản lý →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="wrap">
+    Trang ôn tập Khoa học Tự nhiên 8 · Hóa học
+  </footer>
+
+  <script>
+    function toggleBackground(){
+      const v=document.getElementById('bgVideo'),o=document.getElementById('bgOverlay'),b=document.getElementById('bgToggleBtn');
+      if(!v||!o||!b)return;
+      v.classList.toggle('hidden');
+      o.classList.toggle('hidden');
+      b.innerHTML=v.classList.contains('hidden')?'🎬 Nền: Tắt':'🎬 Nền: Bật';
+    }
+    window.addEventListener('DOMContentLoaded',()=>{
+      document.querySelectorAll('.lesson-card').forEach(card=>{
+        card.addEventListener('mousemove',e=>{
+          const r=card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x',(e.clientX-r.left)+'px');
+          card.style.setProperty('--mouse-y',(e.clientY-r.top)+'px');
+        });
+      });
+    });
+  </script>
 </body>
 </html>

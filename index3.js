@@ -1,4 +1,3 @@
-// Dữ liệu toàn bộ 21 câu hỏi Trắc nghiệm Tin Học 8
 const tinHocQuestions = [
   {
     id: "q1",
@@ -12,7 +11,7 @@ const tinHocQuestions = [
       { key: "E", text: "Blaise Pascal chế tạo vào khoảng năm 1645" }
     ],
     correct: ["A", "B", "C"],
-    explain: "Đáp án đúng: A, B, C. Máy tính Pascaline do Blaise Pascal sáng tạo năm 1642, dùng cơ cấu bánh răng và thực hiện được phép cộng, trừ."
+    explainDetail: "Máy tính Pascaline do Blaise Pascal sáng tạo năm 1642, dùng cơ cấu bánh răng và thực hiện được phép cộng, trừ."
   },
   {
     id: "q2",
@@ -25,7 +24,7 @@ const tinHocQuestions = [
       { key: "D", text: "Nhà toán học John Von Neumann" }
     ],
     correct: ["A"],
-    explain: "Đáp án đúng: A. Charles Babbage được coi là cha đẻ của máy tính hiện đại với mẫu thiết kế Máy phân tích (Analytical Engine)."
+    explainDetail: "Charles Babbage được coi là cha đẻ của máy tính hiện đại với mẫu thiết kế Máy phân tích (Analytical Engine)."
   },
   {
     id: "q3",
@@ -40,7 +39,7 @@ const tinHocQuestions = [
       { key: "F", text: "Linh kiện xử lý chính: Sử dụng các bóng bán dẫn (transistor)" }
     ],
     correct: ["A", "B", "C", "D", "E"],
-    explain: "Đáp án đúng: A, B, C, D, E. Bóng bán dẫn (F) thuộc về thế hệ thứ hai."
+    explainDetail: "Bóng bán dẫn thuộc về thế hệ thứ hai."
   },
   {
     id: "q4",
@@ -54,7 +53,7 @@ const tinHocQuestions = [
       { key: "E", text: "Cách mạng hóa nền kinh tế toàn cầu và thị trường lao động" }
     ],
     correct: ["A", "C", "E"],
-    explain: "Đáp án đúng: A, C, E. Các hướng thay đổi tích cực gồm tự động hóa, kết nối toàn cầu và tối ưu hóa các ngành cốt lõi."
+    explainDetail: "Các hướng thay đổi tích cực gồm tự động hóa, kết nối toàn cầu và tối ưu hóa các ngành cốt lõi."
   },
   {
     id: "q5",
@@ -68,7 +67,7 @@ const tinHocQuestions = [
       { key: "E", text: "Khả năng tự học và tư duy (AI)" }
     ],
     correct: ["A", "B", "E"],
-    explain: "Đáp án đúng: A, B, E. VLSI thuộc thế hệ thứ tư, sự kết nối mạng khởi đầu từ thế hệ thứ ba/tư. Thế hệ 5 đặc trưng bởi vi mạch ULSI, điện toán đám mây và Trí tuệ nhân tạo (AI)."
+    explainDetail: "VLSI thuộc thế hệ thứ tư, sự kết nối mạng khởi đầu từ thế hệ thứ ba/tư. Thế hệ 5 đặc trưng bởi vi mạch ULSI, điện toán đám mây và Trí tuệ nhân tạo (AI)."
   },
   {
     id: "q6",
@@ -82,7 +81,7 @@ const tinHocQuestions = [
       { key: "E", text: "Xóa nhòa khoảng cách địa lý, định hình lại xã hội qua mạng xã hội" }
     ],
     correct: ["A", "B", "E"],
-    explain: "Đáp án đúng: A, B, E. Đáp án C và D là những mặt tiêu cực/thách thức, không phải mặt tích cực."
+    explainDetail: "Các đáp án khác là những mặt tiêu cực/thách thức, không phải mặt tích cực."
   },
   {
     id: "q7",
@@ -96,7 +95,7 @@ const tinHocQuestions = [
       { key: "E", text: "Có thể truy cập từ xa qua mạng Internet khi được phép" }
     ],
     correct: ["B", "D", "E"],
-    explain: "Đáp án đúng: B, D, E. Thông tin số được biểu diễn dạng dãy bit, đa dạng nguồn tin và truy cập dễ dàng qua Internet."
+    explainDetail: "Thông tin số được biểu diễn dạng dãy bit, đa dạng nguồn tin và truy cập dễ dàng qua Internet."
   },
   {
     id: "q8",
@@ -109,7 +108,7 @@ const tinHocQuestions = [
       { key: "D", text: "Tốc độ lan truyền nhanh, khó thu hồi triệt để" }
     ],
     correct: ["B", "D"],
-    explain: "Đáp án đúng: B, D. Nhân bản số giữ nguyên chất lượng gốc, chi phí gần như bằng 0, tốc độ chia sẻ vô cùng nhanh chóng."
+    explainDetail: "Nhân bản số giữ nguyên chất lượng gốc, chi phí gần như bằng 0, tốc độ chia sẻ vô cùng nhanh chóng."
   },
   {
     id: "q9",
@@ -122,7 +121,7 @@ const tinHocQuestions = [
       { key: "D", text: "Chỉ áp dụng cho văn bản, không áp dụng cho hình ảnh hay video" }
     ],
     correct: ["B"],
-    explain: "Đáp án đúng: B. Thông tin số thuộc đối tượng được pháp luật bảo hộ quyền sở hữu trí tuệ và quyền tác giả."
+    explainDetail: "Thông tin số thuộc đối tượng được pháp luật bảo hộ quyền sở hữu trí tuệ và quyền tác giả."
   },
   {
     id: "q10",
@@ -135,7 +134,7 @@ const tinHocQuestions = [
       { key: "D", text: "Biến thành tệp tin văn bản trên điện thoại của bạn" }
     ],
     correct: ["B"],
-    explain: "Đáp án đúng: B. Quá trình gửi file chỉ tạo ra một bản sao (copy) gửi đi, tệp tin gốc vẫn được lưu giữ trọn vẹn."
+    explainDetail: "Quá trình gửi file chỉ tạo ra một bản sao (copy) gửi đi, tệp tin gốc vẫn được lưu giữ trọn vẹn."
   },
   {
     id: "q11",
@@ -148,7 +147,7 @@ const tinHocQuestions = [
       { key: "D", text: "Ý kiến luôn được cơ quan nhà nước kiểm chứng" }
     ],
     correct: ["B"],
-    explain: "Đáp án đúng: B. Sự kiện là thông tin thực tế kiểm chứng được, còn ý kiến mang tính chủ quan cá nhân."
+    explainDetail: "Sự kiện là thông tin thực tế kiểm chứng được, còn ý kiến mang tính chủ quan cá nhân."
   },
   {
     id: "q12",
@@ -161,7 +160,7 @@ const tinHocQuestions = [
       { key: "D", text: "Chèn các đoạn nhạc có bản quyền vào video nhằm mục đích kiếm tiền/giải trí mà chưa mua bản quyền" }
     ],
     correct: ["B", "D"],
-    explain: "Đáp án đúng: B, D. Sử dụng tác phẩm của người khác không xin phép/không trả phí bản quyền hoặc giả mạo tác giả là vi phạm pháp luật."
+    explainDetail: "Sử dụng tác phẩm của người khác không xin phép/không trả phí bản quyền hoặc giả mạo tác giả là vi phạm pháp luật."
   },
   {
     id: "q13",
@@ -174,7 +173,7 @@ const tinHocQuestions = [
       { key: "D", text: "Giữ nguyên trạng tác phẩm" }
     ],
     correct: ["B", "C", "D"],
-    explain: "Đáp án đúng: B, C, D. Cần ưu tiên các nguồn miễn phí bản quyền và tuân thủ ghi rõ nguồn gốc tác giả."
+    explainDetail: "Cần ưu tiên các nguồn miễn phí bản quyền và tuân thủ ghi rõ nguồn gốc tác giả."
   },
   {
     id: "q14",
@@ -187,7 +186,7 @@ const tinHocQuestions = [
       { key: "D", text: "Bình luận khen bài viết rất hay" }
     ],
     correct: ["B"],
-    explain: "Đáp án đúng: B. Cần có tư duy phản biện, tuyệt đối không phát tán thông tin y tế chưa xác thực."
+    explainDetail: "Cần có tư duy phản biện, tuyệt đối không phát tán thông tin y tế chưa xác thực."
   },
   {
     id: "q15",
@@ -200,7 +199,7 @@ const tinHocQuestions = [
       { key: "D", text: "Cẩn trọng khi giao tiếp và duyệt web" }
     ],
     correct: ["B", "D"],
-    explain: "Đáp án đúng: B, D. Bảo vệ thông tin cá nhân và kiểm chứng thông tin giúp giảm rủi ro lừa đảo mạng."
+    explainDetail: "Bảo vệ thông tin cá nhân và kiểm chứng thông tin giúp giảm rủi ro lừa đảo mạng."
   },
   {
     id: "q16",
@@ -213,7 +212,7 @@ const tinHocQuestions = [
       { key: "D", text: "Cho phép sao chép và phát tán mọi nội dung tùy ý" }
     ],
     correct: ["A"],
-    explain: "Đáp án đúng: A. Môi trường số mang lại kho tri thức lớn nhưng cần năng lực chọn lọc và tuân thủ pháp luật."
+    explainDetail: "Môi trường số mang lại kho tri thức lớn nhưng cần năng lực chọn lọc và tuân thủ pháp luật."
   },
   {
     id: "q17",
@@ -226,7 +225,7 @@ const tinHocQuestions = [
       { key: "D", text: "Tranh luận một cách lịch sự, mang tính đóng góp" }
     ],
     correct: ["B", "C"],
-    explain: "Đáp án đúng: B, C. Xúc phạm người khác trực tuyến và gây mất trật tự công cộng là hành vi kém văn hóa."
+    explainDetail: "Xúc phạm người khác trực tuyến và gây mất trật tự công cộng là hành vi kém văn hóa."
   },
   {
     id: "q18",
@@ -239,7 +238,7 @@ const tinHocQuestions = [
       { key: "D", text: "Giao tiếp qua mạng không để lại dấu vết gì" }
     ],
     correct: ["A", "B", "C"],
-    explain: "Đáp án đúng: A, B, C. Giao tiếp mạng thiếu cảm xúc thực tế, dễ ẩn danh và chủ yếu dựa vào văn bản."
+    explainDetail: "Giao tiếp mạng thiếu cảm xúc thực tế, dễ ẩn danh và chủ yếu dựa vào văn bản."
   },
   {
     id: "q19",
@@ -252,20 +251,20 @@ const tinHocQuestions = [
       { key: "D", text: "Tự ý thay đổi tên tác giả thành tên mình" }
     ],
     correct: ["A", "B"],
-    explain: "Đáp án đúng: A, B. Tôn trọng sở hữu trí tuệ đòi hỏi sự cho phép, trả phí bản quyền (nếu yêu cầu) và trích dẫn đầy đủ."
+    explainDetail: "Tôn trọng sở hữu trí tuệ đòi hỏi sự cho phép, trả phí bản quyền (nếu yêu cầu) và trích dẫn đầy đủ."
   },
   {
     id: "q20",
     title: "Câu 20: Một người quen gửi cho em một video quay cảnh hai bạn học sinh đánh nhau trong trường và bảo em chia sẻ lên mạng xã hội để \"câu view\". Em xử lý thế nào?",
     type: "single",
     options: [
-      { key: "A", text: "Chia sẻ ngay lập tức để trang cá nhân có nhiều lượt tương tác" },
-      { key: "B", text: "Từ chối chia sẻ, vì việc phát tán bạo lực học đường vi phạm văn hóa mạng và làm tổn hại danh dự các bạn; đồng thời báo cáo sự việc với nhà trường" },
+      { key: "A", text: "Đòi người quen đó phải trả tiền công mới chia sẻ" },
+      { key: "B", text: "Chia sẻ ngay lập tức để trang cá nhân có nhiều lượt tương tác" },
       { key: "C", text: "Cắt ghép lại video cho kịch tính hơn rồi mới đăng" },
-      { key: "D", text: "Đòi người quen đó phải trả tiền công mới chia sẻ" }
+      { key: "D", text: "Từ chối chia sẻ, vì việc phát tán bạo lực học đường vi phạm văn hóa mạng và làm tổn hại danh dự các bạn; đồng thời báo cáo sự việc với nhà trường" }
     ],
-    correct: ["B"],
-    explain: "Đáp án đúng: B. Không lan truyền thông tin bạo lực và cần thông báo đến cấp có thẩm quyền (nhà trường/thầy cô)."
+    correct: ["D"],
+    explainDetail: "Không lan truyền thông tin bạo lực và cần thông báo đến cấp có thẩm quyền (nhà trường/thầy cô)."
   },
   {
     id: "q21",
@@ -278,35 +277,20 @@ const tinHocQuestions = [
       { key: "D", text: "Có thể chứa các từ ngữ thô tục, hình ảnh phản cảm nếu nhằm mục đích giải trí" }
     ],
     correct: ["A", "B", "C"],
-    explain: "Đáp án đúng: A, B, C. Đảm bảo văn hóa, đạo đức và tuân thủ bản quyền khi sáng tạo nội dung số."
+    explainDetail: "Đảm bảo văn hóa, đạo đức và tuân thủ bản quyền khi sáng tạo nội dung số."
   }
 ];
 
-// Hàm tráo ngẫu nhiên mảng (Fisher-Yates Shuffle)
-function shuffleArray(array) {
-  const arr = [...array];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-// Render câu hỏi trắc nghiệm ra giao diện (có tráo câu hỏi và đáp án)
 function renderQuiz() {
   const container = document.getElementById('quiz-tin-hoc');
   if (!container) return;
   container.innerHTML = '';
 
-  // Tráo ngẫu nhiên thứ tự các câu hỏi
-  const shuffledQuestions = shuffleArray(tinHocQuestions);
-
-  shuffledQuestions.forEach((q, idx) => {
+  tinHocQuestions.forEach((q, idx) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.id = `card-${q.id}`;
 
-    // Tiêu đề câu hỏi (hiển thị số thứ tự mới sau khi tráo)
     const qTitle = document.createElement('div');
     qTitle.className = 'question-title';
     qTitle.innerHTML = `Câu ${idx + 1}: ${q.title.replace(/^Câu \d+:\s*/, '')} <span style="font-size: 0.8rem; opacity: 0.7; font-weight: normal;">(${q.type === 'single' ? 'Chọn 1 đáp án' : 'Chọn tất cả đáp án đúng'})</span>`;
@@ -315,21 +299,21 @@ function renderQuiz() {
     const optionsDiv = document.createElement('div');
     optionsDiv.className = 'options';
 
-    // Tráo ngẫu nhiên thứ tự các đáp án trong câu hỏi
-    const shuffledOptions = shuffleArray(q.options);
+    const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
     const displayLabels = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const correctDisplayLabels = [];
 
     shuffledOptions.forEach((opt, optIdx) => {
       const assignedKey = displayLabels[optIdx];
       const btn = document.createElement('button');
       btn.className = 'option-btn';
-      btn.dataset.originalKey = opt.key; // Lưu lại key gốc để chấm điểm chính xác
+      btn.dataset.originalKey = opt.key;
       btn.dataset.displayKey = assignedKey;
       btn.innerHTML = `<span><strong>${assignedKey}.</strong> ${opt.text}</span>`;
 
-      // Xác định xem đáp án này có thuộc danh sách đúng hay không
       if (q.correct.includes(opt.key)) {
         btn.dataset.isCorrect = "true";
+        correctDisplayLabels.push(assignedKey);
       } else {
         btn.dataset.isCorrect = "false";
       }
@@ -350,7 +334,6 @@ function renderQuiz() {
 
     card.appendChild(optionsDiv);
 
-    // Nút kiểm tra cho từng câu riêng biệt
     const checkBtnContainer = document.createElement('div');
     checkBtnContainer.style.marginTop = '12px';
     checkBtnContainer.innerHTML = `
@@ -360,12 +343,14 @@ function renderQuiz() {
     `;
     card.appendChild(checkBtnContainer);
 
-    // Khung hiển thị giải thích (ẩn đi ban đầu)
+    correctDisplayLabels.sort();
+    const correctStr = correctDisplayLabels.join(', ');
+
     const expDiv = document.createElement('div');
     expDiv.className = 'math-box';
     expDiv.style.display = 'none';
     expDiv.id = `exp-${q.id}`;
-    expDiv.innerHTML = `<strong>Giải thích:</strong> ${q.explain}`;
+    expDiv.innerHTML = `<strong>Giải thích:</strong> Đáp án đúng: ${correctStr}. ${q.explainDetail}`;
     card.appendChild(expDiv);
 
     container.appendChild(card);
@@ -374,15 +359,12 @@ function renderQuiz() {
   initCardSpotlight();
 }
 
-// Kiểm tra đáp án cho từng câu riêng lẻ
 function checkSingleQuestion(qId) {
   const card = document.getElementById(`card-${qId}`);
   if (!card || card.classList.contains('submitted')) return;
   card.classList.add('submitted');
 
-  const selectedBtns = card.querySelectorAll('.option-btn.selected-correct');
   const allBtns = card.querySelectorAll('.option-btn');
-
   let allCorrectChosen = true;
   let userMadeMistake = false;
 
@@ -418,7 +400,6 @@ function checkSingleQuestion(qId) {
   if (exp) exp.style.display = 'block';
 }
 
-// Hiệu ứng Spotlight chuột trên card
 function initCardSpotlight() {
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
@@ -432,80 +413,6 @@ function initCardSpotlight() {
   });
 }
 
-// Chuyển Tab Liquid Glass
-function switchTab(tabId, event) {
-  const contents = document.querySelectorAll('.tab-content');
-  contents.forEach(c => c.classList.remove('active'));
-
-  const btns = document.querySelectorAll('.glassBtn');
-  btns.forEach(b => b.classList.remove('active'));
-
-  const targetTab = document.getElementById(tabId);
-  if (targetTab) targetTab.classList.add('active');
-
-  const targetBtn = event.currentTarget;
-  targetBtn.classList.add('active');
-
-  updateLiquidPill(targetBtn);
-}
-
-// Cập nhật vị trí thanh trượt Liquid Pill
-function updateLiquidPill(btn) {
-  const pill = document.getElementById('liquidPill');
-  if (pill && btn) {
-    pill.style.left = btn.offsetLeft + 'px';
-    pill.style.width = btn.offsetWidth + 'px';
-  }
-}
-
-// Hiệu ứng dịch chuyển kính lúp (Glass Displacement)
-function initLiquidGlassInteractions() {
-  const glassNav = document.querySelector('.glassContainer');
-  const displacementMap = document.getElementById('glassDisplacement');
-
-  if (glassNav && displacementMap) {
-    glassNav.addEventListener('mousemove', function(e) {
-      const rect = glassNav.getBoundingClientRect();
-      const relX = (e.clientX - rect.left) / rect.width;
-      const scaleVal = 6 + Math.sin(relX * Math.PI) * 12;
-      displacementMap.setAttribute('scale', scaleVal);
-    });
-
-    glassNav.addEventListener('mouseleave', function() {
-      displacementMap.setAttribute('scale', '8');
-    });
-  }
-}
-
-// Bật / Tắt Video Nền
-function toggleBackground() {
-  const v = document.getElementById('bgVideo');
-  const o = document.getElementById('bgOverlay');
-  const b = document.getElementById('bgToggleBtn');
-
-  if (!v || !o || !b) return;
-
-  v.classList.toggle('hidden');
-  o.classList.toggle('hidden');
-
-  if (v.classList.contains('hidden')) {
-    b.innerHTML = '🎬 Nền: Tắt';
-  } else {
-    b.innerHTML = '🎬 Nền: Bật';
-  }
-}
-
-// Khởi chạy khi tài liệu tải xong
 window.addEventListener('DOMContentLoaded', () => {
   renderQuiz();
-
-  const activeBtn = document.querySelector('.glassBtn.active');
-  if (activeBtn) updateLiquidPill(activeBtn);
-
-  window.addEventListener('resize', () => {
-    const ca = document.querySelector('.glassBtn.active');
-    if (ca) updateLiquidPill(ca);
-  });
-
-  initLiquidGlassInteractions();
 });

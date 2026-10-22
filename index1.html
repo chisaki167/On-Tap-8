@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <link rel="icon" type="image/jpeg" href="ava.jpg">
   <title>Ôn Tập Giữa Kỳ I - Lịch Sử & Địa Lý 8</title>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
@@ -13,8 +12,6 @@
   <link rel="stylesheet" href="index1.css">
 </head>
 <body>
-
-  <!-- SVG Filter Liquid Glass -->
   <svg style="display:none; position:absolute;" xmlns="http://www.w3.org/2000/svg">
     <filter id="container-glass" x="-20%" y="-20%" width="140%" height="140%">
       <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
@@ -22,32 +19,25 @@
     </filter>
   </svg>
 
-  <!-- Góc Trên Bên Trái: Avatar ava.jpg & Tên chisaki167 (Có hiệu ứng nổi lên khi hover, không sáng) -->
   <div class="top-left-profile">
     <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
     <span class="user-name">chisaki167</span>
   </div>
 
-  <!-- Góc Trên Bên Phải: Nút Bật/Tắt Nền -->
   <div class="top-right-controls">
-    <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">
-      🎬 Nền: Tắt
-    </button>
+    <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">🎬 Nền: Tắt</button>
   </div>
 
-  <!-- Video Nền (Mặc định thêm class hidden để tắt sẵn) -->
   <video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
     <source src="background.mp4" type="video/mp4">
   </video>
   <div class="bg-overlay hidden" id="bgOverlay"></div>
 
-  <!-- Header -->
   <header class="profile wrap">
     <h1>ÔN TẬP GIỮA KỲ I <span class="highlight">(2025 - 2026)</span></h1>
-    <h2>MÔN LỊCH SỬ & ĐỊA LÝ 8 — KHỐI 8A11</h2>
+    <h2>MÔN LỊCH SỬ & ĐỊA LÍ 8 — KHỐI 8A11</h2>
   </header>
 
-  <!-- Navigation Tab Liquid Glass -->
   <div class="wrap filter-container">
     <div class="filter-tabs glassContainer" id="filterTabs">
       <div class="liquid-pill" id="liquidPill"></div>
@@ -61,8 +51,6 @@
   </div>
 
   <main class="wrap">
-
-    <!-- ================= MÔN LỊCH SỬ ================= -->
     <div id="lich-su" class="tab-content active">
       <h3 class="section-title"><i class="fa-solid fa-list-check"></i> PHẦN I. Trắc nghiệm nhiều lựa chọn</h3>
       <div class="quiz-container" id="quiz-lich-su"></div>
@@ -73,12 +61,12 @@
         <div class="essay-content">
           <p><strong>a) Tác động của cách mạng công nghiệp đến sản xuất & đời sống xã hội:</strong></p>
           <ul>
-            <li><strong>Đối với sản xuất:</strong> Thay đổi quá trình sản xuất, nâng cao năng suất lao động, tạo ra nguồn của cải dồi dào và thúc đẩy các ngành kinh tế khác phát triển.</li>
-            <li><strong>Đối với xã hội:</strong> Hình thành 2 giai cấp đối kháng cơ bản là giai cấp tư sản và giai cấp vô sản.</li>
+            <li><strong>Đối với sản xuất:</strong> Thay đổi quá trình sản xuất, nâng cao năng suất lao động, tạo ra nguồn của cải dồi dào và thúc đẩy các kinh tế phát triển.</li>
+            <li><strong>Đối với xã hội:</strong> Hình thành 2 giai cấp đối kháng cơ bản là tư sản và vô sản.</li>
           </ul>
           <p><strong>b) Thành tựu quan trọng nhất:</strong></p>
           <div class="math-box">
-            👉 Thành tựu quan trọng nhất là <strong>Động cơ hơi nước (James Watt)</strong>. Vì nó giúp giải phóng sức lao động con người và gia súc, không phụ thuộc vào điều kiện tự nhiên, vận hành linh hoạt mọi nơi và tạo tiền đề phát triển công nghiệp, giao thông vận tải.
+            👉 Thành tựu quan trọng nhất là <strong>Động cơ hơi nước (James Watt)</strong>. Vì giúp giải phóng sức lao động, không phụ thuộc tự nhiên, vận hành linh hoạt và tạo tiền đề phát triển công nghiệp, giao thông.
           </div>
         </div>
       </div>
@@ -88,13 +76,13 @@
         <div class="essay-content">
           <p><strong>• Xung đột Nam - Bắc triều:</strong></p>
           <ul>
-            <li>Năm 1527, Mạc Đăng Dung phế vua Lê lập ra nhà Mạc (Bắc triều, từ Ninh Bình trở ra).</li>
-            <li>Năm 1533, Nguyễn Kim lập Lê Duy Ninh làm vua, lấy danh nghĩa “phù Lê diệt Mạc” (Nam triều). Xung đột kéo dài gần 60 năm (1533-1592) đến khi Nam triều chiếm lại Thăng Long.</li>
+            <li>Năm 1527, Mạc Đăng Dung phế vua Lê lập nhà Mạc (Bắc triều).</li>
+            <li>Năm 1533, Nguyễn Kim lập Lê Duy Ninh, lấy danh nghĩa “phù Lê diệt Mạc” (Nam triều). Kéo dài gần 60 năm (1533-1592).</li>
           </ul>
           <p><strong>• Xung đột Trịnh – Nguyễn:</strong></p>
           <ul>
-            <li>Năm 1545, Nguyễn Kim chết, con rể Trịnh Kiểm nắm binh quyền (thế lực họ Trịnh).</li>
-            <li>Năm 1558, Nguyễn Hoàng vào trấn thủ Thuận Hóa - Quảng Nam (thế lực họ Nguyễn). Đến năm 1613, Nguyễn Phúc Nguyên ngừng nộp thuế; năm 1627 xung đột chính thức bùng nổ.</li>
+            <li>Năm 1545, Nguyễn Kim mất, Trịnh Kiểm nắm binh quyền (thế lực họ Trịnh).</li>
+            <li>Năm 1558, Nguyễn Hoàng vào trấn thủ Thuận Hóa - Quảng Nam. Năm 1613 ngừng nộp thuế; năm 1627 bùng nổ xung đột.</li>
           </ul>
         </div>
       </div>
@@ -103,90 +91,61 @@
         <div class="question-title">Câu 3: Bối cảnh lịch sử dẫn đến phong trào nông dân Đàng Ngoài</div>
         <div class="essay-content">
           <ul>
-            <li><strong>Chính trị:</strong> Chính quyền phong kiến khủng hoảng sâu sắc, Phủ chúa nắm quyền hành nhưng quanh năm ăn chơi, yến tiệc.</li>
-            <li><strong>Kinh tế:</strong> Nông nghiệp, thủ công nghiệp và thương nghiệp sa sút, điêu tàn.</li>
-            <li><strong>Xã hội:</strong> Đời sống nhân dân cực khổ, bị bóc xót nặng nề thúc đẩy nông dân đứng lên khởi nghĩa.</li>
+            <li><strong>Chính trị:</strong> Chính quyền phong kiến khủng hoảng sâu sắc, Phủ chúa ăn chơi yến tiệc.</li>
+            <li><strong>Kinh tế:</strong> Nông nghiệp, thủ công nghiệp và thương nghiệp điêu tàn.</li>
+            <li><strong>Xã hội:</strong> Đời sống nhân dân cực khổ, bị bóc lột nặng nề thúc đẩy khởi nghĩa.</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- ================= MÔN ĐỊA LÍ ================= -->
     <div id="dia-li" class="tab-content">
       <h3 class="section-title"><i class="fa-solid fa-list-check"></i> PHẦN I. Trắc nghiệm nhiều lựa chọn</h3>
       <div class="quiz-container" id="quiz-dia-li"></div>
 
       <h3 class="section-title"><i class="fa-solid fa-calculator"></i> PHẦN II. Trắc Nghiệm Trả Lời Ngắn</h3>
       <div class="card">
-        <div class="question-title">Câu 1. Trải rộng từ tây sang đông khoảng bao nhiêu kinh độ (từ 102°09'Đ đến 109°28'Đ)?</div>
-        <div class="math-box">
-          <strong>Cách tính:</strong> 109° - 102° = 7° <br>
-          👉 <strong>Đáp số:</strong> Khoảng <strong>7 kinh độ</strong>.
-        </div>
+        <div class="question-title">Câu 1. Trải rộng từ tây sang đông khoảng bao nhiêu kinh độ (102°09'Đ đến 109°28'Đ)?</div>
+        <div class="math-box"><strong>Cách tính:</strong> 109° - 102° = 7° <br>👉 <strong>Đáp số:</strong> Khoảng <strong>7 kinh độ</strong>.</div>
       </div>
 
       <div class="card">
         <div class="question-title">Câu 2. Vùng biển Việt Nam (1 triệu km²) chiếm bao nhiêu % diện tích Biển Đông (3.44 triệu km²)?</div>
-        <div class="math-box">
-          <strong>Cách tính:</strong> (1 / 3,44) × 100% ≈ 29,069% <br>
-          👉 <strong>Đáp số:</strong> Khoảng <strong>29%</strong>.
-        </div>
+        <div class="math-box"><strong>Cách tính:</strong> (1 / 3,44) × 100% ≈ 29,069% <br>👉 <strong>Đáp số:</strong> Khoảng <strong>29%</strong>.</div>
       </div>
 
       <div class="card">
-        <div class="question-title">Câu 3. Đồng bằng sông Cửu Long (40 000 km²) rộng hơn ĐB sông Hồng (15 000 km²) bao nhiêu lần?</div>
-        <div class="math-box">
-          <strong>Cách tính:</strong> 40 000 / 15 000 ≈ 2,666... <br>
-          👉 <strong>Đáp số:</strong> Khoảng <strong>2,7 lần</strong>.
-        </div>
+        <div class="question-title">Câu 3. ĐB sông Cửu Long (40k km²) rộng hơn ĐB sông Hồng (15k km²) bao nhiêu lần?</div>
+        <div class="math-box"><strong>Cách tính:</strong> 40 000 / 15 000 ≈ 2,66 <br>👉 <strong>Đáp số:</strong> Khoảng <strong>2,7 lần</strong>.</div>
       </div>
 
       <div class="card">
         <div class="question-title">Câu 4. ĐB Thanh Hóa (3100 km²) chiếm bao nhiêu % ĐB duyên hải miền Trung (15 000 km²)?</div>
-        <div class="math-box">
-          <strong>Cách tính:</strong> (3 100 / 15 000) × 100% ≈ 20,666...% <br>
-          👉 <strong>Đáp số:</strong> Khoảng <strong>20,7%</strong>.
-        </div>
+        <div class="math-box"><strong>Cách tính:</strong> (3 100 / 15 000) × 100% ≈ 20,66% <br>👉 <strong>Đáp số:</strong> Khoảng <strong>20,7%</strong>.</div>
       </div>
 
       <div class="card">
         <div class="question-title">Câu 5. Trữ lượng quặng bô-xít Nam Trung Bộ (8,2 tỉ tấn) chiếm bao nhiêu % cả nước (9,6 tỉ tấn)?</div>
-        <div class="math-box">
-          <strong>Cách tính:</strong> (8,2 / 9,6) × 100% ≈ 85,416...% <br>
-          👉 <strong>Đáp số:</strong> Khoảng <strong>85,4%</strong>.
-        </div>
+        <div class="math-box"><strong>Cách tính:</strong> (8,2 / 9,6) × 100% ≈ 85,4% <br>👉 <strong>Đáp số:</strong> Khoảng <strong>85,4%</strong>.</div>
       </div>
 
       <h3 class="section-title"><i class="fa-solid fa-pen-nib"></i> PHẦN III. TỰ LUẬN</h3>
       <div class="card">
-        <div class="question-title">Câu 1. Ví dụ chứng minh ảnh hưởng của địa hình đối với sự phân hoá lãnh thổ tự nhiên (sông ngòi)</div>
+        <div class="question-title">Câu 1. Ví dụ chứng minh ảnh hưởng của địa hình đối với sông ngòi</div>
         <div class="essay-content">
-          <p><strong>• Hướng nghiêng địa hình ảnh hưởng đến hướng chảy:</strong></p>
-          <ul>
-            <li>Khu vực Tây Bắc: Sông chảy hướng Tây Bắc – Đông Nam.</li>
-            <li>Khu vực Đông Bắc: Sông chảy hướng vòng cung.</li>
-          </ul>
-          <p><strong>• Độ dốc ảnh hưởng đến tốc độ dòng chảy:</strong> Ở vùng núi sông chảy nhanh, dốc; ở đồng bằng sông chảy chậm, điều hòa hơn.</p>
+          <p><strong>• Hướng nghiêng địa hình:</strong> Tây Bắc chảy Tây Bắc – Đông Nam; Đông Bắc chảy theo vòng cung.</p>
+          <p><strong>• Độ dốc:</strong> Miền núi chảy nhanh, dốc; đồng bằng chảy chậm, điều hòa.</p>
         </div>
       </div>
 
       <div class="card">
         <div class="question-title">Câu 2. Ví dụ chứng minh ảnh hưởng của địa hình đối với khai thác kinh tế</div>
         <div class="essay-content">
-          <p><strong>• Khu vực Đồi núi:</strong></p>
-          <ul>
-            <li><em>Thuận lợi:</em> Phát triển cây công nghiệp, cây ăn quả, lâm nghiệp, chăn nuôi gia súc lớn, thủy điện, khai khoáng và du lịch.</li>
-            <li><em>Khó khăn:</em> Địa hình bị chia cắt gây trở ngại giao thông; dễ gặp thiên tai (sạt lở, lũ quét).</li>
-          </ul>
-          <p style="margin-top: 6px;"><strong>• Khu vực Đồng bằng:</strong></p>
-          <ul>
-            <li><em>Thuận lợi:</em> Đất đai phì nhiêu, bằng phẳng; là vùng sản xuất lương thực - thực phẩm lớn; tập trung dân cư và trung tâm kinh tế.</li>
-            <li><em>Khó khăn:</em> Thường chịu ảnh hưởng thiên tai lũ lụt, bão, hạn hán.</li>
-          </ul>
+          <p><strong>• Đồi núi:</strong> Phát triển cây công nghiệp, lâm nghiệp, thủy điện, du lịch; khó khăn về giao thông và thiên tai (sạt lở, lũ quét).</p>
+          <p><strong>• Đồng bằng:</strong> Thuận lợi sản xuất lương thực, tập trung dân cư; dễ chịu ảnh hưởng bão, lũ lụt.</p>
         </div>
       </div>
     </div>
-
   </main>
 
   <footer class="wrap">

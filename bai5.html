@@ -8,9 +8,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="bai5.css">
+<link rel="stylesheet" href="index1.css">
 </head>
 <body>
+
+<svg style="display:none; position:absolute;" xmlns="http://www.w3.org/2000/svg">
+  <filter id="container-glass" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" id="glassDisplacement" />
+  </filter>
+</svg>
+
+<div class="top-left-profile">
+  <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
+  <span class="user-name">chisaki167</span>
+</div>
+
+<div class="top-right-controls">
+  <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">🎬 Nền: Tắt</button>
+</div>
+
+<video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
+  <source src="background.mp4" type="video/mp4">
+</video>
+<div class="bg-overlay hidden" id="bgOverlay"></div>
 
 <header class="top wrap">
   <div class="eyebrow">Khoa học tự nhiên 8 · Chương I: Phản ứng hóa học</div>
@@ -24,22 +47,21 @@
   </div>
 </header>
 
-<nav class="tabs" aria-label="Các phần ôn tập">
-  <div class="wrap" role="tablist">
-    <button role="tab" data-tab="kienthuc" aria-selected="true">1. Kiến thức</button>
-    <button role="tab" data-tab="thinghiem" aria-selected="false">2. Thí nghiệm ảo</button>
-    <button role="tab" data-tab="canbang" aria-selected="false">3. Cân bằng PTHH</button>
-    <button role="tab" data-tab="tinhtoan" aria-selected="false">4. Tính khối lượng</button>
-    <button role="tab" data-tab="tracnghiem" aria-selected="false">5. Trắc nghiệm</button>
-    <button role="tab" data-tab="thuctien" aria-selected="false">6. Liên hệ thực tiễn</button>
-    <button role="tab" data-tab="nopbai" aria-selected="false">7. Nộp kết quả</button>
-    <button role="tab" data-tab="giaovien" aria-selected="false" class="teacher" id="teacherTab" hidden>Giáo viên</button>
+<div class="wrap filter-container">
+  <div class="filter-tabs glassContainer" id="filterTabs" role="tablist">
+    <div class="liquid-pill" id="liquidPill"></div>
+    <button class="glassBtn active" role="tab" data-tab="kienthuc" aria-selected="true">1. Kiến thức</button>
+    <button class="glassBtn" role="tab" data-tab="thinghiem" aria-selected="false">2. Thí nghiệm ảo</button>
+    <button class="glassBtn" role="tab" data-tab="canbang" aria-selected="false">3. Cân bằng PTHH</button>
+    <button class="glassBtn" role="tab" data-tab="tinhtoan" aria-selected="false">4. Tính khối lượng</button>
+    <button class="glassBtn" role="tab" data-tab="tracnghiem" aria-selected="false">5. Trắc nghiệm</button>
+    <button class="glassBtn" role="tab" data-tab="thuctien" aria-selected="false">6. Liên hệ thực tiễn</button>
+    <button class="glassBtn" role="tab" data-tab="nopbai" aria-selected="false">7. Nộp kết quả</button>
+    <button class="glassBtn teacher" role="tab" data-tab="giaovien" aria-selected="false" id="teacherTab" hidden>Giáo viên</button>
   </div>
-</nav>
+</div>
 
 <main class="wrap">
-
-<!-- 1. KIẾN THỨC -->
 <section class="panel" id="p-kienthuc">
   <div class="grid2">
     <div class="card">
@@ -103,7 +125,6 @@
   </div>
 </section>
 
-<!-- 2. THÍ NGHIỆM ẢO -->
 <section class="panel" id="p-thinghiem" hidden>
   <div class="card lab">
     <h2>Thí nghiệm ảo: cân trước và sau phản ứng</h2>
@@ -119,7 +140,6 @@
   </div>
 </section>
 
-<!-- 3. CÂN BẰNG -->
 <section class="panel" id="p-canbang" hidden>
   <div class="card">
     <h2>Luyện cân bằng phương trình hóa học</h2>
@@ -135,7 +155,6 @@
   </div>
 </section>
 
-<!-- 4. TÍNH KHỐI LƯỢNG -->
 <section class="panel" id="p-tinhtoan" hidden>
   <div class="card">
     <h2>Vận dụng định luật bảo toàn khối lượng</h2>
@@ -145,7 +164,6 @@
   </div>
 </section>
 
-<!-- 5. TRẮC NGHIỆM -->
 <section class="panel" id="p-tracnghiem" hidden>
   <div class="card">
     <h2>Trắc nghiệm</h2>
@@ -157,7 +175,6 @@
   </div>
 </section>
 
-<!-- 6. THỰC TIỄN -->
 <section class="panel" id="p-thuctien" hidden>
   <div class="card">
     <h2>Liên hệ thực tiễn</h2>
@@ -170,7 +187,6 @@
   <details><summary>Định luật bảo toàn khối lượng được ứng dụng thế nào trong sản xuất?</summary><p>Giúp tính được lượng nguyên liệu cần dùng hoặc lượng sản phẩm thu được, chẳng hạn tính lượng vôi sống và khí carbon dioxide tạo ra khi nung một lượng đá vôi trong lò vôi, từ đó lập kế hoạch sản xuất và xử lý khí thải.</p></details>
 </section>
 
-<!-- 7. NỘP KẾT QUẢ -->
 <section class="panel" id="p-nopbai" hidden>
   <div class="grid2">
     <div class="card">
@@ -194,7 +210,6 @@
   </div>
 </section>
 
-<!-- GIÁO VIÊN -->
 <section class="panel" id="p-giaovien" hidden>
   <div class="card">
     <h2>Bảng theo dõi của giáo viên</h2>
@@ -223,10 +238,58 @@
     <span class="explain" id="exportMsg"></span>
   </div>
 </section>
-
 </main>
 <footer class="wrap">Trang ôn tập KHTN 8 · Bài 5 (Chương I: Phản ứng hóa học). Dùng để học sinh tự ôn ở nhà hoặc giáo viên trình chiếu trong tiết ôn tập.</footer>
 
+<script>
+  function updateLiquidPill(btn) {
+    const pill = document.getElementById('liquidPill');
+    if (pill && btn) {
+      pill.style.left = btn.offsetLeft + 'px';
+      pill.style.width = btn.offsetWidth + 'px';
+    }
+  }
+
+  function toggleBackground() {
+    const v = document.getElementById('bgVideo');
+    const o = document.getElementById('bgOverlay');
+    const b = document.getElementById('bgToggleBtn');
+    if (!v || !o || !b) return;
+    v.classList.toggle('hidden');
+    o.classList.toggle('hidden');
+    b.innerHTML = v.classList.contains('hidden') ? '🎬 Nền: Tắt' : '🎬 Nền: Bật';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const activeBtn = document.querySelector('.glassBtn.active');
+    if (activeBtn) updateLiquidPill(activeBtn);
+
+    document.querySelectorAll('.glassBtn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.glassBtn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        updateLiquidPill(btn);
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      const ca = document.querySelector('.glassBtn.active');
+      if (ca) updateLiquidPill(ca);
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', function(e) {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
+      });
+    });
+  });
+</script>
 <script src="bai5.js"></script>
 </body>
 </html>

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <link rel="icon" type="image/jpeg" href="ava.jpg">
   <title>Ôn Tập Giữa Kỳ I - Tin Học 8</title>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
@@ -13,8 +12,6 @@
   <link rel="stylesheet" href="index1.css">
 </head>
 <body>
-
-  <!-- SVG Filter Liquid Glass -->
   <svg style="display:none; position:absolute;" xmlns="http://www.w3.org/2000/svg">
     <filter id="container-glass" x="-20%" y="-20%" width="140%" height="140%">
       <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
@@ -22,32 +19,25 @@
     </filter>
   </svg>
 
-  <!-- Góc Trên Bên Trái: Avatar & Tên -->
   <div class="top-left-profile">
     <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
     <span class="user-name">chisaki167</span>
   </div>
 
-  <!-- Góc Trên Bên Phải: Nút Bật/Tắt Nền Video -->
   <div class="top-right-controls">
-    <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">
-      🎬 Nền: Tắt
-    </button>
+    <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">🎬 Nền: Tắt</button>
   </div>
 
-  <!-- Video Nền -->
   <video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
     <source src="background.mp4" type="video/mp4">
   </video>
   <div class="bg-overlay hidden" id="bgOverlay"></div>
 
-  <!-- Header -->
   <header class="profile wrap">
     <h1>ÔN TẬP GIỮA KỲ I <span class="highlight">(2026 - 2027)</span></h1>
     <h2>MÔN TIN HỌC 8 — KHỐI 8</h2>
   </header>
 
-  <!-- Navigation Tab Liquid Glass -->
   <div class="wrap filter-container">
     <div class="filter-tabs glassContainer" id="filterTabs">
       <div class="liquid-pill" id="liquidPill"></div>
@@ -61,14 +51,11 @@
   </div>
 
   <main class="wrap">
-
-    <!-- ================= PHẦN I. TRẮC NGHIỆM ================= -->
     <div id="trac-nghiem" class="tab-content active">
       <h3 class="section-title"><i class="fa-solid fa-laptop-code"></i> CÂU HỎI TRẮC NGHIỆM TƯƠNG TÁC (TRÁO CÂU HỎI & ĐÁP ÁN)</h3>
       <div class="quiz-container" id="quiz-tin-hoc"></div>
     </div>
 
-    <!-- ================= PHẦN II. TỰ LUẬN ================= -->
     <div id="tu-luan" class="tab-content">
       <h3 class="section-title"><i class="fa-solid fa-book-open"></i> PHẦN TỰ LUẬN VÀ GỢI Ý LỜI GIẢI</h3>
 
@@ -120,9 +107,7 @@
           </ul>
         </div>
       </div>
-
     </div>
-
   </main>
 
   <footer class="wrap">
