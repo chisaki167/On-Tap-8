@@ -11,131 +11,63 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="index1.css">
 <style>
-  .chat-box {
+  .gemini-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    max-height: 460px;
-    overflow-y: auto;
-    padding-right: 6px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent) transparent;
-  }
-  .chat-box::-webkit-scrollbar { width: 6px; }
-  .chat-box::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 999px; }
-
-  .msg {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    animation: fadeIn 0.3s ease;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .msg.user { flex-direction: row-reverse; }
-
-  .msg-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-    border: 1.5px solid var(--accent);
-  }
-
-  .msg-bubble {
-    max-width: 80%;
-    padding: 12px 16px;
-    border-radius: 18px;
-    font-size: 0.92rem;
-    line-height: 1.6;
-    word-break: break-word;
-    white-space: pre-wrap;
-    box-shadow: var(--shadow-glass);
-  }
-
-  .msg.user .msg-bubble {
-    background: var(--accent);
-    color: #FFFFFF;
-    border-bottom-right-radius: 4px;
-  }
-
-  .msg.ai .msg-bubble {
-    background: rgba(15, 23, 42, 0.7);
-    border: var(--glass-border);
-    color: var(--ink);
-    border-bottom-left-radius: 4px;
-  }
-
-  .key-config {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 16px;
+    gap: 20px;
     align-items: center;
-    background: rgba(15, 23, 42, 0.4);
-    padding: 10px 14px;
-    border-radius: 14px;
-    border: var(--glass-border);
+    text-align: center;
+    padding: 10px 0;
   }
-  .key-config input {
-    flex: 1;
-    background: rgba(15, 23, 42, 0.6);
-    border: var(--glass-border);
-    border-radius: 10px;
-    padding: 8px 12px;
-    color: var(--ink);
-    font-size: 0.88rem;
-    outline: none;
-  }
-  .key-config button {
-    background: rgba(59, 130, 246, 0.2);
-    border: 1px solid rgba(59, 130, 246, 0.4);
-    color: var(--accent);
-    padding: 8px 16px;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .key-config button:hover { background: var(--accent); color: #fff; }
 
-  .input-area {
+  .gemini-icon-glow {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.15);
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: var(--accent);
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+  }
+
+  .quick-input-area {
+    width: 100%;
+    max-width: 650px;
     display: flex;
     gap: 10px;
-    margin-top: 16px;
-    position: relative;
-    z-index: 3;
+    margin-top: 10px;
   }
 
-  .input-area textarea {
+  .quick-input-area textarea {
     flex: 1;
     background: rgba(15, 23, 42, 0.6);
     border: var(--glass-border);
-    border-radius: 14px;
-    padding: 12px 16px;
+    border-radius: 16px;
+    padding: 14px 18px;
     color: var(--ink);
     font-family: var(--font-body);
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     resize: none;
     outline: none;
-    height: 48px;
+    height: 52px;
     transition: all 0.3s ease;
   }
-  .input-area textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-  }
-  .input-area textarea::placeholder { color: var(--muted); }
 
-  .send-btn {
+  .quick-input-area textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+  }
+
+  .quick-send-btn {
     background: var(--accent);
     border: none;
     color: #FFFFFF;
-    padding: 0 20px;
-    border-radius: 14px;
+    padding: 0 24px;
+    border-radius: 16px;
     font-family: var(--font-display);
     font-weight: 600;
     cursor: pointer;
@@ -143,13 +75,40 @@
     align-items: center;
     gap: 8px;
     transition: all 0.3s ease;
+    text-decoration: none;
   }
-  .send-btn:hover {
+
+  .quick-send-btn:hover {
     background: #2563EB;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
   }
-  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .preset-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    max-width: 650px;
+    margin-top: 5px;
+  }
+
+  .tag-btn {
+    background: rgba(15, 23, 42, 0.5);
+    border: var(--glass-border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .tag-btn:hover {
+    border-color: var(--accent);
+    color: var(--ink);
+    background: rgba(59, 130, 246, 0.15);
+  }
 </style>
 </head>
 <body>
@@ -178,27 +137,33 @@
 <main class="wrap">
   <header class="profile">
     <h1>Trợ Lý <span class="highlight">Gemini AI</span></h1>
-    <h2>Hỏi đáp thông minh · Giao diện Liquid Glass</h2>
+    <h2>Hỏi đáp thông minh · Trực tiếp không cần API Key</h2>
   </header>
 
   <div class="card">
-    <div class="key-config">
-      <input type="password" id="apiKeyInput" placeholder="Dán mã khóa AQ... vào đây...">
-      <button onclick="saveApiKey()">Lưu Key</button>
-    </div>
-
-    <div class="chat-box" id="chatBox">
-      <div class="msg ai">
-        <img src="ava.jpg" class="msg-avatar" alt="AI" onerror="this.src='https://via.placeholder.com/32'">
-        <div class="msg-bubble">Xin chào! Vui lòng lưu mã khóa và bắt đầu trò chuyện nhé.</div>
+    <div class="gemini-container">
+      <div class="gemini-icon-glow">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
       </div>
-    </div>
 
-    <div class="input-area">
-      <textarea id="promptInput" placeholder="Nhập câu hỏi..." rows="1"></textarea>
-      <button class="send-btn" id="sendBtn" onclick="sendPrompt()">
-        <span>Gửi</span> <i class="fa-solid fa-paper-plane"></i>
-      </button>
+      <div>
+        <h3 style="font-size: 1.25rem; color: var(--ink); margin-bottom: 6px; font-family: var(--font-display);">Nhập câu hỏi cho Gemini</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">Gửi câu hỏi trực tiếp sang Gemini AI chính chủ để nhận câu trả lời đầy đủ & mượt mà nhất.</p>
+      </div>
+
+      <div class="quick-input-area">
+        <textarea id="promptInput" placeholder="Nhập thắc mắc hoặc bài tập cần giải đáp tại đây..." rows="1"></textarea>
+        <button class="quick-send-btn" onclick="sendToGemini()">
+          <span>Hỏi Gemini</span> <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+
+      <div class="preset-tags">
+        <button class="tag-btn" onclick="fillPrompt('Giải bài tập KHTN 8 hóa học bài 5')">🧪 Giải bài KHTN 8</button>
+        <button class="tag-btn" onclick="fillPrompt('Tóm tắt kiến thức Lịch Sử - Địa Lý lớp 8')">📜 Ôn tập LS-ĐL 8</button>
+        <button class="tag-btn" onclick="fillPrompt('Hướng dẫn làm bài tập Tin Học 8')">💻 Hỏi Tin Học 8</button>
+        <button class="tag-btn" onclick="fillPrompt('Phân tích tác phẩm Ngữ Văn lớp 8')">📖 Phân tích Ngữ Văn</button>
+      </div>
     </div>
   </div>
 </main>
@@ -216,12 +181,24 @@
     b.innerHTML = v.classList.contains('hidden') ? '🎬 Nền: Tắt' : '🎬 Nền: Bật';
   }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const savedKey = localStorage.getItem('gemini_api_key');
-    if (savedKey) {
-      document.getElementById('apiKeyInput').value = savedKey;
-    }
+  function fillPrompt(text) {
+    const input = document.getElementById('promptInput');
+    input.value = text;
+    input.focus();
+  }
 
+  function sendToGemini() {
+    const input = document.getElementById('promptInput');
+    const text = input.value.trim();
+    if (text) {
+      const url = `https://gemini.google.com/app?q=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    } else {
+      window.open('https://gemini.google.com', '_blank');
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
@@ -229,86 +206,13 @@
         card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
       });
     });
-  });
 
-  function saveApiKey() {
-    const key = document.getElementById('apiKeyInput').value.trim();
-    if (!key) {
-      alert('Vui lòng nhập khóa hợp lệ!');
-      return;
-    }
-    localStorage.setItem('gemini_api_key', key);
-    alert('Đã lưu mã khóa thành công!');
-  }
-
-  async function sendPrompt() {
-    const apiKey = localStorage.getItem('gemini_api_key') || document.getElementById('apiKeyInput').value.trim();
-    if (!apiKey) {
-      alert('Bạn chưa nhập mã khóa!');
-      return;
-    }
-
-    const input = document.getElementById('promptInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const chatBox = document.getElementById('chatBox');
-    const text = input.value.trim();
-
-    if (!text) return;
-
-    appendMessage('user', text);
-    input.value = '';
-    sendBtn.disabled = true;
-
-    const aiMsgDiv = appendMessage('ai', 'Đang suy nghĩ...');
-
-    try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`;
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({ contents: [{ parts: [{ text: text }] }] })
-      });
-
-      const data = await res.json();
-      if (data.candidates && data.candidates[0].content) {
-        aiMsgDiv.querySelector('.msg-bubble').textContent = data.candidates[0].content.parts[0].text;
-      } else if (data.error) {
-        aiMsgDiv.querySelector('.msg-bubble').textContent = 'Lỗi từ Google API: ' + (data.error.message || 'Không xác định');
-      } else {
-        aiMsgDiv.querySelector('.msg-bubble').textContent = 'Lỗi: Phản hồi không hợp lệ từ máy chủ.';
+    document.getElementById('promptInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendToGemini();
       }
-    } catch (err) {
-      aiMsgDiv.querySelector('.msg-bubble').textContent = 'Lỗi kết nối máy chủ.';
-    } finally {
-      sendBtn.disabled = false;
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-  }
-
-  function appendMessage(role, text) {
-    const chatBox = document.getElementById('chatBox');
-    const msg = document.createElement('div');
-    msg.className = `msg ${role}`;
-
-    const avatarSrc = role === 'user' ? 'ava1.jpg' : 'ava.jpg';
-    msg.innerHTML = `
-      <img src="${avatarSrc}" class="msg-avatar" alt="${role}" onerror="this.src='https://via.placeholder.com/32'">
-      <div class="msg-bubble">${text}</div>
-    `;
-
-    chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-    return msg;
-  }
-
-  document.getElementById('promptInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendPrompt();
-    }
+    });
   });
 </script>
 </body>

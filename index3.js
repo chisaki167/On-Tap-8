@@ -281,12 +281,22 @@ const tinHocQuestions = [
   }
 ];
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 function renderQuiz() {
   const container = document.getElementById('quiz-tin-hoc');
   if (!container) return;
   container.innerHTML = '';
 
-  tinHocQuestions.forEach((q, idx) => {
+  const shuffledQuestions = shuffleArray([...tinHocQuestions]);
+
+  shuffledQuestions.forEach((q, idx) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.id = `card-${q.id}`;
@@ -299,7 +309,7 @@ function renderQuiz() {
     const optionsDiv = document.createElement('div');
     optionsDiv.className = 'options';
 
-    const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+    const shuffledOptions = shuffleArray([...q.options]);
     const displayLabels = ['A', 'B', 'C', 'D', 'E', 'F'];
     const correctDisplayLabels = [];
 
@@ -374,15 +384,24 @@ function checkSingleQuestion(qId) {
     const isSelected = btn.classList.contains('selected-correct');
 
     if (isCorrectTarget) {
-      btn.style.borderColor = 'var(--good)';
-      btn.style.background = 'var(--good-soft)';
-      btn.style.color = '#34D399';
-      if (!isSelected) allCorrectChosen = false;
+      if (isSelected) {
+        // Đã chọn đúng -> Màu xanh lá
+        btn.style.borderColor = '#10B981';
+        btn.style.background = 'rgba(16, 185, 129, 0.25)';
+        btn.style.color = '#34D399';
+      } else {
+        // Đáp án đúng còn thiếu -> Màu xanh dương
+        allCorrectChosen = false;
+        btn.style.borderColor = '#3B82F6';
+        btn.style.background = 'rgba(59, 130, 246, 0.25)';
+        btn.style.color = '#60A5FA';
+      }
     } else {
       if (isSelected) {
+        // Chọn sai -> Màu đỏ
         userMadeMistake = true;
-        btn.style.borderColor = 'var(--bad)';
-        btn.style.background = 'var(--bad-soft)';
+        btn.style.borderColor = '#EF4444';
+        btn.style.background = 'rgba(239, 68, 68, 0.25)';
         btn.style.color = '#F87171';
       }
     }
@@ -398,6 +417,24 @@ function checkSingleQuestion(qId) {
 
   const exp = document.getElementById(`exp-${qId}`);
   if (exp) exp.style.display = 'block';
+}
+
+function switchTab(tabId, event) {
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  document.querySelectorAll('.glassBtn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  const targetTab = document.getElementById(tabId);
+  if (targetTab) {
+    targetTab.classList.add('active');
+  }
+
+  if (event && event.currentTarget) {
+    event.currentTarget.classList.add('active');
+  }
 }
 
 function initCardSpotlight() {

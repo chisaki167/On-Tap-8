@@ -457,3 +457,57 @@ footer {
     .lesson-card p.lead { color: #94A3B8; }
     .badge{display:inline-block;align-self:flex-start;padding:4px 12px;border-radius:999px;font-size:0.75rem;font-weight:700;text-transform:uppercase;background:var(--accent-soft);color:var(--accent);margin-bottom:12px;}
     header.top h1 { color: #FFFFFF !important; }
+    
+.option-box {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #FFFFFF;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.option-box.correct {
+  background: rgba(6, 78, 59, 0.7) !important;
+  border: 1.5px solid #10B981 !important;
+  color: #FFFFFF !important;
+}
+
+.option-box.correct .status-badge {
+  background: #059669;
+  color: #FFFFFF;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.option-box.incorrect {
+  background: rgba(127, 29, 29, 0.7) !important;
+  border: 1.5px solid #EF4444 !important;
+  color: #FFFFFF !important;
+}
+
+.option-box.incorrect .status-badge {
+  background: #DC2626;
+  color: #FFFFFF;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+  width: 100%;
+}
