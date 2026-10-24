@@ -33,7 +33,7 @@
 
   <!-- Nút điều khiển video nền góc trên phải -->
   <div class="top-right-controls">
-    <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">🎬 Nền: Tắt</button>
+    <button class="bg-toggle-btn" id="bgToggleBtn" type="button" onclick="toggleBackground()">🎬 Nền: Tắt</button>
   </div>
 
   <video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
@@ -44,14 +44,17 @@
   <header class="profile wrap">
     <h1>HỆ THỐNG ÔN TẬP <span class="highlight">(Trình Chiếu 16:9)</span></h1>
 
-    <!-- Ô nhập link và nút mở trình chiếu trực tiếp lên màn hình 16:9 -->
+    <!-- Ô nhập link và nút mở trình chiếu trực tiếp -->
     <div class="presentation-bar">
       <div class="embed-link-wrapper">
         <i class="fa-solid fa-link" style="color: #60A5FA; margin-left: 4px;"></i>
         <input type="text" id="embedLinkInput" class="embed-input" placeholder="Dán link bài thuyết trình (iframe / URL)..." />
       </div>
-      <button class="glassBtn active" id="loadEmbedBtn" style="background: var(--accent); color: #fff; height: 38px; padding: 0 20px;">
+      <button class="glassBtn active" id="loadEmbedBtn" type="button" style="background: var(--accent); color: #fff; height: 38px; padding: 0 20px;">
         <i class="fa-solid fa-play"></i> Trình Chiếu Ngay
+      </button>
+      <button class="glassBtn" id="fullscreenStageBtn" type="button" style="background: rgba(255,255,255,0.1); color: #fff; height: 38px; padding: 0 16px;" title="Phóng to toàn màn hình (16:9)">
+        <i class="fa-solid fa-expand"></i> Toàn Màn Hình
       </button>
     </div>
   </header>
@@ -63,14 +66,14 @@
         <i class="fa-solid fa-laptop-code"></i>
         <p>Màn hình trình chiếu 16:9 đang trống.<br>Hãy nhập đường dẫn và nhấn <strong>Trình Chiếu Ngay</strong> để hiển thị nội dung.</p>
       </div>
-      <iframe id="stageIframe" class="stage-iframe hidden" src="" allowfullscreen></iframe>
+      <iframe id="stageIframe" class="stage-iframe hidden" src="" allow="fullscreen" allowfullscreen></iframe>
     </div>
 
-    <!-- Thanh Điều Hướng Tab (Đã bỏ trắc nghiệm) -->
+    <!-- Thanh Điều Hướng Tab -->
     <div class="filter-container">
       <div class="filter-tabs glassContainer" id="mainNavTabs">
         <div class="liquid-pill" id="navLiquidPill"></div>
-        <button class="glassBtn active" onclick="switchTab('tab-home', event)"><i class="fa-solid fa-house"></i> Hướng Dẫn</button>
+        <button class="glassBtn active" type="button" onclick="switchTab('tab-home', event)"><i class="fa-solid fa-house"></i> Hướng Dẫn</button>
       </div>
     </div>
 
@@ -80,16 +83,16 @@
         <h3 class="section-title"><i class="fa-solid fa-star"></i> Hướng dẫn sử dụng màn hình 16:9</h3>
         <div class="essay-content">
           <p>• Dán đường dẫn URL trang web bài thuyết trình hoặc đoạn mã nhúng <code>&lt;iframe&gt;</code> vào ô phía trên.</p>
-          <p>• Nhấn nút <strong>"Trình Chiếu Ngay"</strong>, nội dung sẽ lập tức hiển thị toàn bộ vào khung màn hình tỉ lệ 16:9 phía trên mà không cần mở cửa sổ mới.</p>
+          <p>• Nhấn nút <strong>"Trình Chiếu Ngay"</strong> để xem trực tiếp ở chế độ 16:9 trên trang web.</p>
+          <p>• Nhấn nút <strong>"Toàn Màn Hình"</strong> để phóng to khung bài giảng lên full màn hình chuẩn 16:9 (nhấn phím <kbd>ESC</kbd> để thoát).</p>
         </div>
       </div>
     </div>
 
     <!-- TAB 2: TỰ LUẬN -->
     <div id="tab-essay" class="tab-content">
-      <h3 class="section-title"><i class="fa-solid fa-pen-nib"></i> Phần Tự Luận & Gợi Ý</h3>
       <div class="card">
-        <div class="question-title">Câu hỏi tự luận mẫu</div>
+        <h3 class="section-title"><i class="fa-solid fa-pen-nib"></i> Phần Tự Luận & Gợi Ý</h3>
         <div class="essay-content">
           <p>Trình bày các bước giải bài toán tính theo phương trình hóa học:</p>
           <ul>
@@ -105,7 +108,7 @@
     Hệ thống ôn tập trực tuyến · Giao diện Liquid Glass · chisaki167
   </footer>
 
-  <!-- JAVASCRIPT XỬ LÝ GIAO DIỆN & TRÌNH CHIẾU 16:9 -->
+  <!-- JAVASCRIPT XỬ LÝ GIAO DIỆN & TOÀN MÀN HÌNH 16:9 -->
   <script>
     function toggleBackground() {
       const v = document.getElementById('bgVideo'), o = document.getElementById('bgOverlay'), b = document.getElementById('bgToggleBtn');
@@ -145,19 +148,23 @@
 
     const embedLinkInput = document.getElementById('embedLinkInput');
     const loadEmbedBtn = document.getElementById('loadEmbedBtn');
+    const fullscreenStageBtn = document.getElementById('fullscreenStageBtn');
+    const stageContainer = document.getElementById('stageContainer');
     const stagePlaceholder = document.getElementById('stagePlaceholder');
     const stageIframe = document.getElementById('stageIframe');
 
+    // Hàm tải bài thuyết trình
     function loadPresentation() {
       let rawUrl = embedLinkInput.value.trim();
       if (!rawUrl) {
-        alert('Vui lòng nhập đường dẫn hoặc mã nhúng bài trình chiếu!');
+        alert('Vui lòng dán link bài thuyết trình hoặc mã <iframe src="...">!');
         return;
       }
 
       let finalUrl = rawUrl;
+      // Tự động bóc tách link src nếu người dùng dán cả thẻ <iframe ...>
       if (rawUrl.indexOf('<iframe') !== -1) {
-        let match = rawUrl.match(/src="([^"]+)"/);
+        let match = rawUrl.match(/src=["']([^"']+)["']/);
         if (match && match[1]) finalUrl = match[1];
       }
 
@@ -166,7 +173,26 @@
       stageIframe.src = finalUrl;
     }
 
+    // Hàm bật chế độ Phóng Toàn Màn Hình chuẩn 16:9
+    function toggleFullscreenStage() {
+      if (!document.fullscreenElement) {
+        if (stageContainer.requestFullscreen) {
+          stageContainer.requestFullscreen();
+        } else if (stageContainer.webkitRequestFullscreen) {
+          stageContainer.webkitRequestFullscreen();
+        } else if (stageContainer.msRequestFullscreen) {
+          stageContainer.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
     loadEmbedBtn.addEventListener('click', loadPresentation);
+    fullscreenStageBtn.addEventListener('click', toggleFullscreenStage);
+
     embedLinkInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') loadPresentation();
     });

@@ -169,6 +169,7 @@ header.profile {
 }
 .embed-input::placeholder { color: var(--muted); }
 
+/* KHUNG MÀN HÌNH TRÌNH CHIẾU 16:9 TRỰC TIẾP TRÊN TRANG */
 .stage-container {
   position: relative;
   width: 100%;
@@ -182,6 +183,16 @@ header.profile {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* CSS khi kích hoạt Chế độ Toàn Màn Hình */
+.stage-container:fullscreen,
+.stage-container:-webkit-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
+  background: #000 !important;
 }
 
 .stage-placeholder {
