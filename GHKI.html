@@ -95,13 +95,29 @@
   .tab-content.active { display: block; }
 
   table.custom-tb { width: 100%; border-collapse: collapse; margin-block: 8px; font-size: 0.92rem; }
-  table.custom-tb th, table.custom-tb td { border: 1px solid rgba(255,255,255,0.12); padding: 8px 12px; text-align: left; color: var(--ink); }
+  table.custom-tb th, table.custom-tb td { border: 1px solid rgba(255,255,255,0.12); padding: 10px 14px; text-align: left; color: var(--ink); }
   table.custom-tb th { background: rgba(59,130,246,0.2); color: #60A5FA; font-weight: 600; text-align: center; }
 
   details { border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; background: rgba(15, 23, 42, 0.45); padding: 12px 16px; margin-top: 8px; }
   details summary { cursor: pointer; font-weight: 600; color: #60A5FA; }
   details[open] summary { margin-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.12); padding-bottom: 8px; }
   .table-wrap { overflow-x: auto; }
+
+  /* Mở rộng toàn bộ chiều ngang các khối bài tập C */
+  #p-baitap .card {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  #p-baitap .card .card {
+    padding: 20px;
+    margin-top: 14px;
+  }
+  #p-baitap .options.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)) !important;
+    gap: 16px !important;
+  }
 </style>
 </head>
 <body>
@@ -176,13 +192,17 @@
       <table class="custom-tb">
         <thead>
           <tr>
-            <th style="width:50%">Hiện tượng</th>
-            <th style="width:25%">Biến đổi Vật lí</th>
-            <th style="width:25%">Biến đổi Hóa học</th>
+            <th style="width:52%">Hiện tượng</th>
+            <th style="width:24%; text-align:center">Biến đổi Vật lí</th>
+            <th style="width:24%; text-align:center">Biến đổi Hóa học</th>
           </tr>
         </thead>
         <tbody id="dang1Table"></tbody>
       </table>
+    </div>
+    <div style="margin-top: 16px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+      <button class="glassBtn active" type="button" onclick="checkDang1()" style="background:var(--accent);height:38px;padding:0 20px"><i class="fa-solid fa-check"></i> Kiểm tra đáp án</button>
+      <span id="dang1Msg" style="font-weight: 600; font-size: 0.95rem;"></span>
     </div>
   </div>
 
@@ -190,7 +210,7 @@
     <span class="tag th">Dạng 2</span>
     <h3 class="section-title"><i class="fa-solid fa-calculator"></i> Bài tập áp dụng ĐLBTKL</h3>
     
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);">
       <p class="question-title"><b>Bài 1.</b> Hòa tan hoàn toàn 2,4 g kim loại Mg vào dung dịch có chứa 7,3 g HCl vừa đủ. Sau phản ứng thu được 9,5 g MgCl<sub>2</sub> và thấy có hiện tượng sủi bọt (khí H<sub>2</sub> thoát ra). Tính khối lượng khí H<sub>2</sub> sinh ra?</p>
       <details>
         <summary>Bài giải chi tiết</summary>
@@ -204,7 +224,7 @@
       </details>
     </div>
 
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35); margin-bottom:0">
       <p class="question-title"><b>Bài 2.</b> Đốt cháy hết 9 gam kim loại manegium (Mg) trong không khí thu được 15 gam hợp chất manegium oxide (MgO). Biết rằng Manegium cháy là xảy ra phản ứng với khí oxygen (O<sub>2</sub>) trong không khí. Tính khối lượng của khí oxygen tham gia phản ứng?</p>
       <details>
         <summary>Bài giải chi tiết</summary>
@@ -222,14 +242,14 @@
   <div class="card">
     <span class="tag vd">Dạng 3</span>
     <h3 class="section-title"><i class="fa-solid fa-atom"></i> Lập PTHH, xác định tỉ lệ số nguyên tử, phân tử các chất trong phản ứng</h3>
-    <div class="options grid-2" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:12px" id="dang3List"></div>
+    <div class="options grid-2" id="dang3List"></div>
   </div>
 
   <div class="card">
     <span class="tag th">Dạng 4</span>
     <h3 class="section-title"><i class="fa-solid fa-wind"></i> Tỉ khối chất khí</h3>
     
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);">
       <p class="question-title"><b>Bài 1.</b> Viết CTHH của hai chất khí nhẹ hơn không khí và hai chất khí nặng hơn không khí? Giải thích?</p>
       <details>
         <summary>Bài giải chi tiết</summary>
@@ -243,7 +263,7 @@
       </details>
     </div>
 
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35); margin-bottom:0">
       <p class="question-title"><b>Bài 2.</b> Tính tỉ khối của khí NO so với khí NH<sub>3</sub>. Cho biết NO nặng hay nhẹ hơn NH<sub>3</sub> bao nhiêu lần?</p>
       <details>
         <summary>Bài giải chi tiết</summary>
@@ -260,9 +280,9 @@
   <div class="card">
     <span class="tag vd">Dạng 5</span>
     <h3 class="section-title"><i class="fa-solid fa-flask"></i> Tính theo PTHH</h3>
-    <p style="color:var(--muted);font-size:0.9rem"><i>(Cho biết khối lượng mol M của các nguyên tử là: Na=23; Fe=56; O=16; H=1; N=14; C=12; S=32; Cl=35,5; Cu=64; P=31; Mg=24; Zn=65).</i></p>
+    <p style="color:var(--muted);font-size:0.9rem; margin-bottom: 12px;"><i>(Cho biết khối lượng mol M của các nguyên tử là: Na=23; Fe=56; O=16; H=1; N=14; C=12; S=32; Cl=35,5; Cu=64; P=31; Mg=24; Zn=65).</i></p>
 
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);">
       <p class="question-title"><b>Bài 1.</b> Đốt cháy hoàn toàn 1,24 gam phosphorus (P) trong bình chứa a gam khí oxygen tạo thành phosphorus pentoxide (P<sub>2</sub>O<sub>5</sub>).</p>
       <p>a) Tính khối lượng chất sản phẩm thu được sau phản ứng?<br>
       b) Thể tích oxygen (đkc) và khối lượng khí oxygen cần dùng?</p>
@@ -281,7 +301,7 @@
       </details>
     </div>
 
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35); margin-bottom:0">
       <p class="question-title"><b>Bài 2.</b> Hòa tan hoàn toàn một lá Zinc vào dung dịch hydrochloric acid (HCl) sau phản ứng thu được muối zinc chloride (ZnCl<sub>2</sub>) và 4,958 lít khí hydrogen.</p>
       <p>a) Viết phương trình phản ứng<br>
       b) Tính khối lượng hydrochloric acid đã dùng<br>
@@ -313,7 +333,7 @@
   <div class="card">
     <h3 class="section-title"><i class="fa-solid fa-question"></i> Câu hỏi vận dụng từ thông tin</h3>
 
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);">
       <p class="question-title"><b>Câu 1.</b> Các hang động trong núi đá vôi được hình thành chủ yếu là do:</p>
       <div class="options">
         <label class="option-btn disabled"><input type="radio" name="tt1" disabled> A. gió mạnh bào mòn đá vôi trong thời gian dài.</label>
@@ -323,7 +343,7 @@
       </div>
     </div>
 
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);">
       <p class="question-title"><b>Câu 2.</b> Hiện tượng quan sát được khi nhỏ giấm ăn lên viên phấn là:</p>
       <div class="options">
         <label class="option-btn disabled"><input type="radio" name="tt2" disabled> A. viên phấn chuyển sang màu đỏ.</label>
@@ -333,7 +353,7 @@
       </div>
     </div>
 
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);">
       <p class="question-title"><b>Câu 3.</b> Cho 5 g phấn (chứa 90% CaCO<sub>3</sub> về khối lượng, còn lại là tạp chất không phản ứng) vào lượng giấm dư. Tính thể tích khí CO<sub>2</sub> (lít, ở điều kiện chuẩn) thu được. <i>(Làm tròn đến hàng phần trăm)</i></p>
       <details>
         <summary>Đáp án & Lời giải</summary>
@@ -347,7 +367,7 @@
       </details>
     </div>
 
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+    <div class="card" style="background:rgba(15, 23, 42, 0.35); margin-bottom:0">
       <p class="question-title"><b>Câu 4.</b></p>
       <p class="essay-content">a) Viết phương trình hoá học tạo carbonic acid từ nước mưa và phương trình trình hoá tan đá vôi tạo hang động.</p>
       <p class="essay-content">b) Vì sao hoa văn trên các bức tượng, bia đá bằng đá vôi lâu năm thường bị mờ đi, nhất là ở nơi có mưa acid?</p>
@@ -424,6 +444,7 @@ const quizContainer = document.getElementById('quizContainer');
 
 function renderQuiz() {
   quizContainer.innerHTML = '';
+  // Sử dụng trực tiếp rawQuizData theo đúng thứ tự ban đầu
   rawQuizData.forEach((item, idx) => {
     const correctText = item.correct;
     const shuffledOptions = shuffleArray(item.o);
@@ -502,15 +523,35 @@ const dang1Data = [
 ];
 
 const dang1Table = document.getElementById('dang1Table');
-dang1Data.forEach(d => {
+dang1Data.forEach((d, idx) => {
   const tr = document.createElement('tr');
   tr.innerHTML = `
     <td>${d.ht}</td>
-    <td style="text-align:center">${d.vl ? '<b>✓</b>' : ''}</td>
-    <td style="text-align:center">${!d.vl ? '<b>✓</b>' : ''}</td>
+    <td style="text-align:center"><input type="radio" name="d1_${idx}" value="vl" id="d1_${idx}_vl" style="transform: scale(1.3); cursor: pointer;"></td>
+    <td style="text-align:center"><input type="radio" name="d1_${idx}" value="hh" id="d1_${idx}_hh" style="transform: scale(1.3); cursor: pointer;"></td>
   `;
   dang1Table.appendChild(tr);
 });
+
+function checkDang1() {
+  let correctCount = 0;
+  dang1Data.forEach((d, idx) => {
+    const radioVl = document.getElementById(`d1_${idx}_vl`);
+    const radioHh = document.getElementById(`d1_${idx}_hh`);
+    const tr = radioVl.closest('tr');
+    
+    const userChoice = radioVl.checked ? true : (radioHh.checked ? false : null);
+    if (userChoice === d.vl) {
+      correctCount++;
+      tr.style.background = 'rgba(34, 197, 94, 0.18)';
+    } else {
+      tr.style.background = 'rgba(239, 68, 68, 0.18)';
+    }
+  });
+  const msg = document.getElementById('dang1Msg');
+  msg.innerText = `Bạn đã làm đúng ${correctCount}/${dang1Data.length} câu!`;
+  msg.style.color = correctCount === dang1Data.length ? '#4ADE80' : '#F87171';
+}
 
 const dang3Data = [
   {q: "1. P + O₂ --t°--> P₂O₅", sol: "4P + 5O₂ --t°--> 2P₂O₅<br>Tỉ lệ số nguyên tử P : số phân tử O₂ : số phân tử P₂O₅ = 4 : 5 : 2"},
