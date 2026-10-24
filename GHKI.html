@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HƯỚNG DẪN ÔN TẬP KTGK I - KHTN 8 - NH 26_27</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link rel="stylesheet" href="index1.css">
+
+<style>
+  .filter-container {
+    position: sticky;
+    top: 15px;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .filter-container::-webkit-scrollbar { display: none; }
+  
+  .filter-tabs {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.55);
+    border: var(--glass-border);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 4px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), var(--glass-highlight);
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .glassContainer {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .glassContainer::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    -webkit-filter: url(#container-glass);
+    filter: url(#container-glass);
+    border-radius: 999px;
+  }
+
+  .liquid-pill {
+    position: absolute;
+    top: 4px; bottom: 4px; left: 0;
+    width: 0;
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.32), var(--glass-highlight);
+    transition: left 0.3s ease, width 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .glassBtn {
+    position: relative;
+    z-index: 2;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s ease;
+  }
+  .glassBtn:hover, .glassBtn.active { color: #FFFFFF; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  table.custom-tb { width: 100%; border-collapse: collapse; margin-block: 8px; font-size: 0.92rem; }
+  table.custom-tb th, table.custom-tb td { border: 1px solid rgba(255,255,255,0.12); padding: 8px 12px; text-align: left; color: var(--ink); }
+  table.custom-tb th { background: rgba(59,130,246,0.2); color: #60A5FA; font-weight: 600; text-align: center; }
+
+  details { border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; background: rgba(15, 23, 42, 0.45); padding: 12px 16px; margin-top: 8px; }
+  details summary { cursor: pointer; font-weight: 600; color: #60A5FA; }
+  details[open] summary { margin-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.12); padding-bottom: 8px; }
+  .table-wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<svg style="display:none; position:absolute;" xmlns="http://www.w3.org/2000/svg">
+  <filter id="container-glass" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" id="glassDisplacement" />
+  </filter>
+</svg>
+
+<div class="top-left-profile">
+  <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
+  <span class="user-name">chisaki167</span>
+</div>
+
+<div class="top-right-controls">
+  <button class="bg-toggle-btn" id="bgToggleBtn" type="button" onclick="toggleBackground()">🎬 Nền: Tắt</button>
+</div>
+
+<video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
+  <source src="background.mp4" type="video/mp4">
+</video>
+<div class="bg-overlay hidden" id="bgOverlay"></div>
+
+<header class="profile wrap">
+  <h1>HƯỚNG DẪN ÔN TẬP KTGK I <span class="highlight">(KHTN 8 - NH 26_27)</span></h1>
+</header>
+
+<div class="wrap filter-container">
+  <div class="filter-tabs glassContainer" id="mainNavTabs">
+    <div class="liquid-pill" id="navLiquidPill"></div>
+    <button class="glassBtn active" type="button" onclick="switchTab('p-lythuyet', event)"><i class="fa-solid fa-book-open-reader"></i> A. Lí Thuyết</button>
+    <button class="glassBtn" type="button" onclick="switchTab('p-tracnghiem', event)"><i class="fa-solid fa-list-check"></i> B. Trắc Nghiệm</button>
+    <button class="glassBtn" type="button" onclick="switchTab('p-baitap', event)"><i class="fa-solid fa-calculator"></i> C. Bài Tập</button>
+    <button class="glassBtn" type="button" onclick="switchTab('p-thongtin', event)"><i class="fa-solid fa-circle-info"></i> Đọc Thêm</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="panel tab-content active" id="p-lythuyet">
+  <div class="card">
+    <h3 class="section-title"><i class="fa-solid fa-star"></i> Nội dung lý thuyết trọng tâm</h3>
+    <div class="options grid-2" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">
+      <div class="option-box"><b>Bài 2.</b> Phản ứng hóa học</div>
+      <div class="option-box"><b>Bài 3.</b> Mol và tỉ khối chất khí</div>
+      <div class="option-box"><b>Bài 5.</b> Định luật BTKL và PTHH</div>
+      <div class="option-box"><b>Bài 7.</b> Tốc độ phản ứng và chất xúc tác</div>
+      <div class="option-box"><b>Bài 8.</b> Acid</div>
+      <div class="option-box"><b>Bài 9.</b> Base. Thang pH</div>
+    </div>
+  </div>
+</section>
+
+<section class="panel tab-content" id="p-tracnghiem">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <h3 class="section-title" style="margin:0;border:none;padding:0"><i class="fa-solid fa-circle-question"></i> B. PHẦN TRẮC NGHIỆM (30 Câu - Đã tráo đáp án ngẫu nhiên)</h3>
+      <button class="glassBtn active" id="toggleAllSol" type="button" style="background:var(--accent);height:36px;padding:0 16px"><i class="fa-solid fa-eye"></i> Hiện tất cả lời giải</button>
+    </div>
+  </div>
+  <div id="quizContainer" style="display:grid;gap:14px"></div>
+</section>
+
+<section class="panel tab-content" id="p-baitap">
+  
+  <div class="card">
+    <span class="tag">Dạng 1</span>
+    <h3 class="section-title"><i class="fa-solid fa-pen"></i> Chỉ ra đâu là BĐVL & BĐHH từ các quá trình sau:</h3>
+    <div class="table-wrap">
+      <table class="custom-tb">
+        <thead>
+          <tr>
+            <th style="width:50%">Hiện tượng</th>
+            <th style="width:25%">Biến đổi Vật lí</th>
+            <th style="width:25%">Biến đổi Hóa học</th>
+          </tr>
+        </thead>
+        <tbody id="dang1Table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag th">Dạng 2</span>
+    <h3 class="section-title"><i class="fa-solid fa-calculator"></i> Bài tập áp dụng ĐLBTKL</h3>
+    
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Bài 1.</b> Hòa tan hoàn toàn 2,4 g kim loại Mg vào dung dịch có chứa 7,3 g HCl vừa đủ. Sau phản ứng thu được 9,5 g MgCl<sub>2</sub> và thấy có hiện tượng sủi bọt (khí H<sub>2</sub> thoát ra). Tính khối lượng khí H<sub>2</sub> sinh ra?</p>
+      <details>
+        <summary>Bài giải chi tiết</summary>
+        <div class="math-box">
+          <p>Áp dụng định luật bảo toàn khối lượng cho phản ứng:<br>
+          m<sub>Mg</sub> + m<sub>HCl</sub> = m<sub>MgCl₂</sub> + m<sub>H₂</sub></p>
+          <p>⇒ 2,4 + 7,3 = 9,5 + m<sub>H₂</sub></p>
+          <p>⇒ 9,7 = 9,5 + m<sub>H₂</sub></p>
+          <p>⇒ m<sub>H₂</sub> = 9,7 - 9,5 = <b>0,2 (g)</b></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Bài 2.</b> Đốt cháy hết 9 gam kim loại manegium (Mg) trong không khí thu được 15 gam hợp chất manegium oxide (MgO). Biết rằng Manegium cháy là xảy ra phản ứng với khí oxygen (O<sub>2</sub>) trong không khí. Tính khối lượng của khí oxygen tham gia phản ứng?</p>
+      <details>
+        <summary>Bài giải chi tiết</summary>
+        <div class="math-box">
+          <p>Phương trình dạng chữ: Magnesium + Oxygen → Magnesium oxide</p>
+          <p>Áp dụng định luật bảo toàn khối lượng:<br>
+          m<sub>Mg</sub> + m<sub>O₂</sub> = m<sub>MgO</sub></p>
+          <p>⇒ 9 + m<sub>O₂</sub> = 15</p>
+          <p>⇒ m<sub>O₂</sub> = 15 - 9 = <b>6 (g)</b></p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag vd">Dạng 3</span>
+    <h3 class="section-title"><i class="fa-solid fa-atom"></i> Lập PTHH, xác định tỉ lệ số nguyên tử, phân tử các chất trong phản ứng</h3>
+    <div class="options grid-2" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:12px" id="dang3List"></div>
+  </div>
+
+  <div class="card">
+    <span class="tag th">Dạng 4</span>
+    <h3 class="section-title"><i class="fa-solid fa-wind"></i> Tỉ khối chất khí</h3>
+    
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Bài 1.</b> Viết CTHH của hai chất khí nhẹ hơn không khí và hai chất khí nặng hơn không khí? Giải thích?</p>
+      <details>
+        <summary>Bài giải chi tiết</summary>
+        <div class="math-box">
+          <p>Khối lượng mol của không khí là: M<sub>KK</sub> ≈ 29 g/mol.</p>
+          <p>- <b>Hai chất khí nhẹ hơn không khí:</b> H<sub>2</sub> (M = 2 g/mol), CH<sub>4</sub> (M = 16 g/mol) vì M < 29 g/mol.<br>
+          <i>Giải thích:</i> d<sub>H₂/KK</sub> = 2/29 < 1; d<sub>CH₄/KK</sub> = 16/29 < 1.</p>
+          <p>- <b>Hai chất khí nặng hơn không khí:</b> CO<sub>2</sub> (M = 44 g/mol), O<sub>2</sub> (M = 32 g/mol) vì M > 29 g/mol.<br>
+          <i>Giải thích:</i> d<sub>CO₂/KK</sub> = 44/29 > 1; d<sub>O₂/KK</sub> = 32/29 > 1.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Bài 2.</b> Tính tỉ khối của khí NO so với khí NH<sub>3</sub>. Cho biết NO nặng hay nhẹ hơn NH<sub>3</sub> bao nhiêu lần?</p>
+      <details>
+        <summary>Bài giải chi tiết</summary>
+        <div class="math-box">
+          <p>- M<sub>NO</sub> = 14 + 16 = 30 (g/mol)</p>
+          <p>- M<sub>NH₃</sub> = 14 + 3×1 = 17 (g/mol)</p>
+          <p>- Tỉ khối d<sub>NO/NH₃</sub> = M<sub>NO</sub> / M<sub>NH₃</sub> = 30 / 17 ≈ <b>1,76</b></p>
+          <p>⇒ Khí NO <b>nặng hơn</b> khí NH<sub>3</sub> khoảng <b>1,76 lần</b>.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="tag vd">Dạng 5</span>
+    <h3 class="section-title"><i class="fa-solid fa-flask"></i> Tính theo PTHH</h3>
+    <p style="color:var(--muted);font-size:0.9rem"><i>(Cho biết khối lượng mol M của các nguyên tử là: Na=23; Fe=56; O=16; H=1; N=14; C=12; S=32; Cl=35,5; Cu=64; P=31; Mg=24; Zn=65).</i></p>
+
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Bài 1.</b> Đốt cháy hoàn toàn 1,24 gam phosphorus (P) trong bình chứa a gam khí oxygen tạo thành phosphorus pentoxide (P<sub>2</sub>O<sub>5</sub>).</p>
+      <p>a) Tính khối lượng chất sản phẩm thu được sau phản ứng?<br>
+      b) Thể tích oxygen (đkc) và khối lượng khí oxygen cần dùng?</p>
+      <details>
+        <summary>Bài giải chi tiết</summary>
+        <div class="math-box">
+          <p>PTHH: 4P + 5O<sub>2</sub> → 2P<sub>2</sub>O<sub>5</sub></p>
+          <p>n<sub>P</sub> = 1,24 / 31 = 0,04 (mol)</p>
+          <p>Theo PTHH: </p>
+          <p>- n<sub>P₂O₅</sub> = 1/2 n<sub>P</sub> = 0,02 (mol)<br>
+          ⇒ m<sub>P₂O₅</sub> = 0,02 × (31×2 + 16×5) = 0,02 × 142 = <b>2,84 (g)</b></p>
+          <p>- n<sub>O₂</sub> = 5/4 n<sub>P</sub> = 0,05 (mol)<br>
+          ⇒ V<sub>O₂ (đkc)</sub> = 0,05 × 24,79 = <b>1,2395 (L)</b><br>
+          ⇒ m<sub>O₂</sub> = 0,05 × 32 = <b>1,6 (g)</b> (hoặc a = 2,84 - 1,24 = 1,6 g)</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Bài 2.</b> Hòa tan hoàn toàn một lá Zinc vào dung dịch hydrochloric acid (HCl) sau phản ứng thu được muối zinc chloride (ZnCl<sub>2</sub>) và 4,958 lít khí hydrogen.</p>
+      <p>a) Viết phương trình phản ứng<br>
+      b) Tính khối lượng hydrochloric acid đã dùng<br>
+      c) Tính khối lượng Zinc chloride sinh ra sau phản ứng.</p>
+      <details>
+        <summary>Bài giải chi tiết</summary>
+        <div class="math-box">
+          <p>a) PTHH: Zn + 2HCl → ZnCl<sub>2</sub> + H<sub>2</sub></p>
+          <p>b) n<sub>H₂</sub> = 4,958 / 24,79 = 0,2 (mol)</p>
+          <p>Theo PTHH: n<sub>HCl</sub> = 2 n<sub>H₂</sub> = 0,4 (mol)<br>
+          ⇒ Khối lượng HCl đã dùng: m<sub>HCl</sub> = 0,4 × 36,5 = <b>14,6 (g)</b></p>
+          <p>c) Theo PTHH: n<sub>ZnCl₂</sub> = n<sub>H₂</sub> = 0,2 (mol)<br>
+          M<sub>ZnCl₂</sub> = 65 + 35,5 × 2 = 136 (g/mol)<br>
+          ⇒ Khối lượng ZnCl<sub>2</sub> sinh ra: m<sub>ZnCl₂</sub> = 0,2 × 136 = <b>27,2 (g)</b></p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="panel tab-content" id="p-thongtin">
+  <div class="card">
+    <h3 class="section-title"><i class="fa-solid fa-book"></i> Thông tin đọc thêm</h3>
+    <p class="essay-content">Nước mưa hoà tan khí carbon dioxide trong không khí và trong đất, tạo thành carbonic acid: H<sub>2</sub>O + CO<sub>2</sub> → H<sub>2</sub>CO<sub>3</sub>. Acid yếu này thấm qua các khe nứt, phản ứng chậm với đá vôi (thành phần chính là calcium carbonate, CaCO<sub>3</sub>) tạo chất tan được trong nước: CaCO<sub>3</sub> + H<sub>2</sub>O + CO<sub>2</sub> → Ca(HCO<sub>3</sub>)<sub>2</sub>. Qua hàng nghìn năm, đá bị hoá tan dần tạo thành <b>hang động</b>.</p>
+    <p class="essay-content">Khi nước nhỏ giọt từ trần hang, một phần CO<sub>2</sub> thoát ra, CaCO<sub>3</sub> lắng đọng trở lại tạo <b>thạch nhũ</b> (mọc từ trần xuống) và <b>măng đá</b> (mọc từ nền lên); khi hai phần nối với nhau thì tạo <b>cột đá</b>. Thạch nhũ lớn rất chậm, khoảng 1,27 cm trong 100 năm.</p>
+    <p class="essay-content">Tại góc thí nghiệm của khu du lịch, các bạn nhỏ giấm ăn (chứa acetic acid, CH<sub>3</sub>COOH) lên viên phấn (coi là CaCO<sub>3</sub>) và thấy sủi bọt khí: CaCO<sub>3</sub> + 2CH<sub>3</sub>COOH → (CH<sub>3</sub>COO)<sub>2</sub>Ca + H<sub>2</sub>O + CO<sub>2</sub>↑.</p>
+  </div>
+
+  <div class="card">
+    <h3 class="section-title"><i class="fa-solid fa-question"></i> Câu hỏi vận dụng từ thông tin</h3>
+
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Câu 1.</b> Các hang động trong núi đá vôi được hình thành chủ yếu là do:</p>
+      <div class="options">
+        <label class="option-btn disabled"><input type="radio" name="tt1" disabled> A. gió mạnh bào mòn đá vôi trong thời gian dài.</label>
+        <label class="option-btn disabled selected-correct"><input type="radio" name="tt1" checked disabled> B. nước có hoà tan CO₂ (carbonic acid) hoà tan dần đá vôi.</label>
+        <label class="option-btn disabled"><input type="radio" name="tt1" disabled> C. nham thạch núi lửa làm chảy đá vôi.</label>
+        <label class="option-btn disabled"><input type="radio" name="tt1" disabled> D. nhiệt độ cao làm đá vôi bị phân huỷ thành vôi sống.</label>
+      </div>
+    </div>
+
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Câu 2.</b> Hiện tượng quan sát được khi nhỏ giấm ăn lên viên phấn là:</p>
+      <div class="options">
+        <label class="option-btn disabled"><input type="radio" name="tt2" disabled> A. viên phấn chuyển sang màu đỏ.</label>
+        <label class="option-btn disabled"><input type="radio" name="tt2" disabled> B. không có hiện tượng gì.</label>
+        <label class="option-btn disabled"><input type="radio" name="tt2" disabled> C. xuất hiện kết tủa màu xanh.</label>
+        <label class="option-btn disabled selected-correct"><input type="radio" name="tt2" checked disabled> D. viên phấn tan dần và có bọt khí thoát ra.</label>
+      </div>
+    </div>
+
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Câu 3.</b> Cho 5 g phấn (chứa 90% CaCO<sub>3</sub> về khối lượng, còn lại là tạp chất không phản ứng) vào lượng giấm dư. Tính thể tích khí CO<sub>2</sub> (lít, ở điều kiện chuẩn) thu được. <i>(Làm tròn đến hàng phần trăm)</i></p>
+      <details>
+        <summary>Đáp án & Lời giải</summary>
+        <div class="math-box">
+          <p>m<sub>CaCO₃</sub> = 5 × 90% = 4,5 (g)</p>
+          <p>n<sub>CaCO₃</sub> = 4,5 / 100 = 0,045 (mol)</p>
+          <p>Theo PTHH: n<sub>CO₂</sub> = n<sub>CaCO₃</sub> = 0,045 (mol)</p>
+          <p>V<sub>CO₂ (đkc)</sub> = 0,045 × 24,79 = 1,11555 (L) ≈ <b>1,12 (L)</b></p>
+          <p><b>Đáp án: 1,12 lít</b></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="card" style="background:rgba(15, 23, 42, 0.35);margin-bottom:0">
+      <p class="question-title"><b>Câu 4.</b></p>
+      <p class="essay-content">a) Viết phương trình hoá học tạo carbonic acid từ nước mưa và phương trình trình hoá tan đá vôi tạo hang động.</p>
+      <p class="essay-content">b) Vì sao hoa văn trên các bức tượng, bia đá bằng đá vôi lâu năm thường bị mờ đi, nhất là ở nơi có mưa acid?</p>
+      <p class="essay-content">c) Hãy đề xuất cách đơn giản dùng giấm ăn để kiểm tra một mẫu đá có phải là đá vôi hay không?</p>
+      <details>
+        <summary>Lời giải chi tiết</summary>
+        <div class="math-box">
+          <p><b>a) Phương trình hóa học:</b><br>
+          - Tạo carbonic acid: H<sub>2</sub>O + CO<sub>2</sub> → H<sub>2</sub>CO<sub>3</sub><br>
+          - Hòa tan đá vôi tạo hang động: CaCO<sub>3</sub> + H<sub>2</sub>O + CO<sub>2</sub> → Ca(HCO<sub>3</sub>)<sub>2</sub></p>
+          <p><b>b) Giải thích:</b><br>
+          Thành phần chính của bia đá, tượng đá vôi là CaCO<sub>3</sub>. Trong không khí/mưa acid chứa các acid (H<sub>2</sub>CO<sub>3</sub>, H<sub>2</sub>SO<sub>4</sub>, HNO<sub>3</sub>...) sẽ tác dụng chậm với CaCO<sub>3</sub> làm nó tan ra dần, khiến các chi tiết hoa văn trên bia đá, tượng đá bị ăn mòn và mờ đi theo thời gian.</p>
+          <p><b>c) Đề xuất cách kiểm tra:</b><br>
+          Nhỏ vài giọt giấm ăn lên bề mặt mẫu đá. Nếu thấy có hiện tượng <b>sủi bọt khí</b> (khí CO<sub>2</sub> thoát ra) và mẫu đá bị ăn mòn một phần thì đó là mẫu đá vôi (CaCO<sub>3</sub>).</p>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Hệ thống ôn tập trực tuyến · Giao diện Liquid Glass · chisaki167
+</footer>
+
+<script>
+const rawQuizData = [
+  {q: "1. Dấu hiệu chính để phân biệt hiện tượng vật lý và hiện tượng hóa học", o: ["Sự thay đổi về màu sắc của chất", "Sự xuất hiện chất mới", "Sự thay đổi về trạng thái của chất", "Sự thay đổi về hình dạng của chất"], correct: "Sự xuất hiện chất mới", s: "Hiện tượng hóa học là hiện tượng chất biến đổi có sinh ra chất mới."},
+  {q: "2. Chọn câu đúng:", o: ["Trong phản ứng hóa học, các nguyên tử bị phá vỡ", "Trong phản ứng hóa học, liên kết trong các phân tử bị phá vỡ", "Trong phản ứng hóa học, liên kết trong các phân tử không bị phá vỡ", "Trong phản ứng hóa học, các phân tử được bảo toàn."], correct: "Trong phản ứng hóa học, liên kết trong các phân tử bị phá vỡ", s: "Trong phản ứng hóa học, chỉ có liên kết giữa các nguyên tử bị biến đổi (phá vỡ và hình thành liên kết mới)."},
+  {q: "3: Số chất tham gia phản ứng trong phương trình CaCO₃ + 2HCl --t°--> CaCl₂ + CO₂ ↑ + H₂O là", o: ["4.", "3.", "2.", "5."], correct: "2.", s: "Chất tham gia ở bên trái mũi tên gồm CaCO₃ và HCl (2 chất)."},
+  {q: "4. Phản ứng thu nhiệt là phản ứng", o: ["khi xảy ra kèm theo sự truyền nhiệt từ chất phản ứng ra môi trường", "khi xảy ra kèm theo sự truyền nhiệt từ môi trường vào chất phản ứng", "khi xảy ra kèm theo sự trao đổi nhiệt giữa các chất phản ứng với các chất trong môi trường", "khi xảy ra kèm theo sự trao đổi nhiệt giữa các chất phản ứng"], correct: "khi xảy ra kèm theo sự truyền nhiệt từ môi trường vào chất phản ứng", s: "Phản ứng thu nhiệt hấp thụ năng lượng (nhiệt) từ môi trường xung quanh."},
+  {q: "5. Một vật bằng sắt để ngoài trời, sau một thời gian bị gỉ. Hỏi khối lượng của vật thay đổi như thế nào so với khối lượng của vật trước khi bị gỉ?", o: ["Tăng", "Giảm", "Không thay đổi", "Không thể biết được"], correct: "Tăng", s: "Sắt phản ứng với oxygen và hơi nước trong không khí tạo gỉ sắt (Fe₂O₃.nH₂O), m_gỉ = m_Fe + m_O₂ + m_H₂O > m_Fe nên khối lượng tăng."},
+  {q: "6. Trường hợp nào sau đây không xảy ra phản ứng hóa học?", o: ["Đốt cao su có mùi hắc rất khó chịu.", "Kem tan chảy khi để ngoài trời nắng", "Khi chiên trứng gà nếu đun quá lửa sẽ có mùi khét.", "Thắng nước màu từ đường để kho cá."], correct: "Kem tan chảy khi để ngoài trời nắng", s: "Kem tan chảy chỉ là sự chuyển thể từ thể rắn sang thể lỏng (biến đổi vật lí)."},
+  {q: "7. Mối quan hệ giữa số mol và khối lượng là:", o: ["n = M/m.", "m = M/n.", "n = m/M.", "n = m.M."], correct: "n = m/M.", s: "Số mol n = m / M."},
+  {q: "8. Cho biết 1 mol chất khí ở điều kiện chuẩn có thể tích là:", o: ["2,479 l", "0,2479 l", "24,79 l", "24,79 ml"], correct: "24,79 l", s: "Ở điều kiện chuẩn (25 °C, 1 bar), 1 mol khí chiếm 24,79 lít."},
+  {q: "9. Tỉ khối của khí A đối với khí B là:", o: ["d_{A/B} = n_A / n_B.", "d_{A/B} = M_A / M_B.", "d_{A/B} = n_B / n_A.", "d_{A/B} = M_B / M_A."], correct: "d_{A/B} = M_A / M_B.", s: "Công thức tỉ khối d_{A/B} = M_A / M_B."},
+  {q: "10. Trong các khí sau, số khí nhẹ hơn không khí là: CO₂, H₂O, N₂, H₂, SO₂ (Biết C=12; O=16; H=1; N=14; S=32)", o: ["5", "4", "3", "2"], correct: "3", s: "M_KK ≈ 29. H₂O (18), N₂ (28), H₂ (2) nhẹ hơn 29 -> Có 3 khí (H₂O dạng hơi, N₂, H₂)."},
+  {q: "11. Khối lượng mol phân tử nước (H₂O) là bao nhiêu? (Biết H = 1; O = 16)", o: ["18 g/mol.", "9 g/mol.", "16 g/mol.", "10 g/mol."], correct: "18 g/mol.", s: "M_H₂O = 1*2 + 16 = 18 g/mol."},
+  {q: "12. Điền từ còn thiếu vào chỗ trống: “Trong 1 phản ứng hóa học ..... khối lượng của các chất sản phẩm bằng tổng khối lượng của các chất tham gia phản ứng”", o: ["Tổng", "Tích", "Hiệu", "Thương"], correct: "Tổng", s: "Định luật bảo toàn khối lượng: Tổng khối lượng chất sản phẩm bằng tổng khối lượng chất tham gia."},
+  {q: "13. Phát biểu nào dưới đây là đúng khi nói về dung dịch?", o: ["Khối lượng dung dịch bằng tổng khối lượng của dung môi và chất tan.", "Một dung dịch chỉ có thể có duy nhất một chất tan và một dung môi.", "Dung dịch là hỗn hợp không đồng nhất của dung môi và chất tan.", "Trong dung dịch, chất có thành phần khối lượng hoặc thể tích lớn hơn là chất tan."], correct: "Khối lượng dung dịch bằng tổng khối lượng của dung môi và chất tan.", s: "m_dung dịch = m_chất tan + m_dung môi."},
+  {q: "14. Nồng độ phần trăm của một dung dịch cho ta biết", o: ["số mol chất tan trong một lít dung dịch.", "số gam chất tan có trong 100 gam dung dịch.", "số mol chất tan có trong 150 gam dung dịch.", "số gam chất tan có trong dung dịch."], correct: "số gam chất tan có trong 100 gam dung dịch.", s: "C% cho biết số gam chất tan có trong 100 gam dung dịch."},
+  {q: "15. Nồng độ mol của dung dịch cho biết", o: ["số gam dung môi có trong 100 gam dung dịch.", "số gam chất tan có trong 100 gam dung dịch.", "số mol chất tan có trong một lít dung dịch.", "số mol chất tan có trong dung dịch."], correct: "số mol chất tan có trong một lít dung dịch.", s: "C_M cho biết số mol chất tan trong 1 lít dung dịch (C_M = n / V)."},
+  {q: "16. Chọn phương trình đúng khi nói về khí nitrogen và khí hydrogen", o: ["N₂ + 3H₂ --t°--> NH₃", "N₂ + H₂ --t°--> NH₃", "N₂ + 3H₂ --t°--> 2NH₃", "N₂ + H₂ --t°--> 2NH₃"], correct: "N₂ + 3H₂ --t°--> 2NH₃", s: "PTHH đúng sau khi cân bằng: N₂ + 3H₂ --t°--> 2NH₃."},
+  {q: "17. Phương trình nào dưới đây cân bằng chính xác?", o: ["Na + 2HCl -> NaCl + H₂", "Fe + 2HCl -> FeCl₂ + 2H₂", "2P + 5O₂ -> P₂O₅", "4Al + 3O₂ -> 2Al₂O₃"], correct: "4Al + 3O₂ -> 2Al₂O₃", s: "Phương trình D cân bằng đúng số nguyên tử Al (4=4) và O (6=6)."},
+  {q: "18. Để xác định được mức độ phản ứng chậm hay nhanh người ta sử dụng khái niệm nào sau đây?", o: ["Tốc độ phản ứng.", "Cân bằng hóa học.", "Phản ứng một chiều.", "Phản ứng thuận nghịch."], correct: "Tốc độ phản ứng.", s: "Tốc độ phản ứng là đại lượng đặc trưng cho độ nhanh hay chậm của phản ứng."},
+  {q: "19. Để điều chế CO₂ trong phòng thí nghiệm, người ta cho đá vôi (rắn) phản ứng với dung dịch hydrochloric acid. Phản ứng xảy ra như sau: CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂↑. Biện pháp nào sau đây không làm phản ứng xảy ra nhanh hơn?", o: ["Đập nhỏ đá vôi.", "Tăng nhiệt độ phản ứng.", "Thêm CaCl₂ vào dung dịch.", "Dùng HCl nồng độ cao hơn."], correct: "Thêm CaCl₂ vào dung dịch.", s: "Thêm sản phẩm CaCl₂ không làm tăng tốc độ phản ứng. Đập nhỏ làm tăng diện tích tiếp xúc, tăng T, tăng nồng độ làm tăng tốc độ."},
+  {q: "20. Việc bảo quản thức ăn bằng tủ lạnh là vận dụng ảnh hưởng của yếu tố nào đến tốc độ phản ứng hóa học?", o: ["Nhiệt độ.", "Nồng độ.", "Diện tích tiếp xúc.", "Chất xúc tác."], correct: "Nhiệt độ.", s: "Giảm nhiệt độ trong tủ lạnh làm giảm tốc độ các phản ứng phân hủy thức ăn."},
+  {q: "21. PTHH phù hợp của phản ứng kim loại iron tác dụng với dung dịch sulfuric acid loãng biết sản phẩm là iron (II) sulfate và có khí hydrogen bay lên là", o: ["Fe + H₂SO₄ -> FeSO₄ + H₂", "Fe + H₂SO₄ -> Fe₂SO₄ + H₂", "Fe + H₂SO₄ -> FeSO₄ + S₂", "Fe + H₂SO₄ -> FeSO₄ + H₂S"], correct: "Fe + H₂SO₄ -> FeSO₄ + H₂", s: "Fe + H₂SO₄ loãng -> FeSO₄ + H₂↑."},
+  {q: "22. Khi cho đường vào nước rồi đun lên, độ tan của đường trong nước sẽ thay đổi như thế nào?", o: ["Tăng lên.", "Giảm đi.", "Không đổi.", "Không xác định được."], correct: "Tăng lên.", s: "Độ tan của hầu hết chất rắn (như đường) tăng khi nhiệt độ tăng."},
+  {q: "23. Thang pH thường dùng có các giá trị:", o: ["Từ 5 đến 8.", "Từ 1 đến 14.", "Từ 1 đến 13.", "Từ 1 đến 7."], correct: "Từ 1 đến 14.", s: "Thang pH thông dụng có giá trị từ 1 đến 14."},
+  {q: "24. Acid có trong dạ dày của người và động vật giúp tiêu hóa thức ăn là:", o: ["Sulfuric acid.", "Acetic acid.", "Stearic acid.", "Hydrochloric acid."], correct: "Hydrochloric acid.", s: "Acid trong dạ dày là HCl (hydrochloric acid)."},
+  {q: "25. Hiện tượng quan sát được khi cho dung dịch hydrochloric acid HCl vào ống nghiệm đựng dung dịch NaOH có sẵn vài giọt dung dịch phenolphthalein và lắc nhẹ.", o: ["Dung dịch chuyển sang màu xanh lơ.", "Dung dịch chuyển sang màu hồng.", "Dung dịch từ màu hồng chuyển sang không màu.", "Dung dịch không đổi màu."], correct: "Dung dịch từ màu hồng chuyển sang không màu.", s: "NaOH làm phenolphthalein chuyển hồng. Khi nhỏ HCl vào trung hòa NaOH, môi trường mất tính base làm dung dịch chuyển lại thành không màu."},
+  {q: "26. Hợp chất nào dưới đây làm giấy quỳ tím hóa xanh?", o: ["KOH", "KMnO₄", "HNO₃", "BaCl₂"], correct: "KOH", s: "Base tan (kiềm) như KOH làm quỳ tím hóa xanh."},
+  {q: "27. Acid là những chất làm cho quỳ tím chuyển sang màu nào trong số các màu sau đây?", o: ["Xanh.", "Đỏ.", "Tím.", "Vàng."], correct: "Đỏ.", s: "Acid làm quỳ tím hóa đỏ."},
+  {q: "28. Base nào dưới đây là kiềm?", o: ["Cu(OH)₂", "Fe(OH)₃", "KOH", "Mg(OH)₂"], correct: "KOH", s: "Base tan được trong nước gọi là kiềm, ví dụ KOH (Cu(OH)₂, Fe(OH)₃, Mg(OH)₂ không tan)."},
+  {q: "29. Dung dịch nào sau đây có pH > 7?", o: ["NaOH.", "H₂SO₄.", "NaCl.", "HNO₃."], correct: "NaOH.", s: "Dung dịch base (NaOH) có pH > 7."},
+  {q: "30. Trong các dung dịch giấm ăn, muối ăn, nước ép quả chanh, nước vôi trong, số dung dịch có pH < 7 là:", o: ["2.", "4.", "1.", "3."], correct: "2.", s: "Dung dịch acid/có tính acid có pH < 7: Giấm ăn (chứa acetic acid), nước ép chanh (chứa citric acid) -> Có 2 dung dịch. (Muối ăn pH=7, nước vôi trong pH>7)."}
+];
+
+const labels = ["A. ", "B. ", "C. ", "D. "];
+
+function shuffleArray(array) {
+  let arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+const quizContainer = document.getElementById('quizContainer');
+
+function renderQuiz() {
+  quizContainer.innerHTML = '';
+  rawQuizData.forEach((item, idx) => {
+    const correctText = item.correct;
+    const shuffledOptions = shuffleArray(item.o);
+    const newCorrectIndex = shuffledOptions.indexOf(correctText);
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.background = 'rgba(15, 23, 42, 0.45)';
+    card.style.marginBottom = '0';
+    
+    let optsHTML = shuffledOptions.map((opt, i) => 
+      `<label class="option-btn" id="q_${idx}_opt_${i}" onclick="checkQuiz(${idx}, ${i}, ${newCorrectIndex})">
+         <span><b>${labels[i]}</b>${opt}</span>
+         <span class="badge-result" id="badge_${idx}__${i}" style="display:none"></span>
+      </label>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="question-title">${item.q}</div>
+      <div class="options">${optsHTML}</div>
+      <details id="sol_${idx}">
+        <summary>Lời giải chi tiết</summary>
+        <div class="math-box">${item.s}</div>
+      </details>
+    `;
+    quizContainer.appendChild(card);
+  });
+}
+
+function checkQuiz(qIdx, selected, correctIdx) {
+  for(let i = 0; i < 4; i++) {
+    const btn = document.getElementById(`q_${qIdx}_opt_${i}`);
+    btn.onclick = null;
+    btn.classList.add('disabled');
+    
+    const badge = document.getElementById(`badge_${qIdx}__${i}`);
+    if (i === correctIdx) {
+      btn.classList.add('selected-correct');
+      if(badge) {
+        badge.style.display = 'inline-block';
+        badge.className = 'badge-result correct';
+        badge.innerText = 'Chính xác';
+      }
+    } else if (i === selected) {
+      btn.classList.add('selected-wrong');
+      if(badge) {
+        badge.style.display = 'inline-block';
+        badge.className = 'badge-result wrong';
+        badge.innerText = 'Chưa đúng';
+      }
+    }
+  }
+  document.getElementById(`sol_${qIdx}`).open = true;
+}
+
+document.getElementById('toggleAllSol').onclick = function() {
+  const allDetails = quizContainer.querySelectorAll('details');
+  const open = this.textContent.includes('Hiện');
+  allDetails.forEach(d => d.open = open);
+  this.innerHTML = open ? '<i class="fa-solid fa-eye-slash"></i> Ẩn tất cả lời giải' : '<i class="fa-solid fa-eye"></i> Hiện tất cả lời giải';
+};
+
+const dang1Data = [
+  {ht: "Dưa chuột muối lâu ngày lên men, có vị chua.", vl: false},
+  {ht: "Viên phấn được nghiền thành bột mịn", vl: true},
+  {ht: "Nước mưa hoà tan khí CO₂ trong không khí tạo thành carbonic acid", vl: false},
+  {ht: "Bánh mì bị nướng cháy.", vl: false},
+  {ht: "Hiện tượng băng tan.", vl: true},
+  {ht: "Thức ăn bị ôi thiu.", vl: false},
+  {ht: "Quả táo để lâu ngày bị hỏng.", vl: false},
+  {ht: "Hạt gạo bị xay nhuyễn thành bột gạo.", vl: true},
+  {ht: "Hoà tan đường vào nước thu được dung dịch đường.", vl: true},
+  {ht: "Vành xe đạp bằng sắt bị phủ một lớp gỉ là chất màu nâu đỏ.", vl: false},
+  {ht: "Để rượu nhạt lâu ngày ngoài không khí, rượu nhạt bị lên men có vị chua.", vl: false},
+  {ht: "Lưu huỳnh (sulfur) cháy trong khí oxygen tạo ra chất khí mùi hắc (sulfur dioxide).", vl: false}
+];
+
+const dang1Table = document.getElementById('dang1Table');
+dang1Data.forEach(d => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${d.ht}</td>
+    <td style="text-align:center">${d.vl ? '<b>✓</b>' : ''}</td>
+    <td style="text-align:center">${!d.vl ? '<b>✓</b>' : ''}</td>
+  `;
+  dang1Table.appendChild(tr);
+});
+
+const dang3Data = [
+  {q: "1. P + O₂ --t°--> P₂O₅", sol: "4P + 5O₂ --t°--> 2P₂O₅<br>Tỉ lệ số nguyên tử P : số phân tử O₂ : số phân tử P₂O₅ = 4 : 5 : 2"},
+  {q: "2. N₂O₅ + H₂O → HNO₃", sol: "N₂O₅ + H₂O → 2HNO₃<br>Tỉ lệ số phân tử N₂O₅ : H₂O : HNO₃ = 1 : 1 : 2"},
+  {q: "3. SO₂ + O₂ --t°, V₂O₅--> SO₃", sol: "2SO₂ + O₂ --t°, V₂O₅--> 2SO₃<br>Tỉ lệ số phân tử SO₂ : O₂ : SO₃ = 2 : 1 : 2"},
+  {q: "4. Fe(OH)₃ --t°--> Fe₂O₃ + H₂O", sol: "2Fe(OH)₃ --t°--> Fe₂O₃ + 3H₂O<br>Tỉ lệ số phân tử Fe(OH)₃ : Fe₂O₃ : H₂O = 2 : 1 : 3"},
+  {q: "5. Na + H₂O → NaOH + H₂ ↑", sol: "2Na + 2H₂O → 2NaOH + H₂ ↑<br>Tỉ lệ số nguyên tử Na : phân tử H₂O : phân tử NaOH : phân tử H₂ = 2 : 2 : 2 : 1"},
+  {q: "6. FeO + HCl → FeCl₂ + H₂O", sol: "FeO + 2HCl → FeCl₂ + H₂O<br>Tỉ lệ số phân tử FeO : HCl : FeCl₂ : H₂O = 1 : 2 : 1 : 1"},
+  {q: "7. KClO₃ --t°--> KCl + O₂ ↑", sol: "2KClO₃ --t°--> 2KCl + 3O₂ ↑<br>Tỉ lệ số phân tử KClO₃ : KCl : O₂ = 2 : 2 : 3"},
+  {q: "8. Fe₂O₃ + H₂SO₄ → Fe₂(SO₄)₃ + H₂O", sol: "Fe₂O₃ + 3H₂SO₄ → Fe₂(SO₄)₃ + 3H₂O<br>Tỉ lệ số phân tử Fe₂O₃ : H₂SO₄ : Fe₂(SO₄)₃ : H₂O = 1 : 3 : 1 : 3"},
+  {q: "9. Cu(OH)₂ + HCl → CuCl₂ + H₂O", sol: "Cu(OH)₂ + 2HCl → CuCl₂ + 2H₂O<br>Tỉ lệ số phân tử Cu(OH)₂ : HCl : CuCl₂ : H₂O = 1 : 2 : 1 : 2"},
+  {q: "10. Al + H₂SO₄ → Al₂(SO₄)₃ + H₂ ↑", sol: "2Al + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂ ↑<br>Tỉ lệ số nguyên tử Al : phân tử H₂SO₄ : phân tử Al₂(SO₄)₃ : phân tử H₂ = 2 : 3 : 1 : 3"},
+  {q: "11. CaCO₃ + CH₃COOH → (CH₃COO)₂Ca + H₂O + CO₂", sol: "CaCO₃ + 2CH₃COOH → (CH₃COO)₂Ca + H₂O + CO₂ ↑<br>Tỉ lệ số phân tử CaCO₃ : CH₃COOH : (CH₃COO)₂Ca : H₂O : CO₂ = 1 : 2 : 1 : 1 : 1"}
+];
+
+const dang3List = document.getElementById('dang3List');
+dang3Data.forEach(d => {
+  const box = document.createElement('div');
+  box.className = 'card';
+  box.style.background = 'rgba(15, 23, 42, 0.35)';
+  box.style.marginBottom = '0';
+  box.innerHTML = `
+    <div class="question-title"><b>Đề bài:</b> ${d.q}</div>
+    <details>
+      <summary>PTHH cân bằng & tỉ lệ</summary>
+      <div class="math-box">${d.sol}</div>
+    </details>
+  `;
+  dang3List.appendChild(box);
+});
+
+function switchTab(panelId, event) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#mainNavTabs .glassBtn').forEach(b => b.classList.remove('active'));
+
+  document.getElementById(panelId).classList.add('active');
+  if (event && event.currentTarget) {
+    event.currentTarget.classList.add('active');
+    updatePill(event.currentTarget);
+  }
+}
+
+function updatePill(btn) {
+  const pill = document.getElementById('navLiquidPill');
+  if (pill && btn) {
+    pill.style.left = btn.offsetLeft + 'px';
+    pill.style.width = btn.offsetWidth + 'px';
+  }
+}
+
+function toggleBackground() {
+  const v = document.getElementById('bgVideo'), o = document.getElementById('bgOverlay'), b = document.getElementById('bgToggleBtn');
+  v.classList.toggle('hidden');
+  o.classList.toggle('hidden');
+  b.innerHTML = v.classList.contains('hidden') ? '🎬 Nền: Tắt' : '🎬 Nền: Bật';
+}
+
+function initCardSpotlight() {
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', function(e) {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
+    });
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderQuiz();
+  const activeBtn = document.querySelector('#mainNavTabs .glassBtn.active');
+  if (activeBtn) updatePill(activeBtn);
+  initCardSpotlight();
+});
+</script>
+
+</body>
+</html>
