@@ -405,12 +405,10 @@ function checkSingleQuestion(qId) {
 
     if (isCorrectTarget) {
       if (isSelected) {
-        // Đúng -> Xanh lá
         btn.style.setProperty('border-color', '#10B981', 'important');
         btn.style.setProperty('background', 'rgba(16, 185, 129, 0.3)', 'important');
         btn.style.setProperty('color', '#34D399', 'important');
       } else {
-        // Thiếu -> Xanh dương
         allCorrectChosen = false;
         btn.style.setProperty('border-color', '#3B82F6', 'important');
         btn.style.setProperty('background', 'rgba(59, 130, 246, 0.3)', 'important');
@@ -418,7 +416,6 @@ function checkSingleQuestion(qId) {
       }
     } else {
       if (isSelected) {
-        // Sai / Dư -> Đỏ
         btn.style.setProperty('border-color', '#EF4444', 'important');
         btn.style.setProperty('background', 'rgba(239, 68, 68, 0.3)', 'important');
         btn.style.setProperty('color', '#F87171', 'important');
@@ -453,7 +450,15 @@ function switchTab(tabId, event) {
 
   if (event && event.currentTarget) {
     event.currentTarget.classList.add('active');
+    updateLiquidPill('liquidPill', event.currentTarget);
   }
+}
+
+function updateLiquidPill(pillId, btn) {
+  const pill = document.getElementById(pillId);
+  if (!pill || !btn) return;
+  pill.style.left = btn.offsetLeft + 'px';
+  pill.style.width = btn.offsetWidth + 'px';
 }
 
 function initCardSpotlight() {
@@ -492,5 +497,9 @@ function toggleBackground() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    const activeBtn = document.querySelector('#filterTabs .glassBtn.active');
+    if (activeBtn) updateLiquidPill('liquidPill', activeBtn);
+  }, 100);
   renderQuiz();
 });
