@@ -71,7 +71,7 @@ const vocabGlossary = {
         { word: "schoolwork", type: "n", ipa: "/ˈskuːlwɜːk/", meaning: "bài làm trên lớp" },
         { word: "session", type: "n", ipa: "/ˈseʃn/", meaning: "tiết học" },
         { word: "stress", type: "n", ipa: "/stres/", meaning: "căng thẳng" },
-        { word: "stressful", type: "adj", ipa: "/ˈstresfl/", meaning: "căng thẳng, tạo áp lực" },
+        { word: "stressful", type: "adj", ipa: "/stresfl/", meaning: "căng thẳng, tạo áp lực" },
         { word: "upload", type: "v", ipa: "/ˌʌpˈləʊd/", meaning: "tải lên" },
         { word: "user-friendly", type: "adj", ipa: "/ˌjuːzə ˈfrendli/", meaning: "thân thiện với người dùng, dễ dùng" },
         { word: "website", type: "n", ipa: "/ˈwebsaɪt/", meaning: "trang mạng" }
@@ -151,21 +151,28 @@ const unitsData = {
         grammarHTML: `
             <div style="display: flex; flex-direction: column; gap: 18px;">
                 <div class="card" style="margin-bottom: 0;">
-                    <h3 class="question-title" style="color: #60A5FA; font-size: 1.1rem;"><i class="fa-solid fa-heart" style="color: #EF4444;"></i> 1. Verbs of liking / disliking (Động từ chỉ sự yêu/ghét)</h3>
+                    <h3 class="question-title" style="color: #60A5FA; font-size: 1.1rem;"><i class="fa-solid fa-heart" style="color: #EF4444;"></i> 1. Verbs of Liking & Disliking (Động từ chỉ yêu/ghét)</h3>
                     <div class="essay-content" style="display: flex; flex-direction: column; gap: 12px;">
-                        <p>Để nói về sở thích hoặc hoạt động thời gian rảnh, ta dùng các động từ chỉ cảm xúc kết hợp với <strong>V-ing</strong> hoặc <strong>To-V</strong>.</p>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+                        <p>Dùng để diễn tả sở thích hoặc thái độ đối với các hoạt động trong thời gian rảnh rỗi.</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
                             <div style="background: rgba(59,130,246,0.1); padding: 14px; border-radius: 12px; border: 1px solid rgba(59,130,246,0.2);">
-                                <p style="font-weight: 700; color: #93C5FD; margin-bottom: 4px;">A. Theo sau bởi V-ing (Danh động từ):</p>
-                                <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 6px;">Áp dụng cho: <em>fancy, enjoy, detest, mind, avoid, practice</em></p>
-                                <div class="math-box" style="margin-top: 0; font-size: 0.82rem;"><strong>S + Verb (liking) + V-ing + ...</strong></div>
-                                <p style="font-size: 0.85rem; margin-top: 6px;">• She <strong>fancies messaging</strong> her friends.</p>
+                                <p style="font-weight: 700; color: #93C5FD; margin-bottom: 6px;">BẮT BUỘC + V-ing</p>
+                                <ul style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px; padding-left: 16px;">
+                                    <li><strong>fancy</strong> <i>(thích)</i>: She fancies messaging.</li>
+                                    <li><strong>enjoy</strong> <i>(thích)</i>: We enjoy doing puzzles.</li>
+                                    <li><strong>detest</strong> <i>(ghét)</i>: He detests getting up early.</li>
+                                    <li><strong>mind</strong> <i>(ngại)</i>: Do you mind helping?</li>
+                                    <li><strong>avoid</strong> <i>(tránh)</i>: They avoid going out.</li>
+                                </ul>
                             </div>
                             <div style="background: rgba(168,85,247,0.1); padding: 14px; border-radius: 12px; border: 1px solid rgba(168,85,247,0.2);">
-                                <p style="font-weight: 700; color: #D8B4FE; margin-bottom: 4px;">B. Đi cùng cả V-ing hoặc To-V (Không đổi nghĩa):</p>
-                                <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 6px;">Áp dụng cho: <em>like, love, hate, prefer</em></p>
-                                <div class="math-box" style="margin-top: 0; font-size: 0.82rem; background: rgba(168,85,247,0.15); border-left-color: #A855F7;"><strong>S + Verb + V-ing / To-Infinitive</strong></div>
-                                <p style="font-size: 0.85rem; margin-top: 6px;">• He <strong>likes playing</strong> = <strong>like to play</strong></p>
+                                <p style="font-weight: 700; color: #D8B4FE; margin-bottom: 6px;">Đi kèm V-ing HOẶC To-V</p>
+                                <ul style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px; padding-left: 16px;">
+                                    <li><strong>like</strong> <i>(thích)</i>: He likes playing / to play.</li>
+                                    <li><strong>love</strong> <i>(rất thích)</i>: Kids love doing / to do.</li>
+                                    <li><strong>hate</strong> <i>(ghét)</i>: She hates waiting / to wait.</li>
+                                    <li><strong>prefer</strong> <i>(thích hơn)</i>: I prefer reading / to read.</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -253,17 +260,21 @@ const unitsData = {
                 <div class="card" style="margin-bottom: 0;">
                     <h3 class="question-title" style="color: #10B981; font-size: 1.1rem;"><i class="fa-solid fa-arrow-up-right-dots"></i> 1. Comparative Adverbs (So sánh hơn của Trạng từ)</h3>
                     <div class="essay-content" style="display: flex; flex-direction: column; gap: 12px;">
-                        <p>So sánh hơn của trạng từ dùng để so sánh cách thức hành động thực hiện giữa 2 đối tượng.</p>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+                        <p>Dùng để so sánh hành động giữa 2 người hoặc vật xem ai thực hiện hành động thế nào hơn.</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
                             <div style="background: rgba(16,185,129,0.1); padding: 14px; border-radius: 12px; border: 1px solid rgba(16,185,129,0.2);">
-                                <p style="font-weight: 700; color: #34D399; margin-bottom: 4px;">A. Trạng từ ngắn (1 âm tiết / tận cùng -y):</p>
+                                <p style="font-weight: 700; color: #34D399; margin-bottom: 6px;">Trạng từ ngắn (Thêm -er)</p>
                                 <div class="math-box" style="margin-top: 0; font-size: 0.82rem; background: rgba(16,185,129,0.15); border-left-color: #10B981;"><strong>S1 + V + Adv-er + than + S2</strong></div>
-                                <p style="font-size: 0.85rem; margin-top: 6px;">• Farmers work <strong>harder than</strong> city workers.</p>
+                                <p style="font-size: 0.85rem; margin-top: 6px;">• fast ➔ faster (nhanh hơn)</p>
+                                <p style="font-size: 0.85rem;">• hard ➔ harder (chăm chỉ hơn)</p>
+                                <p style="font-size: 0.85rem;">• early ➔ earlier (sớm hơn)</p>
                             </div>
                             <div style="background: rgba(6,182,212,0.1); padding: 14px; border-radius: 12px; border: 1px solid rgba(6,182,212,0.2);">
-                                <p style="font-weight: 700; color: #67E8F9; margin-bottom: 4px;">B. Trạng từ dài (tận cùng -ly):</p>
+                                <p style="font-weight: 700; color: #67E8F9; margin-bottom: 6px;">Trạng từ dài (Thêm more)</p>
                                 <div class="math-box" style="margin-top: 0; font-size: 0.82rem; background: rgba(6,182,212,0.15); border-left-color: #06B6D4;"><strong>S1 + V + more + Adv + than + S2</strong></div>
-                                <p style="font-size: 0.85rem; margin-top: 6px;">• People live <strong>more peacefully than</strong> in cities.</p>
+                                <p style="font-size: 0.85rem; margin-top: 6px;">• peacefully ➔ more peacefully</p>
+                                <p style="font-size: 0.85rem;">• freely ➔ more freely</p>
+                                <p style="font-size: 0.85rem;">• carefully ➔ more carefully</p>
                             </div>
                         </div>
                     </div>
@@ -345,16 +356,78 @@ const unitsData = {
         grammarHTML: `
             <div style="display: flex; flex-direction: column; gap: 18px;">
                 <div class="card" style="margin-bottom: 0;">
-                    <h3 class="question-title" style="color: #A855F7; font-size: 1.1rem;"><i class="fa-solid fa-code-fork"></i> 1. Simple & Compound Sentences (Câu Đơn & Câu Ghép)</h3>
+                    <h3 class="question-title" style="color: #A855F7; font-size: 1.1rem;"><i class="fa-solid fa-code-fork"></i> 1. Câu Đơn & Câu Ghép (Simple & Compound Sentences)</h3>
                     <div class="essay-content" style="display: flex; flex-direction: column; gap: 12px;">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
                             <div style="background: rgba(168,85,247,0.1); padding: 14px; border-radius: 12px; border: 1px solid rgba(168,85,247,0.2);">
-                                <p style="font-weight: 700; color: #D8B4FE; margin-bottom: 4px;">A. Câu Đơn (Simple Sentence):</p>
-                                <p style="font-size: 0.85rem;">Chỉ gồm 1 mệnh đề độc lập (1 Chủ ngữ & 1 Động từ chính).</p>
+                                <p style="font-weight: 700; color: #D8B4FE; margin-bottom: 6px;">A. Câu Đơn (Simple Sentence)</p>
+                                <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 6px;">Cấu trúc cơ bản nhất gồm 1 Chủ ngữ (S) và 1 Động từ (V) diễn tả một ý hoàn chỉnh.</p>
+                                <ul style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px; padding-left: 16px;">
+                                    <li><strong>Min reads.</strong> <i>(Min đọc sách.)</i></li>
+                                    <li><strong>Teens use social media.</strong> <i>(Thanh thiếu niên dùng mạng xã hội.)</i></li>
+                                    <li><strong>She feels stressed.</strong> <i>(Cô ấy cảm thấy căng thẳng.)</i></li>
+                                    <li><strong>They play games.</strong> <i>(Họ chơi trò chơi điện tử.)</i></li>
+                                </ul>
                             </div>
+
                             <div style="background: rgba(99,102,241,0.1); padding: 14px; border-radius: 12px; border: 1px solid rgba(99,102,241,0.2);">
-                                <p style="font-weight: 700; color: #A5B4FC; margin-bottom: 4px;">B. Câu Ghép (Compound Sentence):</p>
-                                <p style="font-size: 0.85rem;">Nối 2 mệnh đề độc lập bằng liên từ <strong>FANBOYS</strong> (For, And, Nor, But, Or, Yet, So) hoặc trạng từ liên kết.</p>
+                                <p style="font-weight: 700; color: #A5B4FC; margin-bottom: 6px;">B. Câu Ghép & Liên Từ (FANBOYS)</p>
+                                <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 6px;">Nối 2 câu đơn bằng dấu phẩy và các từ nối đơn giản:</p>
+                                <ul style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px; padding-left: 16px;">
+                                    <li><strong>and</strong> <i>(và - thêm thông tin)</i>: I have a laptop, <strong>and</strong> I use it to browse websites.</li>
+                                    <li><strong>but</strong> <i>(nhưng - ý ngược nhau)</i>: He wanted to log on, <strong>but</strong> the internet was down.</li>
+                                    <li><strong>or</strong> <i>(hoặc - sự lựa chọn)</i>: You can study now, <strong>or</strong> you can fail.</li>
+                                    <li><strong>so</strong> <i>(vì vậy - chỉ kết quả)</i>: She was tired, <strong>so</strong> she went to bed early.</li>
+                                    <li><strong>for</strong> <i>(vì - giải thích nguyên nhân)</i>: He is sad, <strong>for</strong> he failed the test.</li>
+                                    <li><strong>yet</strong> <i>(tuy nhiên / thế mà)</i>: It was hard, <strong>yet</strong> she tried her best.</li>
+                                    <li><strong>nor</strong> <i>(cũng không - phủ định kép)</i>: He doesn't smoke, <strong>nor</strong> does he drink.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 0;">
+                    <h3 class="question-title" style="color: #A855F7; font-size: 1.1rem;"><i class="fa-solid fa-link" style="color: #EC4899;"></i> 2. Trạng Từ Liên Kết Nâng Cao (Conjunctive Adverbs)</h3>
+                    <div class="essay-content" style="display: flex; flex-direction: column; gap: 12px;">
+                        <p>Các từ dùng để liên kết ý nghĩa giữa hai mệnh đề trong câu ghép. Cú pháp chuẩn: <strong>Mệnh đề 1; [trạng từ], Mệnh đề 2.</strong></p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;">
+                            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; border: var(--glass-border);">
+                                <p style="font-weight: 700; color: #F472B6;">however / nevertheless</p>
+                                <p style="font-size: 0.8rem; color: var(--muted);">Ý nghĩa: Tuy nhiên / Dù vậy</p>
+                                <p style="font-size: 0.82rem; margin-top: 4px;">• Online games are fun; <strong>however</strong>, don't spend too much time on them.</p>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; border: var(--glass-border);">
+                                <p style="font-weight: 700; color: #F472B6;">therefore / thus / hence</p>
+                                <p style="font-size: 0.8rem; color: var(--muted);">Ý nghĩa: Do đó / Vì vậy / Cho nên</p>
+                                <p style="font-size: 0.82rem; margin-top: 4px;">• Tom logged on to the forum; <strong>therefore</strong>, he found the answer.</p>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; border: var(--glass-border);">
+                                <p style="font-weight: 700; color: #F472B6;">otherwise</p>
+                                <p style="font-size: 0.8rem; color: var(--muted);">Ý nghĩa: Nếu không thì (cảnh báo)</p>
+                                <p style="font-size: 0.82rem; margin-top: 4px;">• Finish your schoolwork; <strong>otherwise</strong>, you can't play games.</p>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; border: var(--glass-border);">
+                                <p style="font-weight: 700; color: #F472B6;">besides / furthermore / moreover</p>
+                                <p style="font-size: 0.8rem; color: var(--muted);">Ý nghĩa: Hơn nữa / Ngoài ra</p>
+                                <p style="font-size: 0.82rem; margin-top: 4px;">• The app is user-friendly; <strong>moreover</strong>, it is free.</p>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; border: var(--glass-border);">
+                                <p style="font-weight: 700; color: #F472B6;">meanwhile</p>
+                                <p style="font-size: 0.8rem; color: var(--muted);">Ý nghĩa: Trong khi đó</p>
+                                <p style="font-size: 0.82rem; margin-top: 4px;">• Mai was studying; <strong>meanwhile</strong>, her brother was browsing the web.</p>
+                            </div>
+
+                            <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; border: var(--glass-border);">
+                                <p style="font-weight: 700; color: #F472B6;">instead</p>
+                                <p style="font-size: 0.8rem; color: var(--muted);">Ý nghĩa: Thay vào đó</p>
+                                <p style="font-size: 0.82rem; margin-top: 4px;">• Don't buy a toy; <strong>instead</strong>, make a handmade craft.</p>
                             </div>
                         </div>
                     </div>
