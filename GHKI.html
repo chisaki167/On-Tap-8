@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/jpeg" href="ava.jpg">
 <title>HƯỚNG DẪN ÔN TẬP KTGK I - KHTN 8 - NH 26_27</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -332,28 +333,10 @@
 
   <div class="card">
     <h3 class="section-title"><i class="fa-solid fa-question"></i> Câu hỏi vận dụng từ thông tin</h3>
+    <div id="readQuizContainer" style="display:grid;gap:14px"></div>
 
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);">
-      <p class="question-title"><b>Câu 1.</b> Các hang động trong núi đá vôi được hình thành chủ yếu là do:</p>
-      <div class="options">
-        <label class="option-btn disabled"><input type="radio" name="tt1" disabled> A. gió mạnh bào mòn đá vôi trong thời gian dài.</label>
-        <label class="option-btn disabled selected-correct"><input type="radio" name="tt1" checked disabled> B. nước có hoà tan CO₂ (carbonic acid) hoà tan dần đá vôi.</label>
-        <label class="option-btn disabled"><input type="radio" name="tt1" disabled> C. nham thạch núi lửa làm chảy đá vôi.</label>
-        <label class="option-btn disabled"><input type="radio" name="tt1" disabled> D. nhiệt độ cao làm đá vôi bị phân huỷ thành vôi sống.</label>
-      </div>
-    </div>
-
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);">
-      <p class="question-title"><b>Câu 2.</b> Hiện tượng quan sát được khi nhỏ giấm ăn lên viên phấn là:</p>
-      <div class="options">
-        <label class="option-btn disabled"><input type="radio" name="tt2" disabled> A. viên phấn chuyển sang màu đỏ.</label>
-        <label class="option-btn disabled"><input type="radio" name="tt2" disabled> B. không có hiện tượng gì.</label>
-        <label class="option-btn disabled"><input type="radio" name="tt2" disabled> C. xuất hiện kết tủa màu xanh.</label>
-        <label class="option-btn disabled selected-correct"><input type="radio" name="tt2" checked disabled> D. viên phấn tan dần và có bọt khí thoát ra.</label>
-      </div>
-    </div>
-
-    <div class="card" style="background:rgba(15, 23, 42, 0.35);">
+    <!-- Tăng khoảng cách giữa Câu 2 và Câu 3 bằng margin-top: 28px -->
+    <div class="card" style="background:rgba(15, 23, 42, 0.35); margin-top: 28px;">
       <p class="question-title"><b>Câu 3.</b> Cho 5 g phấn (chứa 90% CaCO<sub>3</sub> về khối lượng, còn lại là tạp chất không phản ứng) vào lượng giấm dư. Tính thể tích khí CO<sub>2</sub> (lít, ở điều kiện chuẩn) thu được. <i>(Làm tròn đến hàng phần trăm)</i></p>
       <details>
         <summary>Đáp án & Lời giải</summary>
@@ -429,6 +412,11 @@ const rawQuizData = [
   {q: "30. Trong các dung dịch giấm ăn, muối ăn, nước ép quả chanh, nước vôi trong, số dung dịch có pH < 7 là:", o: ["2.", "4.", "1.", "3."], correct: "2.", s: "Dung dịch acid/có tính acid có pH < 7: Giấm ăn (chứa acetic acid), nước ép chanh (chứa citric acid) -> Có 2 dung dịch. (Muối ăn pH=7, nước vôi trong pH>7)."}
 ];
 
+const readQuizData = [
+  {q: "Câu 1. Các hang động trong núi đá vôi được hình thành chủ yếu là do:", o: ["gió mạnh bào mòn đá vôi trong thời gian dài.", "nước có hoà tan CO₂ (carbonic acid) hoà tan dần đá vôi.", "nham thạch núi lửa làm chảy đá vôi.", "nhiệt độ cao làm đá vôi bị phân huỷ thành vôi sống."], correct: "nước có hoà tan CO₂ (carbonic acid) hoà tan dần đá vôi.", s: "Nước mưa hòa tan CO₂ tạo carbonic acid, phản ứng chậm với đá vôi (CaCO₃) tạo chất tan qua hàng nghìn năm tạo thành hang động."},
+  {q: "Câu 2. Hiện tượng quan sát được khi nhỏ giấm ăn lên viên phấn là:", o: ["viên phấn chuyển sang màu đỏ.", "không có hiện tượng gì.", "xuất hiện kết tủa màu xanh.", "viên phấn tan dần và có bọt khí thoát ra."], correct: "viên phấn tan dần và có bọt khí thoát ra.", s: "Giấm ăn chứa acetic acid tác dụng với CaCO₃ trong viên phấn tạo khí CO₂ sủi bọt và viên phấn tan dần."}
+];
+
 const labels = ["A. ", "B. ", "C. ", "D. "];
 
 function shuffleArray(array) {
@@ -444,7 +432,6 @@ const quizContainer = document.getElementById('quizContainer');
 
 function renderQuiz() {
   quizContainer.innerHTML = '';
-  // Sử dụng trực tiếp rawQuizData theo đúng thứ tự ban đầu
   rawQuizData.forEach((item, idx) => {
     const correctText = item.correct;
     const shuffledOptions = shuffleArray(item.o);
@@ -498,6 +485,65 @@ function checkQuiz(qIdx, selected, correctIdx) {
     }
   }
   document.getElementById(`sol_${qIdx}`).open = true;
+}
+
+const readQuizContainer = document.getElementById('readQuizContainer');
+
+function renderReadQuiz() {
+  readQuizContainer.innerHTML = '';
+  readQuizData.forEach((item, idx) => {
+    const correctText = item.correct;
+    const shuffledOptions = shuffleArray(item.o);
+    const newCorrectIndex = shuffledOptions.indexOf(correctText);
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.background = 'rgba(15, 23, 42, 0.35)';
+    card.style.marginBottom = '0';
+    
+    let optsHTML = shuffledOptions.map((opt, i) => 
+      `<label class="option-btn" id="rq_${idx}_opt_${i}" onclick="checkReadQuiz(${idx}, ${i}, ${newCorrectIndex})">
+         <span><b>${labels[i]}</b>${opt}</span>
+         <span class="badge-result" id="rbadge_${idx}__${i}" style="display:none"></span>
+      </label>`
+    ).join('');
+
+    card.innerHTML = `
+      <div class="question-title"><b>${item.q}</b></div>
+      <div class="options">${optsHTML}</div>
+      <details id="rsol_${idx}" style="margin-top:10px">
+        <summary>Lời giải chi tiết</summary>
+        <div class="math-box">${item.s}</div>
+      </details>
+    `;
+    readQuizContainer.appendChild(card);
+  });
+}
+
+function checkReadQuiz(qIdx, selected, correctIdx) {
+  for(let i = 0; i < 4; i++) {
+    const btn = document.getElementById(`rq_${qIdx}_opt_${i}`);
+    btn.onclick = null;
+    btn.classList.add('disabled');
+    
+    const badge = document.getElementById(`rbadge_${qIdx}__${i}`);
+    if (i === correctIdx) {
+      btn.classList.add('selected-correct');
+      if(badge) {
+        badge.style.display = 'inline-block';
+        badge.className = 'badge-result correct';
+        badge.innerText = 'Chính xác';
+      }
+    } else if (i === selected) {
+      btn.classList.add('selected-wrong');
+      if(badge) {
+        badge.style.display = 'inline-block';
+        badge.className = 'badge-result wrong';
+        badge.innerText = 'Chưa đúng';
+      }
+    }
+  }
+  document.getElementById(`rsol_${qIdx}`).open = true;
 }
 
 document.getElementById('toggleAllSol').onclick = function() {
@@ -621,6 +667,7 @@ function initCardSpotlight() {
 
 window.addEventListener('DOMContentLoaded', () => {
   renderQuiz();
+  renderReadQuiz();
   const activeBtn = document.querySelector('#mainNavTabs .glassBtn.active');
   if (activeBtn) updatePill(activeBtn);
   initCardSpotlight();
