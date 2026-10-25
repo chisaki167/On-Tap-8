@@ -105,20 +105,9 @@
       o.classList.toggle('hidden');
       b.innerHTML = v.classList.contains('hidden') ? '🎬 Nền: Tắt' : '🎬 Nền: Bật';
     }
-
-    function toggleFullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(err => {
-      alert(`Không thể bật chế độ toàn màn hình: ${err.message}`);
-    });
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    }
-  }
-
-  
+  } 
 }
   </script>
+  <script src="67.js"></script>
 </body>
 </html>
