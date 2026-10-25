@@ -87,7 +87,37 @@
   <footer class="wrap">
     Hệ thống ôn tập trực tuyến · Khối 8 · Github by chisaki167 · Bản thử nghiệm
   </footer>
-  <script src="67.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
+          card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
+        });
+      });
+    });
+
+    function toggleBackground() {
+      const v = document.getElementById('bgVideo'), o = document.getElementById('bgOverlay'), b = document.getElementById('bgToggleBtn');
+      v.classList.toggle('hidden');
+      o.classList.toggle('hidden');
+      b.innerHTML = v.classList.contains('hidden') ? '🎬 Nền: Tắt' : '🎬 Nền: Bật';
+    }
+
+    function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(err => {
+      alert(`Không thể bật chế độ toàn màn hình: ${err.message}`);
+    });
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  
 }
 
 document.addEventListener('fullscreenchange', () => {
