@@ -21,6 +21,8 @@
     <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">🎬 Nền: Tắt</button>
   </div>
 
+  <button class="bg-toggle-btn" id="fullscreenBtn" type="button" onclick="toggleFullscreen()">🛈 Toàn màn hình: Tắt</button>
+
   <video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
     <source src="background.mp4" type="video/mp4">
   </video>
@@ -103,6 +105,29 @@
       o.classList.toggle('hidden');
       b.innerHTML = v.classList.contains('hidden') ? '🎬 Nền: Tắt' : '🎬 Nền: Bật';
     }
+
+    function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(err => {
+      alert(`Không thể bật chế độ toàn màn hình: ${err.message}`);
+    });
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const btn = document.getElementById('fullscreenBtn');
+  if (btn) {
+    if (document.fullscreenElement) {
+      btn.innerHTML = '🛈 Toàn màn hình: Bật';
+    } else {
+      btn.innerHTML = '🛈 Toàn màn hình: Tắt';
+    }
+  }
+});
   </script>
 </body>
 </html>
