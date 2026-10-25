@@ -21,12 +21,12 @@
     <button class="bg-toggle-btn" id="bgToggleBtn" onclick="toggleBackground()">🎬 Nền: Tắt</button>
   </div>
 
-  <button class="bg-toggle-btn" id="fullscreenBtn" type="button" onclick="toggleFullscreen()">🛈 Toàn màn hình: Tắt</button>
-
   <video class="bg-video hidden" id="bgVideo" autoplay muted loop playsinline>
     <source src="background.mp4" type="video/mp4">
   </video>
   <div class="bg-overlay hidden" id="bgOverlay"></div>
+
+  <button class="bg-toggle-btn" id="fullscreenBtn" type="button" onclick="toggleFullscreen()">🛈 Toàn màn hình: Tắt</button>
 
   <header class="profile wrap">
     <h1>KHO LƯU TRỮ ÔN TẬP <span class="highlight">(2025 - 2026)</span></h1>
@@ -116,6 +116,8 @@
       document.exitFullscreen();
     }
   }
+
+  <script src="67.js"></script>
 }
 
 document.addEventListener('fullscreenchange', () => {
