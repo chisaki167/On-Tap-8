@@ -40,7 +40,7 @@
 <main class="wrap">
   <header class="profile">
     <h1>Trợ Lý <span class="highlight">DeepSeek Voice AI</span></h1>
-    <h2>Trò chuyện bằng giọng nói & văn bản thông minh</h2>
+    <h2>Trò chuyện bằng giọng nói, văn bản & hình ảnh thông minh</h2>
   </header>
 
   <div class="card">
@@ -51,7 +51,7 @@
 
       <div>
         <h3 style="font-size: 1.25rem; color: var(--ink); margin-bottom: 6px; font-family: var(--font-display);">Cấu hình API & Tương tác</h3>
-        <p style="color: var(--muted); font-size: 0.9rem;">Nhập API Key, bấm ghi âm hoặc nhập văn bản trực tiếp để trò chuyện.</p>
+        <p style="color: var(--muted); font-size: 0.9rem;">Nhập API Key, dán/tải ảnh trực tiếp, bấm ghi âm hoặc nhập văn bản để trò chuyện.</p>
       </div>
 
       <div class="api-key-box">
@@ -61,14 +61,26 @@
       </div>
 
       <div class="quick-input-area">
-        <textarea id="promptInput" placeholder="Nhập câu hỏi hoặc bấm nút ghi âm bên cạnh..." rows="2"></textarea>
-        <div class="btn-group">
-          <button class="record-btn" id="recordBtn" onclick="toggleRecord()" title="Bấm để nói chuyện">
-            <i class="fa-solid fa-microphone" id="micIcon"></i> <span id="recordText">Nói</span>
-          </button>
-          <button class="quick-send-btn" onclick="sendToDeepSeek()">
-            <span>Gửi</span> <i class="fa-solid fa-paper-plane"></i>
-          </button>
+        <div id="imagePreviewContainer" class="image-preview-container">
+          <img id="imagePreview" src="" alt="Preview">
+          <span id="imageName" style="font-size: 0.8rem; color: var(--ink);"></span>
+          <button class="remove-img-btn" onclick="removeImage()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div class="input-row">
+          <textarea id="promptInput" placeholder="Nhập câu hỏi, dán ảnh (Ctrl+V) hoặc nói..." rows="2"></textarea>
+          <div class="btn-group">
+            <button class="upload-btn" onclick="document.getElementById('imageInput').click()" title="Chọn ảnh">
+              <i class="fa-solid fa-image"></i>
+            </button>
+            <input type="file" id="imageInput" accept="image/*" style="display:none;" onchange="handleImageSelect(event)">
+            <button class="record-btn" id="recordBtn" onclick="toggleRecord()" title="Bấm để nói chuyện">
+              <i class="fa-solid fa-microphone" id="micIcon"></i>
+            </button>
+            <button class="quick-send-btn" onclick="sendToDeepSeek()">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
         </div>
       </div>
 

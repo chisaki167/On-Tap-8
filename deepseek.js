@@ -1,6 +1,7 @@
 let isTTSEnabled = true;
 let conversationHistory = [];
 const MAX_CONTEXT_HISTORY = 6;
+let currentBase64Image = null;
 
 function toggleBackground() {
   const v = document.getElementById('bgVideo');
@@ -23,6 +24,23 @@ function toggleTTS() {
   }
 }
 
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(err => {
+      alert(`Không thể bật chế độ toàn màn hình: ${err.message}`);
+    });
+  } else {
+    if (document.exitFullscreen) document.exitFullscreen();
+  }
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const btn = document.getElementById('fullscreenBtn');
+  if (btn) {
+    btn.innerHTML = document.fullscreenElement ? '🛈 Toàn màn hình: Bật' : '🛈 Toàn màn hình: Tắt';
+  }
+});
+
 window.addEventListener('DOMContentLoaded', () => {
   const savedKey = localStorage.getItem('deepseek_api_key');
   if (savedKey) {
@@ -37,10 +55,22 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.getElementById('promptInput').addEventListener('keydown', (e) => {
+  const promptInput = document.getElementById('promptInput');
+  promptInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendToDeepSeek();
+    }
+  });
+
+  promptInput.addEventListener('paste', (e) => {
+    const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+    for (let item of items) {
+      if (item.type.indexOf('image') === 0) {
+        const file = item.getAsFile();
+        processImageFile(file);
+        e.preventDefault();
+      }
     }
   });
 });
@@ -56,18 +86,41 @@ function saveApiKey() {
   }
 }
 
+function handleImageSelect(event) {
+  const file = event.target.files[0];
+  if (file) {
+    processImageFile(file);
+  }
+}
+
+function processImageFile(file) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    currentBase64Image = e.target.result;
+    document.getElementById('imagePreview').src = currentBase64Image;
+    document.getElementById('imageName').innerText = file.name || 'Ảnh đã dán';
+    document.getElementById('imagePreviewContainer').style.display = 'flex';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImage() {
+  currentBase64Image = null;
+  document.getElementById('imagePreviewContainer').style.display = 'none';
+  document.getElementById('imageInput').value = '';
+}
+
 let recognition = null;
 let isRecording = false;
 
 function toggleRecord() {
   const recordBtn = document.getElementById('recordBtn');
-  const recordText = document.getElementById('recordText');
   const micIcon = document.getElementById('micIcon');
   const statusText = document.getElementById('statusText');
 
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
-    alert('Trình duyệt không hỗ trợ nhận diện giọng nói (Khuyên dùng Chrome/Edge).');
+    alert('Trình duyệt không hỗ trợ nhận diện giọng nói.');
     return;
   }
 
@@ -80,20 +133,19 @@ function toggleRecord() {
     recognition.onstart = () => {
       isRecording = true;
       recordBtn.classList.add('recording');
-      recordText.innerText = 'Dừng';
       micIcon.className = 'fa-solid fa-stop';
-      statusText.innerText = 'Đang nghe bạn nói...';
+      statusText.innerText = 'Đang nghe...';
     };
 
     recognition.onresult = (event) => {
       const speechToText = event.results[0][0].transcript;
       document.getElementById('promptInput').value = speechToText;
-      statusText.innerText = 'Đã nhận diện xong giọng nói. Đang gửi...';
+      statusText.innerText = 'Đã nhận diện giọng nói.';
       sendToDeepSeek();
     };
 
     recognition.onerror = (event) => {
-      statusText.innerText = `Lỗi nhận diện giọng nói: ${event.error}`;
+      statusText.innerText = `Lỗi: ${event.error}`;
       stopRecordUI();
     };
 
@@ -111,10 +163,8 @@ function toggleRecord() {
 function stopRecordUI() {
   isRecording = false;
   const recordBtn = document.getElementById('recordBtn');
-  const recordText = document.getElementById('recordText');
   const micIcon = document.getElementById('micIcon');
   if (recordBtn) recordBtn.classList.remove('recording');
-  if (recordText) recordText.innerText = 'Nói';
   if (micIcon) micIcon.className = 'fa-solid fa-microphone';
 }
 
@@ -141,18 +191,31 @@ async function sendToDeepSeek() {
     return;
   }
 
-  if (!prompt) {
-    alert('Vui lòng nhập nội dung hoặc nói chuyện qua micro!');
+  if (!prompt && !currentBase64Image) {
+    alert('Vui lòng nhập nội dung, nói hoặc chọn/dán ảnh!');
     return;
   }
 
   conversationBox.style.display = 'flex';
   
-  appendMessage('user', 'Bạn', prompt);
-  promptInput.value = '';
-  statusText.innerText = 'Đang suy nghĩ';
+  let displayHTML = `<strong>Bạn</strong><div>${prompt || '(Gửi hình ảnh)'}</div>`;
+  if (currentBase64Image) {
+    displayHTML += `<img src="${currentBase64Image}" alt="Uploaded image">`;
+  }
 
-  conversationHistory.push({ role: "user", content: prompt });
+  appendCustomMessage('message user', displayHTML);
+  promptInput.value = '';
+  statusText.innerText = 'Đang xử lý...';
+
+  let messageContent = prompt;
+  if (currentBase64Image) {
+    messageContent = [
+      { type: "text", text: prompt || "Hãy mô tả hoặc giải quyết nội dung trong ảnh này." },
+      { type: "image_url", image_url: { url: currentBase64Image } }
+    ];
+  }
+
+  conversationHistory.push({ role: "user", content: messageContent });
   if (conversationHistory.length > MAX_CONTEXT_HISTORY) {
     conversationHistory = conversationHistory.slice(-MAX_CONTEXT_HISTORY);
   }
@@ -162,7 +225,12 @@ async function sendToDeepSeek() {
     ? 'https://openrouter.ai/api/v1/chat/completions' 
     : 'https://api.deepseek.com/chat/completions';
   
-  const modelName = isOpenRouter ? 'deepseek/deepseek-chat' : 'deepseek-chat';
+  let modelName = isOpenRouter ? 'deepseek/deepseek-chat' : 'deepseek-chat';
+  if (currentBase64Image && isOpenRouter) {
+    modelName = 'google/gemini-2.5-flash';
+  }
+
+  removeImage();
 
   try {
     const response = await fetch(apiUrl, {
@@ -211,6 +279,15 @@ function appendMessage(role, sender, text) {
   const msgDiv = document.createElement('div');
   msgDiv.className = `message ${role}`;
   msgDiv.innerHTML = `<strong>${sender}</strong><div>${text}</div>`;
+  conversationBox.appendChild(msgDiv);
+  conversationBox.scrollTop = conversationBox.scrollHeight;
+}
+
+function appendCustomMessage(className, htmlContent) {
+  const conversationBox = document.getElementById('conversationBox');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = className;
+  msgDiv.innerHTML = htmlContent;
   conversationBox.appendChild(msgDiv);
   conversationBox.scrollTop = conversationBox.scrollHeight;
 }
