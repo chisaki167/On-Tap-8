@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lexend:wght@500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- Thư viện bổ trợ đọc file PPTX / PDF trực tiếp từ trình duyệt -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
   <!-- Liên kết file CSS riêng biệt -->
   <link rel="stylesheet" href="36.css">
 </head>
@@ -48,8 +52,12 @@
     <div class="presentation-bar">
       <div class="embed-link-wrapper">
         <i class="fa-solid fa-link" style="color: #60A5FA; margin-left: 4px;"></i>
-        <input type="text" id="embedLinkInput" class="embed-input" placeholder="Dán link bài thuyết trình (iframe / URL)..." />
+        <input type="text" id="embedLinkInput" class="embed-input" placeholder="Dán link (iframe/URL) hoặc chọn file PPTX..." />
       </div>
+      <label class="glassBtn" style="background: rgba(255,255,255,0.15); color: #fff; height: 38px; padding: 0 16px; cursor: pointer;" title="Tải file PowerPoint hoặc PDF từ máy tính">
+        <i class="fa-solid fa-file-powerpoint" style="color: #F97316;"></i> Chọn PPTX
+        <input type="file" id="pptFileInput" accept=".pptx,.ppt,.pdf" style="display:none;" />
+      </label>
       <button class="glassBtn active" id="loadEmbedBtn" type="button" style="background: var(--accent); color: #fff; height: 38px; padding: 0 20px;">
         <i class="fa-solid fa-play"></i> Trình Chiếu Ngay
       </button>
@@ -60,12 +68,30 @@
   </header>
 
   <main class="wrap">
-    <!-- MÀN HÌNH 16:9 TRỰC TIẾP TRÊN TRANG -->
+    <!-- MÀN HÌNH 16:9 TRỰC TIẾP TRÊN TRANG (HỖ TRỢ DRAG & DROP FILE PPT/PDF) -->
     <div class="stage-container" id="stageContainer">
+      
+      <!-- Khung hướng dẫn kéo thả file -->
       <div class="stage-placeholder" id="stagePlaceholder">
-        <i class="fa-solid fa-laptop-code"></i>
-        <p>Màn hình trình chiếu 16:9 đang trống.<br>Hãy nhập đường dẫn và nhấn <strong>Trình Chiếu Ngay</strong> để hiển thị nội dung.</p>
+        <i class="fa-solid fa-cloud-arrow-up stage-icon-upload"></i>
+        <p>Kéo & thả tệp <strong>.PPTX / .PDF</strong> vào đây<br>hoặc dán đường dẫn bài thuyết trình phía trên để chiếu trực tiếp.</p>
+        <span class="stage-file-info" id="pptFileName"></span>
       </div>
+
+      <!-- Khung hiển thị Slides PowerPoint / PDF -->
+      <div id="pptSlideViewer" class="ppt-viewer hidden">
+        <div id="slideRenderCanvas" class="slide-canvas"></div>
+        <div class="slide-controls">
+          <button class="slide-nav-btn" id="prevSlideBtn" type="button"><i class="fa-solid fa-chevron-left"></i></button>
+
+          <span class="slide-indicator" id="slideCounter">Slide 1 / 1</span>
+
+          <button class="slide-nav-btn" id="nextSlideBtn" type="button"><i class="fa-solid fa-chevron-right"></i></button>
+
+        </div>
+      </div>
+
+      <!-- Khung hiển thị Iframe URL / Embed -->
       <iframe id="stageIframe" class="stage-iframe hidden" src="" allow="fullscreen" allowfullscreen></iframe>
     </div>
 
@@ -77,30 +103,17 @@
       </div>
     </div>
 
-    <button class="bg-toggle-btn" id="fullscreenBtn" type="button" onclick="toggleFullscreen()">🛈 Toàn màn hình: Tắt</button>
+    
 
     <!-- TAB 1: HƯỚNG DẪN -->
     <div id="tab-home" class="tab-content active">
       <div class="card">
         <h3 class="section-title"><i class="fa-solid fa-star"></i> Hướng dẫn sử dụng màn hình 16:9</h3>
         <div class="essay-content">
-          <p>• Dán đường dẫn URL trang web bài thuyết trình hoặc đoạn mã nhúng <code>&lt;iframe&gt;</code> vào ô phía trên.</p>
-          <p>• Nhấn nút <strong>"Trình Chiếu Ngay"</strong> để xem trực tiếp ở chế độ 16:9 trên trang web.</p>
-          <p>• Nhấn nút <strong>"Toàn Màn Hình"</strong> để phóng to khung bài giảng lên full màn hình chuẩn 16:9 (nhấn phím <kbd>ESC</kbd> để thoát).</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 2: TỰ LUẬN -->
-    <div id="tab-essay" class="tab-content">
-      <div class="card">
-        <h3 class="section-title"><i class="fa-solid fa-pen-nib"></i> Phần Tự Luận & Gợi Ý</h3>
-        <div class="essay-content">
-          <p>Trình bày các bước giải bài toán tính theo phương trình hóa học:</p>
-          <ul>
-            <li><strong>Bước 1:</strong> Tính số mol chất đã cho dựa vào dữ kiện đề bài.</li>
-            <li><strong>Bước 2:</strong> Viết và cân bằng phương trình hóa học.</li>
-          </ul>
+          <p>• <strong>Kéo & Thả file:</strong> Bạn chỉ cần kéo tệp <code>.pptx</code> hoặc <code>.pdf</code> từ máy tính thả trực tiếp vào khung trình chiếu 16:9.</p>
+          <p>• <strong>Xem trực tuyến:</strong> Hoặc dán đường dẫn URL trang web bài thuyết trình (Canva, Google Slides, Genially...) hoặc mã <code>&lt;iframe&gt;</code> vào ô phía trên.</p>
+          <p>• <strong>Phím tắt điều khiển:</strong> Khi đang chiếu file PPT/PDF, dùng phím <kbd>←</kbd> (Mũi tên trái) / <kbd>→</kbd> (Mũi tên phải) để chuyển slide.</p>
+          <p>• Nhấn nút <strong>"Toàn Màn Hình"</strong> để phóng to khung bài giảng chuẩn 16:9 (nhấn phím <kbd>ESC</kbd> để thoát).</p>
         </div>
       </div>
     </div>
@@ -110,100 +123,7 @@
     Hệ thống ôn tập trực tuyến · Giao diện Liquid Glass · chisaki167
   </footer>
 
-  <!-- JAVASCRIPT XỬ LÝ GIAO DIỆN & TOÀN MÀN HÌNH 16:9 -->
-  <script>
-    function toggleBackground() {
-      const v = document.getElementById('bgVideo'), o = document.getElementById('bgOverlay'), b = document.getElementById('bgToggleBtn');
-      v.classList.toggle('hidden');
-      o.classList.toggle('hidden');
-      b.innerHTML = v.classList.contains('hidden') ? '🎬 Nền: Tắt' : '🎬 Nền: Bật';
-    }
-
-    function switchTab(tabId, event) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('#mainNavTabs .glassBtn').forEach(b => b.classList.remove('active'));
-
-      document.getElementById(tabId).classList.add('active');
-      if (event && event.currentTarget) {
-        event.currentTarget.classList.add('active');
-        updatePill(event.currentTarget);
-      }
-    }
-
-    function updatePill(btn) {
-      const pill = document.getElementById('navLiquidPill');
-      if (pill && btn) {
-        pill.style.left = btn.offsetLeft + 'px';
-        pill.style.width = btn.offsetWidth + 'px';
-      }
-    }
-
-    function initCardSpotlight() {
-      document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-          const r = card.getBoundingClientRect();
-          card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
-          card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
-        });
-      });
-    }
-
-    const embedLinkInput = document.getElementById('embedLinkInput');
-    const loadEmbedBtn = document.getElementById('loadEmbedBtn');
-    const fullscreenStageBtn = document.getElementById('fullscreenStageBtn');
-    const stageContainer = document.getElementById('stageContainer');
-    const stagePlaceholder = document.getElementById('stagePlaceholder');
-    const stageIframe = document.getElementById('stageIframe');
-
-    // Hàm tải bài thuyết trình
-    function loadPresentation() {
-      let rawUrl = embedLinkInput.value.trim();
-      if (!rawUrl) {
-        alert('Vui lòng dán link bài thuyết trình hoặc mã <iframe src="...">!');
-        return;
-      }
-
-      let finalUrl = rawUrl;
-      // Tự động bóc tách link src nếu người dùng dán cả thẻ <iframe ...>
-      if (rawUrl.indexOf('<iframe') !== -1) {
-        let match = rawUrl.match(/src=["']([^"']+)["']/);
-        if (match && match[1]) finalUrl = match[1];
-      }
-
-      stagePlaceholder.style.display = 'none';
-      stageIframe.classList.remove('hidden');
-      stageIframe.src = finalUrl;
-    }
-
-    // Hàm bật chế độ Phóng Toàn Màn Hình chuẩn 16:9
-    function toggleFullscreenStage() {
-      if (!document.fullscreenElement) {
-        if (stageContainer.requestFullscreen) {
-          stageContainer.requestFullscreen();
-        } else if (stageContainer.webkitRequestFullscreen) {
-          stageContainer.webkitRequestFullscreen();
-        } else if (stageContainer.msRequestFullscreen) {
-          stageContainer.msRequestFullscreen();
-        }
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        }
-      }
-    }
-
-    loadEmbedBtn.addEventListener('click', loadPresentation);
-    fullscreenStageBtn.addEventListener('click', toggleFullscreenStage);
-
-    embedLinkInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') loadPresentation();
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const activeBtn = document.querySelector('#mainNavTabs .glassBtn.active');
-      if (activeBtn) updatePill(activeBtn);
-      initCardSpotlight();
-    });
-  </script>
+  <!-- File JavaScript dùng chung xử lý giao diện & kéo thả file PowerPoint -->
+  <script src="36.js"></script>
 </body>
 </html>
