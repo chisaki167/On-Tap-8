@@ -179,6 +179,16 @@ function speakText(text) {
   }
 }
 
+function formatMarkdown(text) {
+  if (!text) return '';
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+}
+
 async function sendToDeepSeek() {
   const apiKey = document.getElementById('apiKeyInput').value.trim();
   const promptInput = document.getElementById('promptInput');
@@ -198,7 +208,7 @@ async function sendToDeepSeek() {
 
   conversationBox.style.display = 'flex';
   
-  let displayHTML = `<strong>Bạn</strong><div>${prompt || '(Gửi hình ảnh)'}</div>`;
+  let displayHTML = `<strong>Bạn</strong><div>${formatMarkdown(prompt) || '(Gửi hình ảnh)'}</div>`;
   if (currentBase64Image) {
     displayHTML += `<img src="${currentBase64Image}" alt="Uploaded image">`;
   }
@@ -278,7 +288,7 @@ function appendMessage(role, sender, text) {
   const conversationBox = document.getElementById('conversationBox');
   const msgDiv = document.createElement('div');
   msgDiv.className = `message ${role}`;
-  msgDiv.innerHTML = `<strong>${sender}</strong><div>${text}</div>`;
+  msgDiv.innerHTML = `<strong>${sender}</strong><div>${formatMarkdown(text)}</div>`;
   conversationBox.appendChild(msgDiv);
   conversationBox.scrollTop = conversationBox.scrollHeight;
 }
