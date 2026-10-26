@@ -182,7 +182,8 @@
 #fullscreenBtn {
   position: fixed;
   top: 16px;
-  left: 120px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
   background: rgba(255, 255, 255, 0.1);
   border: var(--glass-border);
@@ -198,9 +199,10 @@
   box-shadow: 0 8px 20px rgba(0,0,0,0.3), var(--glass-highlight);
   transition: all 0.3s ease;
 }
+
 #fullscreenBtn:hover {
   background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
+  transform: translateX(-50%) translateY(-2px);
 }
 
 body {
