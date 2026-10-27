@@ -38,7 +38,7 @@ const tinHocQuestions = [
       { key: "E", text: "Tốc độ xử lý chậm, độ tin cậy thấp" },
       { key: "F", text: "Linh kiện xử lý chính: Sử dụng các bóng bán dẫn (transistor)" }
     ],
-    correct: ["B", "C", "D", "E"],
+    correct: ["A","B", "C", "D", "E"],
     explainDetail: "Máy tính thế hệ thứ nhất sử dụng ống chân không, trống từ, thẻ đục lỗ, kích thước khổng lồ và tốc độ chậm."
   },
   {
@@ -304,7 +304,7 @@ function renderQuiz() {
   if (!container) return;
   container.innerHTML = '';
 
-  const shuffledQuestions = shuffleArray([...tinHocQuestions]);
+const shuffledQuestions = tinHocQuestions;
 
   shuffledQuestions.forEach((q, idx) => {
     const card = document.createElement('div');
