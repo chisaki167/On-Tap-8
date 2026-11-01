@@ -14,14 +14,26 @@ function toggleBackground() {
   const v = document.getElementById('bgVideo');
   const o = document.getElementById('bgOverlay');
   const b = document.getElementById('bgToggleBtn');
+  
+  if (!v || !o || !b) return;
 
-  v.classList.toggle('hidden');
-  o.classList.toggle('hidden');
-
+  
   if (v.classList.contains('hidden')) {
-    b.innerHTML = '🎬 Nền: Tắt';
-  } else {
+    v.classList.remove('hidden');
+    o.classList.remove('hidden');
+    
+    
+    v.muted = false; 
+    v.volume = 1.0;  
+    v.play().catch(err => console.log("Trình duyệt chặn phát tự động:", err));
+    
+
     b.innerHTML = '🎬 Nền: Bật';
+  } else {
+    v.classList.add('hidden');
+    o.classList.add('hidden');
+    v.pause(); 
+    b.innerHTML = '🎬 Nền: Tắt';
   }
 }
 
