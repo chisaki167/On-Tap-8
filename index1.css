@@ -700,3 +700,183 @@ footer {
   margin-top: 15px;
   width: 100%;
 }
+
+:root {
+  --bg: #080d1b;
+  --surface: rgba(255, 255, 255, 0.075);
+  --ink: #F8FAFC;
+  --muted: #B8C4D8;
+  --accent: #8AD8FF;
+  --accent-soft: rgba(138, 216, 255, 0.18);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  --shadow-glass: 0 10px 28px rgba(0, 0, 0, 0.24);
+}
+
+body {
+  background-color: #080d1b;
+  background-image: radial-gradient(ellipse at 15% 10%, rgba(45, 102, 190, 0.16), transparent 42%), radial-gradient(ellipse at 88% 78%, rgba(110, 55, 155, 0.12), transparent 42%);
+  transition: background-color 280ms ease, color 280ms ease;
+}
+
+.api-key-box,
+.quick-input-area,
+.conversation-box,
+.filter-tabs,
+.card,
+.lesson-card,
+.option-box,
+.math-box,
+.top-left-profile,
+.bg-toggle-btn,
+#fullscreenBtn,
+.image-preview-container {
+  background-color: rgba(255, 255, 255, 0.065);
+  border-color: rgba(255, 255, 255, 0.19);
+  box-shadow: var(--shadow-glass), var(--glass-highlight);
+  transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.api-key-box,
+.quick-input-area,
+.conversation-box,
+.card,
+.lesson-card,
+.option-box,
+.math-box,
+.top-left-profile,
+.bg-toggle-btn,
+#fullscreenBtn {
+  -webkit-backdrop-filter: blur(9px) saturate(125%);
+  backdrop-filter: blur(9px) saturate(125%);
+}
+
+.message.user,
+.message.assistant {
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+}
+
+button,
+.option-btn,
+.option-box,
+.card,
+.lesson-card,
+.bg-toggle-btn,
+#fullscreenBtn {
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, color 180ms ease;
+}
+
+button:hover,
+.option-btn:hover:not(.disabled),
+.option-box:hover,
+.card:hover,
+.lesson-card:hover,
+.bg-toggle-btn:hover,
+#fullscreenBtn:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+body:not(.background-enabled) .api-key-box,
+body:not(.background-enabled) .quick-input-area,
+body:not(.background-enabled) .conversation-box,
+body:not(.background-enabled) .filter-tabs,
+body:not(.background-enabled) .card,
+body:not(.background-enabled) .lesson-card,
+body:not(.background-enabled) .option-box,
+body:not(.background-enabled) .math-box,
+body:not(.background-enabled) .top-left-profile,
+body:not(.background-enabled) .bg-toggle-btn,
+body:not(.background-enabled) #fullscreenBtn,
+body:not(.background-enabled) .image-preview-container {
+  background-color: rgba(7, 13, 28, 0.78);
+  border-color: rgba(148, 180, 220, 0.18);
+}
+
+body.background-enabled {
+  background-color: #17243a;
+  background-image: radial-gradient(ellipse at 15% 10%, rgba(120, 190, 255, 0.14), transparent 44%), radial-gradient(ellipse at 88% 78%, rgba(210, 170, 255, 0.12), transparent 44%);
+}
+
+body.background-enabled .api-key-box,
+body.background-enabled .quick-input-area,
+body.background-enabled .conversation-box,
+body.background-enabled .filter-tabs,
+body.background-enabled .card,
+body.background-enabled .lesson-card,
+body.background-enabled .option-box,
+body.background-enabled .math-box,
+body.background-enabled .top-left-profile,
+body.background-enabled .bg-toggle-btn,
+body.background-enabled #fullscreenBtn,
+body.background-enabled .image-preview-container {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.34);
+}
+
+.bg-overlay {
+  background: rgba(4, 8, 18, 0.32);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  transition: opacity 280ms ease, background-color 280ms ease;
+}
+
+.bg-overlay.hidden {
+  background: rgba(4, 8, 18, 0.94);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.card,
+.lesson-card,
+.option-box,
+.api-key-box,
+.quick-input-area,
+.conversation-box,
+.math-box {
+  --glass-tilt-x: 0deg;
+  --glass-tilt-y: 0deg;
+  transform: perspective(1000px) rotateX(var(--glass-tilt-y)) rotateY(var(--glass-tilt-x));
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 180ms ease-out, background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.card:hover {
+  transform: perspective(1000px) rotateX(var(--glass-tilt-y)) rotateY(var(--glass-tilt-x)) translateY(-6px) scale(1.01);
+}
+
+.lesson-card:hover {
+  transform: perspective(1000px) rotateX(var(--glass-tilt-y)) rotateY(var(--glass-tilt-x)) translateY(-4px);
+}
+
+.option-box:hover,
+.api-key-box:hover,
+.quick-input-area:hover,
+.conversation-box:hover,
+.math-box:hover {
+  transform: perspective(1000px) rotateX(var(--glass-tilt-y)) rotateY(var(--glass-tilt-x));
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .card,
+  .lesson-card,
+  .option-box,
+  .api-key-box,
+  .quick-input-area,
+  .conversation-box,
+  .math-box {
+    transform: none !important;
+    will-change: auto;
+  }
+}
