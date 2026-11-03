@@ -29,6 +29,36 @@
     </filter>
   </svg>
 
+  <aside class="settings-panel" id="settingsPanel" aria-hidden="true" aria-label="Cài đặt">
+    <div class="settings-header">
+      <h3><i class="fa-solid fa-sliders"></i> Cài đặt</h3>
+      <button class="settings-close" type="button" onclick="toggleSettingsPanel(false)" aria-label="Đóng">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="settings-body">
+      <div class="setting-row">
+        <div class="setting-label">
+          <i class="fa-solid fa-film"></i>
+          <span>Nền video</span>
+        </div>
+        <button class="switch" id="bgToggle" type="button" role="switch" aria-checked="false" onclick="toggleBackground()"></button>
+      </div>
+      <div class="setting-row">
+        <div class="setting-label">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>Hiệu ứng kính</span>
+        </div>
+        <button class="switch" id="glassToggle" type="button" role="switch" aria-checked="true" onclick="toggleGlass()"></button>
+      </div>
+      <button class="setting-action" id="settingsFullscreenBtn" type="button" onclick="toggleFullscreen()">
+        <i class="fa-solid fa-expand"></i>
+        <span>Bật toàn màn hình</span>
+      </button>
+    </div>
+    <div class="settings-footer">chisaki167 · 2025</div>
+  </aside>
+
   <!-- Thông tin cá nhân góc trên trái -->
   <div class="top-left-profile">
     <img src="ava.jpg" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/32'">
