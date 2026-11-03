@@ -123,7 +123,8 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
     if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    var selector = '.card, .lesson-card, .option-box, .api-key-box, .quick-input-area, .conversation-box, .math-box';
+    // TỰ ĐỘNG QUÉT MỌI THẺ BÀI CÓ HIỆU ỨNG KÍNH MỜ
+    var selector = '.card, .lesson-card, .option-box, .api-key-box, .quick-input-area, .conversation-box, .math-box, [class*="card"], [class*="box"], [style*="backdrop-filter"]';
     var cards = document.querySelectorAll(selector);
     var activeCard = null;
     var rafId = null;

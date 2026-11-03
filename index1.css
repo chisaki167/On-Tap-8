@@ -1765,3 +1765,21 @@ header.profile {
   transition: translate 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
   will-change: translate;
 }
+
+[class*="card"],
+[class*="box"],
+[style*="backdrop-filter"] {
+  --glass-tilt-x: 0deg;
+  --glass-tilt-y: 0deg;
+  rotate: x var(--glass-tilt-y) y var(--glass-tilt-x);
+  translate: 0 0;
+  scale: 1;
+  transform-style: preserve-3d;
+  will-change: rotate, translate, scale;
+  transition: translate 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), scale 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[class*="card"]:hover,
+[class*="box"]:hover {
+  translate: 0 -4px;
+}
