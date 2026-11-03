@@ -1687,3 +1687,81 @@ header.profile {
     padding-top: 64px !important;
   }
 }
+
+.card,
+.lesson-card,
+.option-box,
+.api-key-box,
+.quick-input-area,
+.conversation-box,
+.math-box {
+  --glass-tilt-x: 0deg;
+  --glass-tilt-y: 0deg;
+  
+  rotate: x var(--glass-tilt-y) y var(--glass-tilt-x);
+  translate: 0 0;
+  scale: 1;
+  
+  transform-style: preserve-3d;
+  will-change: rotate, translate, scale;
+  
+  transition: translate 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), scale 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  translate: 0 -6px;
+  scale: 1.01;
+}
+
+.lesson-card:hover {
+  translate: 0 -4px;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .card,
+  .lesson-card,
+  .option-box,
+  .api-key-box,
+  .quick-input-area,
+  .conversation-box,
+  .math-box {
+    rotate: none !important;
+    translate: none !important;
+    scale: none !important;
+    will-change: auto;
+  }
+}
+
+.top-left-profile {
+  transition: translate 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), scale 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, background-color 0.25s ease !important;
+  will-change: translate, scale;
+}
+.top-left-profile:hover {
+  transform: none !important;
+  translate: 0 -3px !important;
+  scale: 1.02 !important;
+}
+
+.icon-btn {
+  transition: translate 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), rotate 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+  will-change: translate, rotate;
+}
+.icon-btn:hover, .icon-btn.active {
+  transform: none !important;
+  translate: 0 -2px !important;
+  rotate: 30deg !important;
+}
+
+.bg-toggle-btn {
+  transition: translate 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s ease, box-shadow 0.25s ease !important;
+  will-change: translate;
+}
+.bg-toggle-btn:hover {
+  transform: none !important;
+  translate: 0 -2px !important;
+}
+
+.settings-close, .settings-action {
+  transition: translate 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
+  will-change: translate;
+}
