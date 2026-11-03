@@ -1652,3 +1652,38 @@ body.light-mode .upload-btn {
 body.light-mode footer {
   border-top-color: rgba(15, 23, 42, 0.08);
 }
+
+.filter-container {
+  position: fixed !important;
+  top: calc(16px + env(safe-area-inset-top, 0px)) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 1000 !important;
+  margin: 0 !important;
+  width: auto !important;
+  max-width: calc(100vw - 200px) !important;
+  justify-content: center !important;
+}
+
+@media (max-width: 640px) {
+  .filter-container {
+    top: calc(10px + env(safe-area-inset-top, 0px)) !important;
+    max-width: calc(100vw - 110px) !important;
+  }
+}
+
+header.profile {
+  padding-top: 84px !important;
+}
+
+@media (max-width: 640px) {
+  header.profile {
+    padding-top: 64px !important;
+  }
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  header.profile {
+    padding-top: 64px !important;
+  }
+}
