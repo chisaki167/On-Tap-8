@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPU Nuclear Test</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      font-family: 'Courier New', Courier, monospace;
+      color: #fff;
+    }
+
+    #glcanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+    }
+
+    /* Lớp 1: Làm mờ cực mạnh */
+    .css-blur {
+      position: fixed;
+      inset: -10%;
+      z-index: 2;
+      pointer-events: none;
+      display: none;
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(50px);
+      animation: spin 1s linear infinite;
+    }
+
+    /* Lớp 2: Hòa trộn màu sắc (Blend Mode) gây quá tải bộ xử lý đồ họa */
+    .css-blend {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      display: none;
+      background: linear-gradient(45deg, #ff0055, #00ffcc, #ffaa00);
+      mix-blend-mode: overlay;
+      animation: pulse 0.1s linear infinite alternate;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg) scale(1.5); }
+      100% { transform: rotate(360deg) scale(1.5); }
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
+
+    #ui {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      background: rgba(10, 10, 15, 0.95);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #ff0055;
+      box-shadow: 0 0 40px rgba(255, 0, 85, 0.5);
+      width: 340px;
+    }
+
+    h2 { margin: 0 0 5px 0; font-size: 1.4rem; color: #ff0055; text-transform: uppercase; text-align: center; }
+    .warning { font-size: 0.8rem; color: #ffaa00; margin-bottom: 15px; line-height: 1.4; text-align: center; }
+    
+    .stat-box { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem; }
+    .stat-val { font-weight: bold; color: #00ffcc; font-size: 1.2rem;}
+
+    .slider-container { margin-top: 15px; margin-bottom: 15px; }
+    input[type="range"] { width: 100%; cursor: pointer; accent-color: #ff0055; }
+    label { font-size: 0.85rem; color: #cbd5e1; display: block; margin-bottom: 5px; }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #ff0055;
+      color: white;
+      text-transform: uppercase;
+    }
+    button:hover { background: #cc0044; box-shadow: 0 0 20px #ff0055; }
+    button.running { background: #10b981; }
+    button.running:hover { background: #059669; box-shadow: 0 0 20px #10b981; }
+  </style>
+</head>
+<body>
+
+  <div id="ui">
+    <h2>GPU Nuclear Test</h2>
+    <div class="warning">CẢNH BÁO: Có thể gây treo trình duyệt, sập driver (TDR), hoặc đơ chuột hoàn toàn. Dùng Ctrl+W để thoát!</div>
+    
+    <div class="stat-box">
+      <span>FPS:</span>
+      <span class="stat-val" id="fps">0</span>
+    </div>
+    
+    <div class="slider-container">
+      <label>Siêu phân giải (Supersampling): <span id="res-val">100%</span></label>
+      <input type="range" id="res-slider" min="100" max="800" value="100" step="50">
+    </div>
+
+    <div class="slider-container">
+      <label>Số bước dò tia (Steps): <span id="steps-val">256</span></label>
+      <input type="range" id="steps-slider" min="128" max="2048" value="256" step="128">
+    </div>
+
+    <button id="toggle-btn">KÍCH NỔ GPU</button>
+  </div>
+
+  <canvas id="glcanvas"></canvas>
+  <div class="css-blur" id="css-blur"></div>
+  <div class="css-blend" id="css-blend"></div>
+
+  <script>
+    const canvas = document.getElementById('glcanvas');
+    const gl = canvas.getContext('webgl', { preserveDrawingBuffer: false });
+    
+    if (!gl) {
+      alert('Trình duyệt của bạn không hỗ trợ WebGL!');
+    }
+
+    // --- ĐỒ HỌA VERTEX ---
+    const vsSource = `
+      attribute vec2 pos;
+      void main() { gl_Position = vec4(pos, 0.0, 1.0); }
+    `;
+
+    // --- SIÊU SHADER: MANDELBOX + RAY TRACING (PHẢN XẠ) + VOLUMETRIC FOG ---
+    const fsSource = `
+      precision highp float;
+      uniform vec2 u_res;
+      uniform float u_time;
+      uniform float u_steps;
+      
+      // Hàm nhiễu (Noise) cho sương mù
+      float hash(vec3 p) {
+        p = fract(p * 0.3183099 + .1);
+        p *= 17.0;
+        return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+      }
+
+      // Mandelbox - Cấu trúc Fractal nặng nhất
+      float map(vec3 p) {
+        vec4 z = vec4(p, 1.0);
+        vec4 c = vec4(p, 1.0);
+        
+        float scale = -1.8;
+        float minRadius2 = 0.25;
+        float fixedRadius2 = 1.0;
+        
+        // Giảm số vòng lặp để tránh crash trình duyệt, nhưng tăng độ phức tạp
+        for(int i = 0; i < 15; i++) {
+          z.xzy = clamp(z.xzy, -1.0, 1.0) * 2.0 - z.xzy;
+          
+          float r2 = dot(z.xyz, z.xyz);
+          if(r2 < minRadius2) {
+            z.xyz *= fixedRadius2 / minRadius2;
+          } else if(r2 < fixedRadius2) {
+            z.xyz *= fixedRadius2 / r2;
+          }
+          
+          z = z * scale + c;
+        }
+        return (length(z.xyz) - 1.2) * pow(abs(scale), -float(15));
+      }
+
+      vec3 getNormal(vec3 p) {
+        vec2 e = vec2(0.001, 0.0);
+        return normalize(vec3(
+          map(p + e.xyy) - map(p - e.xyy),
+          map(p + e.yxy) - map(p - e.yxy),
+          map(p + e.yyx) - map(p - e.yyx)
+        ));
+      }
+
+      // Hàm Raymarch (Dò tia)
+      float rayMarch(vec3 ro, vec3 rd, out float steps) {
+        float t = 0.0;
+        for(int i = 0; i < 2048; i++) {
+          if(float(i) > u_steps) { steps = float(i); return t; }
+          vec3 p = ro + rd * t;
+          float d = map(p);
+          if(d < 0.001 || t > 20.0) { steps = float(i); return t; }
+          t += d;
+        }
+        steps = u_steps;
+        return t;
+      }
+
+      void main() {
+        vec2 uv = (gl_FragCoord.xy - 0.5 * u_res) / u_res.y;
+        
+        float time = u_time * 0.5;
+        vec3 ro = vec3(sin(time)*3.0, cos(time*0.5)*2.0, -4.0);
+        vec3 ta = vec3(0.0);
+        
+        vec3 ww = normalize(ta - ro);
+        vec3 uu = normalize(cross(vec3(0,1,0), ww));
+        vec3 vv = cross(ww, uu);
+        vec3 rd = normalize(uv.x * uu + uv.y * vv + 1.5 * ww);
+        
+        float stepsTaken;
+        float t = rayMarch(ro, rd, stepsTaken);
+        
+        vec3 col = vec3(0.0);
+        
+        // Sương mù thể tích (Volumetric Fog) - Rất nặng
+        float fog = 0.0;
+        vec3 fogPos = ro;
+        for(int i = 0; i < 50; i++) {
+          fogPos = ro + rd * (t * float(i) / 50.0);
+          fog += hash(fogPos + u_time) * 0.02;
+        }
+        
+        if(t < 20.0) {
+          vec3 p = ro + rd * t;
+          vec3 n = getNormal(p);
+          
+          vec3 lightDir = normalize(vec3(1.0, 1.0, -1.0));
+          float dif = clamp(dot(n, lightDir), 0.0, 1.0);
+          
+          // Ray Tracing: Bắn tia phản xạ (Reflection)
+          vec3 refDir = reflect(rd, n);
+          float refSteps;
+          float refT = rayMarch(p + n * 0.01, refDir, refSteps);
+          
+          vec3 baseColor = vec3(0.8, 0.2, 0.5);
+          vec3 refColor = vec3(0.0);
+          
+          if(refT < 20.0) {
+            // Nếu tia phản xạ chạm vật thể khác, tính toán màu của nó
+            vec3 refP = p + n * 0.01 + refDir * refT;
+            vec3 refN = getNormal(refP);
+            refColor = vec3(0.2, 0.8, 1.0) * clamp(dot(refN, lightDir), 0.0, 1.0);
+          }
+          
+          // Kết hợp màu sắc
+          col = baseColor * dif + refColor * 0.5;
+          
+          // Áp dụng sương mù
+          col = mix(col, vec3(0.1, 0.0, 0.2), fog);
+        }
+        
+        gl_FragColor = vec4(pow(col, vec3(0.4545)), 1.0);
+      }
+    `;
+
+    // --- KHỞI TẠO ---
+    function createShader(gl, type, source) {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error(gl.getShaderInfoLog(shader));
+      }
+      return shader;
+    }
+
+    const program = gl.createProgram();
+    gl.attachShader(program, createShader(gl, gl.VERTEX_SHADER, vsSource));
+    gl.attachShader(program, createShader(gl, gl.FRAGMENT_SHADER, fsSource));
+    gl.linkProgram(program);
+    gl.useProgram(program);
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1,-1,  1,-1, -1, 1,
+      -1, 1,  1,-1,  1, 1
+    ]), gl.STATIC_DRAW);
+
+    const posLoc = gl.getAttribLocation(program, "pos");
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const uRes = gl.getUniformLocation(program, "u_res");
+    const uTime = gl.getUniformLocation(program, "u_time");
+    const uSteps = gl.getUniformLocation(program, "u_steps");
+
+    // --- LOGIC ---
+    let isRunning = false;
+    let reqId;
+    let frames = 0;
+    let lastTime = performance.now();
+    let startTime = performance.now();
+    let currentSteps = 256;
+    let currentScale = 1.0;
+
+    const btn = document.getElementById('toggle-btn');
+    const fpsEl = document.getElementById('fps');
+    const overlayBlur = document.getElementById('css-blur');
+    const overlayBlend = document.getElementById('css-blend');
+
+    function resize() {
+      canvas.width = Math.floor(window.innerWidth * currentScale);
+      canvas.height = Math.floor(window.innerHeight * currentScale);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+
+    document.getElementById('res-slider').addEventListener('input', (e) => {
+      currentScale = e.target.value / 100;
+      document.getElementById('res-val').textContent = e.target.value + '%';
+      if (isRunning) resize();
+    });
+
+    document.getElementById('steps-slider').addEventListener('input', (e) => {
+      currentSteps = parseFloat(e.target.value);
+      document.getElementById('steps-val').textContent = e.target.value;
+    });
+
+    function render(time) {
+      if (!isRunning) return;
+      
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uTime, (time - startTime) * 0.001);
+      gl.uniform1f(uSteps, currentSteps);
+      
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+      frames++;
+      if (time - lastTime >= 1000) {
+        fpsEl.textContent = frames;
+        frames = 0;
+        lastTime = time;
+      }
+
+      reqId = requestAnimationFrame(render);
+    }
+
+    btn.addEventListener('click', () => {
+      isRunning = !isRunning;
+      if (isRunning) {
+        btn.textContent = 'DỪNG LẠI (CỨU MÁY)';
+        btn.classList.add('running');
+        
+        overlayBlur.style.display = 'block';
+        overlayBlend.style.display = 'block';
+        
+        resize();
+        startTime = performance.now();
+        lastTime = performance.now();
+        frames = 0;
+        reqId = requestAnimationFrame(render);
+      } else {
+        btn.textContent = 'KÍCH NỔ GPU';
+        btn.classList.remove('running');
+        
+        overlayBlur.style.display = 'none';
+        overlayBlend.style.display = 'none';
+        
+        cancelAnimationFrame(reqId);
+        gl.clearColor(0,0,0,1);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        fpsEl.textContent = '0';
+      }
+    });
+
+    window.addEventListener('resize', () => { if (isRunning) resize(); });
+  </script>
+</body>
+</html>
