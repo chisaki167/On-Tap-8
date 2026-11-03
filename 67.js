@@ -15,31 +15,48 @@
     var st = document.createElement('style');
     st.id = '__sf_css';
     st.textContent = `
-      .__sf_btn{width:38px;height:38px;padding:0;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);color:#F8FAFC;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.35);transition:all .3s ease;font-size:1rem;position:fixed;top:16px;right:16px;z-index:100000}
-      .__sf_btn:hover{background:rgba(255,255,255,.2);transform:translateY(-2px) rotate(30deg)}
-      .__sf_btn.active{background:#3B82F6;border-color:#3B82F6;color:#fff;transform:translateY(-2px) rotate(30deg)}
-      .__sf_backdrop{position:fixed;inset:0;z-index:100001;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease}
-      .__sf_backdrop.open{opacity:1;pointer-events:auto}
-      .__sf_panel{position:fixed;top:0;left:0;width:300px;max-width:85vw;height:100vh;z-index:100002;display:flex;flex-direction:column;gap:16px;padding:20px;background:rgba(15,23,42,.92);border-right:1px solid rgba(255,255,255,.16);box-shadow:8px 0 40px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(24px) saturate(140%);backdrop-filter:blur(24px) saturate(140%);transform:translateX(-100%);transition:transform .4s cubic-bezier(.34,1.2,.64,1);overflow-y:auto;color:#F8FAFC;font-family:system-ui,-apple-system,sans-serif}
-      .__sf_panel.open{transform:translateX(0)}
-      .__sf_head{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.1)}
-      .__sf_head h3{font-size:1rem;display:flex;align-items:center;gap:8px;margin:0}
-      .__sf_head h3 i{color:#3B82F6}
-      .__sf_close{background:transparent;border:none;color:#94A3B8;width:30px;height:30px;padding:0;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem}
-      .__sf_close:hover{background:rgba(255,255,255,.1);color:#F8FAFC}
-      .__sf_body{display:flex;flex-direction:column;gap:10px;flex:1}
-      .__sf_row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px}
-      .__sf_lbl{display:flex;align-items:center;gap:10px;font-size:.88rem;font-weight:600}
-      .__sf_lbl i{width:20px;text-align:center;color:#3B82F6}
-      .__sf_sw{position:relative;width:44px;height:24px;padding:0;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);cursor:pointer;flex-shrink:0;transition:background .3s ease,border-color .3s ease}
-      .__sf_sw::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.35);transition:transform .3s cubic-bezier(.34,1.4,.64,1)}
-      .__sf_sw.active{background:#3B82F6;border-color:#3B82F6}
-      .__sf_sw.active::after{transform:translateX(20px)}
-      .__sf_act{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:14px;background:rgba(59,130,246,.15);border:1px solid #3B82F6;color:#3B82F6;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s ease}
-      .__sf_act:hover{background:#3B82F6;color:#fff}
-      .__sf_ft{padding-top:14px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:.72rem;color:#94A3B8}
-      body.glass-disabled .card,body.glass-disabled .lesson-card,body.glass-disabled .option-box,body.glass-disabled .api-key-box,body.glass-disabled .quick-input-area,body.glass-disabled .conversation-box,body.glass-disabled .math-box{transform:none!important;will-change:auto!important}
-    `;
+.__sf_btn{width:38px;height:38px;padding:0;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);color:#F8FAFC;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.35);transition:all .3s ease;font-size:1rem;position:fixed;top:calc(16px + env(safe-area-inset-top,0px));right:calc(16px + env(safe-area-inset-right,0px));z-index:100000}
+.__sf_btn:hover{background:rgba(255,255,255,.2);transform:translateY(-2px) rotate(30deg)}
+.__sf_btn.active{background:#3B82F6;border-color:#3B82F6;color:#fff;transform:translateY(-2px) rotate(30deg)}
+.__sf_backdrop{position:fixed;inset:0;z-index:100001;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease}
+.__sf_backdrop.open{opacity:1;pointer-events:auto}
+.__sf_panel{position:fixed;top:0;left:0;width:300px;max-width:85vw;height:100vh;height:100dvh;z-index:100002;display:flex;flex-direction:column;gap:16px;padding:20px;padding-top:calc(20px + env(safe-area-inset-top,0px));padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));background:rgba(15,23,42,.92);border-right:1px solid rgba(255,255,255,.16);box-shadow:8px 0 40px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(24px) saturate(140%);backdrop-filter:blur(24px) saturate(140%);transform:translateX(-100%);transition:transform .4s cubic-bezier(.34,1.2,.64,1);overflow-y:auto;color:#F8FAFC;font-family:system-ui,-apple-system,sans-serif}
+.__sf_panel.open{transform:translateX(0)}
+.__sf_head{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.1)}
+.__sf_head h3{font-size:1rem;display:flex;align-items:center;gap:8px;margin:0}
+.__sf_head h3 i{color:#3B82F6}
+.__sf_close{background:transparent;border:none;color:#94A3B8;width:30px;height:30px;padding:0;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .2s ease}
+.__sf_close:hover{background:rgba(255,255,255,.1);color:#F8FAFC}
+.__sf_body{display:flex;flex-direction:column;gap:10px;flex:1}
+.__sf_row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;transition:background .2s ease,border-color .2s ease}
+.__sf_row:hover{background:rgba(255,255,255,.08)}
+.__sf_lbl{display:flex;align-items:center;gap:10px;font-size:.88rem;font-weight:600}
+.__sf_lbl i{width:20px;text-align:center;color:#3B82F6}
+.__sf_sw{position:relative;width:44px;height:24px;padding:0;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);cursor:pointer;flex-shrink:0;transition:background .3s ease,border-color .3s ease}
+.__sf_sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.35);transition:transform .3s cubic-bezier(.34,1.4,.64,1)}
+.__sf_sw.active{background:#3B82F6;border-color:#3B82F6}
+.__sf_sw.active::after{transform:translateX(20px)}
+.__sf_act{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:14px;background:rgba(59,130,246,.15);border:1px solid #3B82F6;color:#3B82F6;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s ease}
+.__sf_act:hover{background:#3B82F6;color:#fff}
+.__sf_ft{padding-top:14px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:.72rem;color:#94A3B8}
+body.glass-disabled .card,body.glass-disabled .lesson-card,body.glass-disabled .option-box,body.glass-disabled .api-key-box,body.glass-disabled .quick-input-area,body.glass-disabled .conversation-box,body.glass-disabled .math-box{transform:none!important;will-change:auto!important}
+body.light-mode .__sf_btn{background:rgba(255,255,255,.9);border-color:rgba(15,23,42,.12);color:#0f172a;box-shadow:0 8px 20px rgba(15,23,42,.12),inset 0 1px 0 rgba(255,255,255,.9)}
+body.light-mode .__sf_btn:hover{background:#fff}
+body.light-mode .__sf_btn.active{background:#3B82F6;border-color:#3B82F6;color:#fff}
+body.light-mode .__sf_backdrop{background:rgba(15,23,42,.35)}
+body.light-mode .__sf_panel{background:rgba(250,252,255,.96);border-right-color:rgba(15,23,42,.1);color:#0f172a;box-shadow:8px 0 40px rgba(15,23,42,.15)}
+body.light-mode .__sf_head{border-bottom-color:rgba(15,23,42,.1)}
+body.light-mode .__sf_close{color:#64748b}
+body.light-mode .__sf_close:hover{background:rgba(15,23,42,.08);color:#0f172a}
+body.light-mode .__sf_row{background:rgba(15,23,42,.04);border-color:rgba(15,23,42,.08)}
+body.light-mode .__sf_row:hover{background:rgba(15,23,42,.06)}
+body.light-mode .__sf_sw{background:rgba(15,23,42,.15);border-color:rgba(15,23,42,.2)}
+body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
+@media (max-width:480px){.__sf_panel{width:90vw;max-width:90vw;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));gap:12px}.__sf_row{padding:11px 12px}.__sf_lbl{font-size:.84rem}}
+@media (max-width:400px){.__sf_panel{width:96vw;max-width:96vw}.__sf_sw{width:40px;height:22px}.__sf_sw::after{width:16px;height:16px}.__sf_sw.active::after{transform:translateX(18px)}}
+@media (max-height:520px) and (orientation:landscape){.__sf_panel{width:55vw;max-width:55vw;padding:14px;padding-top:calc(14px + env(safe-area-inset-top,0px));padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));gap:8px}.__sf_row{padding:8px 10px}.__sf_body{gap:8px}}
+@media (hover:none) and (pointer:coarse){.__sf_btn{min-width:40px;min-height:40px}.__sf_sw{min-width:46px;min-height:26px}}
+`;
     document.head.appendChild(st);
   }
 
@@ -47,6 +64,9 @@
     var s = read();
     var bg = s.bgEnabled === true;
     var glass = s.glassEnabled !== false;
+    var theme = s.theme === 'light' ? 'light' : 'dark';
+
+    document.body.classList.toggle('light-mode', theme === 'light');
 
     var v = document.getElementById('bgVideo');
     var o = document.getElementById('bgOverlay');
@@ -70,10 +90,21 @@
 
     document.body.classList.toggle('glass-disabled', !glass);
 
+    if (!glass) {
+      document.querySelectorAll('.card, .lesson-card, .option-box, .api-key-box, .quick-input-area, .conversation-box, .math-box').forEach(function(el) {
+        el.style.setProperty('--glass-tilt-x', '0deg');
+        el.style.setProperty('--glass-tilt-y', '0deg');
+      });
+    }
+
     var bgSw = document.getElementById('__sf_bg');
     if (bgSw) { bgSw.classList.toggle('active', bg); bgSw.setAttribute('aria-checked', String(bg)); }
     var glSw = document.getElementById('__sf_glass');
     if (glSw) { glSw.classList.toggle('active', glass); glSw.setAttribute('aria-checked', String(glass)); }
+    var thSw = document.getElementById('__sf_theme');
+    if (thSw) { thSw.classList.toggle('active', theme === 'light'); thSw.setAttribute('aria-checked', String(theme === 'light')); }
+    var thIcon = document.getElementById('__sf_theme_icon');
+    if (thIcon) thIcon.className = theme === 'light' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
   }
 
   function toggleBG() {
@@ -81,13 +112,16 @@
     write({ bgEnabled: !(s.bgEnabled === true) });
     applySettings();
   }
-
   function toggleGlass() {
     var s = read();
     write({ glassEnabled: s.glassEnabled === false });
     applySettings();
   }
-
+  function toggleTheme() {
+    var s = read();
+    write({ theme: s.theme === 'light' ? 'dark' : 'light' });
+    applySettings();
+  }
   function toggleFullscreen() {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(function (err) {
@@ -97,7 +131,6 @@
       document.exitFullscreen();
     }
   }
-
   function togglePanel(force) {
     var p = document.getElementById('__sf_panel');
     var bd = document.getElementById('__sf_backdrop');
@@ -108,6 +141,71 @@
     p.setAttribute('aria-hidden', String(!open));
     if (bd) bd.classList.toggle('open', open);
     if (bt) bt.classList.toggle('active', open);
+  }
+
+  function initLiquidGlassTilt() {
+    if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var selector = '.card, .lesson-card, .option-box, .api-key-box, .quick-input-area, .conversation-box, .math-box';
+    var activeCard = null;
+    var frame = 0;
+    var pointerX = 0;
+    var pointerY = 0;
+
+    function resetCard(card) {
+      if (!card) return;
+      card.style.setProperty('--glass-tilt-x', '0deg');
+      card.style.setProperty('--glass-tilt-y', '0deg');
+    }
+
+    document.addEventListener('pointermove', function(event) {
+      if (document.body.classList.contains('glass-disabled')) return;
+      var card = event.target.closest(selector);
+      if (card !== activeCard) {
+        resetCard(activeCard);
+        activeCard = card;
+      }
+      if (!activeCard) return;
+
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      if (frame) return;
+
+      frame = requestAnimationFrame(function() {
+        frame = 0;
+        if (!activeCard) return;
+        var rect = activeCard.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        var x = (pointerX - rect.left) / rect.width - 0.5;
+        var y = (pointerY - rect.top) / rect.height - 0.5;
+        var tiltX = Math.max(-3, Math.min(3, x * 6));
+        var tiltY = Math.max(-3, Math.min(3, y * -6));
+        activeCard.style.setProperty('--glass-tilt-x', tiltX.toFixed(2) + 'deg');
+        activeCard.style.setProperty('--glass-tilt-y', tiltY.toFixed(2) + 'deg');
+      });
+    }, { passive: true });
+
+    document.addEventListener('pointerout', function(event) {
+      if (!activeCard || activeCard.contains(event.relatedTarget)) return;
+      resetCard(activeCard);
+      activeCard = null;
+    }, { passive: true });
+
+    window.addEventListener('blur', function() {
+      resetCard(activeCard);
+      activeCard = null;
+    });
+  }
+
+  function initCardMouseLight() {
+    document.querySelectorAll('.card').forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
+      });
+    });
   }
 
   function injectUI() {
@@ -142,6 +240,8 @@
       '<div class="__sf_head"><h3><i class="fa-solid fa-sliders"></i> Cài đặt</h3>' +
       '<button class="__sf_close" type="button" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button></div>' +
       '<div class="__sf_body">' +
+      '<div class="__sf_row"><div class="__sf_lbl"><i id="__sf_theme_icon" class="fa-solid fa-moon"></i><span>Giao diện sáng</span></div>' +
+      '<button class="__sf_sw" id="__sf_theme" type="button" role="switch" aria-checked="false"></button></div>' +
       '<div class="__sf_row"><div class="__sf_lbl"><i class="fa-solid fa-film"></i><span>Nền video</span></div>' +
       '<button class="__sf_sw" id="__sf_bg" type="button" role="switch" aria-checked="false"></button></div>' +
       '<div class="__sf_row"><div class="__sf_lbl"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Hiệu ứng kính</span></div>' +
@@ -152,6 +252,7 @@
     document.body.appendChild(panel);
 
     panel.querySelector('.__sf_close').addEventListener('click', function () { togglePanel(false); });
+    panel.querySelector('#__sf_theme').addEventListener('click', toggleTheme);
     panel.querySelector('#__sf_bg').addEventListener('click', toggleBG);
     panel.querySelector('#__sf_glass').addEventListener('click', toggleGlass);
     panel.querySelector('#__sf_fs').addEventListener('click', toggleFullscreen);
@@ -159,127 +260,30 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') togglePanel(false);
     });
-
     document.addEventListener('fullscreenchange', function () {
-      var s = panel.querySelector('#__sf_fs span');
+      var sp = panel.querySelector('#__sf_fs span');
       var ic = panel.querySelector('#__sf_fs i');
-      if (s) s.textContent = document.fullscreenElement ? 'Thoát toàn màn hình' : 'Bật toàn màn hình';
+      if (sp) sp.textContent = document.fullscreenElement ? 'Thoát toàn màn hình' : 'Bật toàn màn hình';
       if (ic) ic.className = document.fullscreenElement ? 'fa-solid fa-compress' : 'fa-solid fa-expand';
     });
   }
 
   window.toggleSettingsPanel = togglePanel;
+  window.toggleBackground = toggleBG;
   window.toggleGlass = toggleGlass;
+  window.toggleTheme = toggleTheme;
   window.toggleFullscreen = toggleFullscreen;
+  window.syncBackgroundTheme = applySettings;
 
   function boot() {
     injectUI();
     applySettings();
+    initLiquidGlassTilt();
+    initCardMouseLight();
   }
-
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot, { once: true });
   } else {
     boot();
   }
 })();
-
-function syncBackgroundTheme() {
-  const v = document.getElementById('bgVideo');
-  const o = document.getElementById('bgOverlay');
-  const b = document.getElementById('bgToggleBtn');
-
-  if (!v || !o || !b) return;
-
-  const enabled = !v.classList.contains('hidden');
-  document.body.classList.toggle('background-enabled', enabled);
-  o.classList.toggle('hidden', !enabled);
-  b.innerHTML = enabled ? '🎬 Nền: Bật' : '🎬 Nền: Tắt';
-  if (!enabled) v.pause();
-}
-
-function toggleBackground() {
-  const v = document.getElementById('bgVideo');
-  const o = document.getElementById('bgOverlay');
-  const b = document.getElementById('bgToggleBtn');
-
-  if (!v || !o || !b) return;
-
-  const enabled = v.classList.contains('hidden');
-  v.classList.toggle('hidden', !enabled);
-  o.classList.toggle('hidden', !enabled);
-  document.body.classList.toggle('background-enabled', enabled);
-
-  if (enabled) {
-    v.muted = false;
-    v.volume = 1.0;
-    const playPromise = v.play();
-    if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch(err => console.log('Trình duyệt chặn phát tự động:', err));
-    }
-    b.innerHTML = '🎬 Nền: Bật';
-  } else {
-    v.pause();
-    b.innerHTML = '🎬 Nền: Tắt';
-  }
-}
-
-function initLiquidGlassTilt() {
-  if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const selector = '.card, .lesson-card, .option-box, .api-key-box, .quick-input-area, .conversation-box, .math-box';
-  let activeCard = null;
-  let frame = 0;
-  let pointerX = 0;
-  let pointerY = 0;
-
-  function resetCard(card) {
-    if (!card) return;
-    card.style.setProperty('--glass-tilt-x', '0deg');
-    card.style.setProperty('--glass-tilt-y', '0deg');
-  }
-
-  document.addEventListener('pointermove', event => {
-    const card = event.target.closest(selector);
-    if (card !== activeCard) {
-      resetCard(activeCard);
-      activeCard = card;
-    }
-    if (!activeCard) return;
-
-    pointerX = event.clientX;
-    pointerY = event.clientY;
-    if (frame) return;
-
-    frame = requestAnimationFrame(() => {
-      frame = 0;
-      if (!activeCard) return;
-      const rect = activeCard.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      const x = (pointerX - rect.left) / rect.width - 0.5;
-      const y = (pointerY - rect.top) / rect.height - 0.5;
-      const tiltX = Math.max(-3, Math.min(3, x * 6));
-      const tiltY = Math.max(-3, Math.min(3, y * -6));
-      activeCard.style.setProperty('--glass-tilt-x', `${tiltX.toFixed(2)}deg`);
-      activeCard.style.setProperty('--glass-tilt-y', `${tiltY.toFixed(2)}deg`);
-    });
-  }, { passive: true });
-
-  document.addEventListener('pointerout', event => {
-    if (!activeCard || activeCard.contains(event.relatedTarget)) return;
-    resetCard(activeCard);
-    activeCard = null;
-  }, { passive: true });
-
-  window.addEventListener('blur', () => {
-    resetCard(activeCard);
-    activeCard = null;
-  });
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initLiquidGlassTilt, { once: true });
-} else {
-  initLiquidGlassTilt();
-}
