@@ -39,7 +39,7 @@
 .__sf_act{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:14px;background:rgba(59,130,246,.15);border:1px solid #3B82F6;color:#3B82F6;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s ease}
 .__sf_act:hover{background:#3B82F6;color:#fff}
 .__sf_ft{padding-top:14px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:.72rem;color:#94A3B8}
-body.glass-disabled .card,body.glass-disabled .lesson-card,body.glass-disabled .option-box,body.glass-disabled .api-key-box,body.glass-disabled .quick-input-area,body.glass-disabled .conversation-box,body.glass-disabled .math-box{rotate:none!important;will-change:auto!important}
+body.glass-disabled .card,body.glass-disabled .lesson-card,body.glass-disabled .option-box,body.glass-disabled .api-key-box,body.glass-disabled .quick-input-area,body.glass-disabled .conversation-box,body.glass-disabled .math-box,body.glass-disabled .avatar{rotate:none!important;will-change:auto!important}
 body.light-mode .__sf_btn{background:rgba(255,255,255,.9);border-color:rgba(15,23,42,.12);color:#0f172a;box-shadow:0 8px 20px rgba(15,23,42,.12),inset 0 1px 0 rgba(255,255,255,.9)}
 body.light-mode .__sf_btn:hover{background:#fff}
 body.light-mode .__sf_btn.active{background:#3B82F6;border-color:#3B82F6;color:#fff}
@@ -64,6 +64,7 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
     var s = read();
     var bg = s.bgEnabled === true;
     var glass = s.glassEnabled !== false;
+    var motion = s.motionEnabled !== false;
     var theme = s.theme === 'light' ? 'light' : 'dark';
 
     document.body.classList.toggle('light-mode', theme === 'light');
@@ -88,11 +89,14 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
     }
     if (b) b.innerHTML = bg ? '🎬 Nền: Bật' : '🎬 Nền: Tắt';
     document.body.classList.toggle('glass-disabled', !glass);
+    document.body.classList.toggle('no-effects', !motion);
 
     var bgSw = document.getElementById('__sf_bg');
     if (bgSw) { bgSw.classList.toggle('active', bg); bgSw.setAttribute('aria-checked', String(bg)); }
     var glSw = document.getElementById('__sf_glass');
     if (glSw) { glSw.classList.toggle('active', glass); glSw.setAttribute('aria-checked', String(glass)); }
+    var mtSw = document.getElementById('__sf_motion');
+    if (mtSw) { mtSw.classList.toggle('active', motion); mtSw.setAttribute('aria-checked', String(motion)); }
     var thSw = document.getElementById('__sf_theme');
     if (thSw) { thSw.classList.toggle('active', theme === 'light'); thSw.setAttribute('aria-checked', String(theme === 'light')); }
     var thIcon = document.getElementById('__sf_theme_icon');
@@ -101,6 +105,7 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
 
   function toggleBG() { var s = read(); write({ bgEnabled: !(s.bgEnabled === true) }); applySettings(); }
   function toggleGlass() { var s = read(); write({ glassEnabled: s.glassEnabled === false }); applySettings(); }
+  function toggleMotion() { var s = read(); write({ motionEnabled: s.motionEnabled === false }); applySettings(); }
   function toggleTheme() { var s = read(); write({ theme: s.theme === 'light' ? 'dark' : 'light' }); applySettings(); }
   
   function toggleFullscreen() {
@@ -123,8 +128,7 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
     if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-   
-    var selector = '.card, .lesson-card, .option-box, .api-key-box, .quick-input-area, .conversation-box, .math-box, [class*="card"], [class*="box"], [style*="backdrop-filter"]';
+    var selector = '.card, .lesson-card, .option-box, .api-key-box, .quick-input-area, .conversation-box, .math-box, .avatar, [class*="card"], [class*="box"], [style*="backdrop-filter"]';
     var cards = document.querySelectorAll(selector);
     var activeCard = null;
     var rafId = null;
@@ -170,6 +174,8 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
 
     document.addEventListener('pointermove', function(e) {
       if (document.body.classList.contains('glass-disabled')) return;
+      if (document.body.classList.contains('no-effects')) return;
+      
       var card = e.target.closest(selector);
 
       if (activeCard && activeCard !== card) {
@@ -188,8 +194,8 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
       var s = activeCard._state;
 
       s.active = true;
-      s.tx = Math.max(-3, Math.min(3, (x - 0.5) * 6));
-      s.ty = Math.max(-3, Math.min(3, (y - 0.5) * -6));
+      s.tx = Math.max(-1.5, Math.min(1.5, (x - 0.5) * 3));
+      s.ty = Math.max(-1.5, Math.min(1.5, (y - 0.5) * -3));
       s.tlx = x * 100;
       s.tly = y * 100;
 
@@ -245,14 +251,17 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
       '<button class="__sf_sw" id="__sf_bg" type="button" role="switch" aria-checked="false"></button></div>' +
       '<div class="__sf_row"><div class="__sf_lbl"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Hiệu ứng kính</span></div>' +
       '<button class="__sf_sw" id="__sf_glass" type="button" role="switch" aria-checked="true"></button></div>' +
+      '<div class="__sf_row"><div class="__sf_lbl"><i class="fa-solid fa-bolt"></i><span>Hiệu ứng chuyển động</span></div>' +
+      '<button class="__sf_sw" id="__sf_motion" type="button" role="switch" aria-checked="true"></button></div>' +
       '<button class="__sf_act" id="__sf_fs" type="button"><i class="fa-solid fa-expand"></i><span>Bật toàn màn hình</span></button>' +
-      '</div><div class="__sf_ft">chisaki167 · 2025</div>';
+      '</div><div class="__sf_ft">chisaki167 · 2026</div>';
     document.body.appendChild(panel);
 
     panel.querySelector('.__sf_close').addEventListener('click', function () { togglePanel(false); });
     panel.querySelector('#__sf_theme').addEventListener('click', toggleTheme);
     panel.querySelector('#__sf_bg').addEventListener('click', toggleBG);
     panel.querySelector('#__sf_glass').addEventListener('click', toggleGlass);
+    panel.querySelector('#__sf_motion').addEventListener('click', toggleMotion);
     panel.querySelector('#__sf_fs').addEventListener('click', toggleFullscreen);
 
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') togglePanel(false); });
@@ -266,6 +275,7 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
   window.toggleSettingsPanel = togglePanel;
   window.toggleBackground = toggleBG;
   window.toggleGlass = toggleGlass;
+  window.toggleMotion = toggleMotion;
   window.toggleTheme = toggleTheme;
   window.toggleFullscreen = toggleFullscreen;
   window.syncBackgroundTheme = applySettings;

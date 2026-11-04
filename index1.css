@@ -245,15 +245,16 @@ body.glass-disabled .option-box,
 body.glass-disabled .api-key-box,
 body.glass-disabled .quick-input-area,
 body.glass-disabled .conversation-box,
-body.glass-disabled .math-box {
+body.glass-disabled .math-box,
+body.glass-disabled .avatar {
   transform: none !important;
   will-change: auto !important;
 }
 body.glass-disabled .card:hover {
-  transform: translateY(-6px) scale(1.01) !important;
+  transform: translateY(-4px) scale(1.005) !important;
 }
 body.glass-disabled .lesson-card:hover {
-  transform: translateY(-4px) !important;
+  transform: translateY(-3px) !important;
 }
 
 @media (max-width: 480px) {
@@ -700,7 +701,7 @@ header.profile {
   z-index: 2;
 }
 .card:hover {
-  transform: translateY(-6px) scale(1.01);
+  transform: translateY(-4px) scale(1.005);
   background: rgba(15, 23, 42, 0.78);
   box-shadow: 0 28px 55px 0 rgba(0,0,0,0.65), 0 0 25px rgba(59,130,246,0.3), var(--glass-highlight);
   border-color: rgba(96, 165, 250, 0.5);
@@ -893,7 +894,7 @@ footer {
       justify-content: space-between;
       color: #F8FAFC;
     }
-    .lesson-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover),var(--inner-glow);border-color:var(--accent);}
+    .lesson-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover),var(--inner-glow);border-color:var(--accent);}
     .lesson-card h2 { color: #FFFFFF; font-size: 1.25rem; margin-top: 8px; }
     .lesson-card p.lead { color: #94A3B8; }
     .badge{display:inline-block;align-self:flex-start;padding:4px 12px;border-radius:999px;font-size:0.75rem;font-weight:700;text-transform:uppercase;background:var(--accent-soft);color:var(--accent);margin-bottom:12px;}
@@ -1105,11 +1106,11 @@ body.background-enabled .image-preview-container {
 }
 
 .card:hover {
-  transform: perspective(1000px) rotateX(var(--glass-tilt-y)) rotateY(var(--glass-tilt-x)) translateY(-6px) scale(1.01);
+  transform: perspective(1000px) rotateX(var(--glass-tilt-y)) rotateY(var(--glass-tilt-x)) translateY(-4px) scale(1.005);
 }
 
 .lesson-card:hover {
-  transform: perspective(1000px) rotateX(var(--glass-tilt-y)) rotateY(var(--glass-tilt-x)) translateY(-4px);
+  transform: perspective(1000px) rotateX(var(--glass-tilt-y)) rotateY(var(--glass-tilt-x)) translateY(-3px);
 }
 
 .option-box:hover,
@@ -1694,7 +1695,8 @@ header.profile {
 .api-key-box,
 .quick-input-area,
 .conversation-box,
-.math-box {
+.math-box,
+.avatar {
   --glass-tilt-x: 0deg;
   --glass-tilt-y: 0deg;
   
@@ -1709,12 +1711,12 @@ header.profile {
 }
 
 .card:hover {
-  translate: 0 -6px;
-  scale: 1.01;
+  translate: 0 -4px;
+  scale: 1.005;
 }
 
 .lesson-card:hover {
-  translate: 0 -4px;
+  translate: 0 -3px;
 }
 
 @media (hover: none), (prefers-reduced-motion: reduce) {
@@ -1724,7 +1726,8 @@ header.profile {
   .api-key-box,
   .quick-input-area,
   .conversation-box,
-  .math-box {
+  .math-box,
+  .avatar {
     rotate: none !important;
     translate: none !important;
     scale: none !important;
@@ -1781,5 +1784,41 @@ header.profile {
 
 [class*="card"]:hover,
 [class*="box"]:hover {
-  translate: 0 -4px;
+  translate: 0 -3px;
+}
+
+body.no-effects *,
+body.no-effects *::before,
+body.no-effects *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0ms !important;
+}
+body.no-effects .card,
+body.no-effects .lesson-card,
+body.no-effects .option-box,
+body.no-effects .api-key-box,
+body.no-effects .quick-input-area,
+body.no-effects .conversation-box,
+body.no-effects .math-box,
+body.no-effects .avatar {
+  rotate: none !important;
+  translate: none !important;
+  scale: none !important;
+  transform: none !important;
+}
+body.no-effects .card:hover,
+body.no-effects .lesson-card:hover {
+  translate: 0 -3px !important;
+  transform: translateY(-3px) !important;
+}
+body.no-effects .card::before { opacity: 0 !important; }
+body.no-effects .bg-overlay,
+body.no-effects .glassContainer::after,
+body.no-effects .search-box,
+body.no-effects .settings-backdrop,
+body.no-effects .settings-panel {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
