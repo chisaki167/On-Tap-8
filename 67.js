@@ -82,6 +82,13 @@ body.light-mode #auth-gate {
   margin-bottom: 24px;
   font-weight: 700;
 }
+.auth-desc {
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  max-width: 300px;
+  line-height: 1.5;
+  color: var(--muted);
+}
 .auth-input {
   width: 260px;
   padding: 12px;
@@ -397,27 +404,26 @@ body.light-mode .auth-divider::before, body.light-mode .auth-divider::after { bo
     var gate = document.createElement('div');
     gate.id = 'auth-gate';
     gate.innerHTML = `
-      <div class="auth-title">Vui lòng đăng nhập để tiếp tục</div>
-      
-      <input type="email" id="auth-email" class="auth-input" placeholder="Email...">
-      <input type="password" id="auth-password" class="auth-input" placeholder="Mật khẩu...">
-      <div style="display:flex; gap:10px; width:260px; margin-bottom: 12px;">
-        <button class="auth-btn email" style="width:100%; margin:0;" onclick="loginEmail()">
-          Đăng nhập
-        </button>
-        <button class="auth-btn email" style="width:100%; margin:0; background:rgba(255,255,255,0.05);" onclick="registerEmail()">
-          Đăng ký
-        </button>
+      <div id="auth-form-view" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="auth-title">Vui lòng đăng nhập để tiếp tục</div>
+        <input type="email" id="auth-email" class="auth-input" placeholder="Email...">
+        <input type="password" id="auth-password" class="auth-input" placeholder="Mật khẩu...">
+        <div style="display:flex; gap:10px; width:260px; margin-bottom: 12px;">
+          <button class="auth-btn email" style="width:100%; margin:0;" onclick="loginEmail()">Đăng nhập</button>
+          <button class="auth-btn email" style="width:100%; margin:0; background:rgba(255,255,255,0.05);" onclick="registerEmail()">Đăng ký</button>
+        </div>
+        <div class="auth-divider">hoặc</div>
+        <button class="auth-btn google" onclick="loginGoogle()"><i class="fa-brands fa-google" style="color:#DB4437"></i> Đăng nhập bằng Google</button>
+        <button class="auth-btn github" onclick="loginGithub()"><i class="fa-brands fa-github"></i> Đăng nhập bằng GitHub</button>
       </div>
 
-      <div class="auth-divider">hoặc</div>
-
-      <button class="auth-btn google" onclick="loginGoogle()">
-        <i class="fa-brands fa-google" style="color:#DB4437"></i> Đăng nhập bằng Google
-      </button>
-      <button class="auth-btn github" onclick="loginGithub()">
-        <i class="fa-brands fa-github"></i> Đăng nhập bằng GitHub
-      </button>
+      <div id="auth-verify-view" style="display: none; flex-direction: column; align-items: center;">
+        <div class="auth-title">Xác thực Email</div>
+        <div class="auth-desc">Một liên kết xác thực đã được gửi đến <strong id="verify-email-text"></strong>. Vui lòng kiểm tra hộp thư (kể cả mục Spam) và bấm vào liên kết để kích hoạt tài khoản.</div>
+        <button class="auth-btn email" onclick="resendVerificationEmail()">Gửi lại email xác thực</button>
+        <button class="auth-btn" onclick="checkVerificationStatus()">Tôi đã xác thực xong</button>
+        <button class="auth-btn" style="background:transparent; border:none; color: #EF4444; margin-top:10px;" onclick="logout()">Đăng xuất</button>
+      </div>
     `;
     document.body.appendChild(gate);
 
@@ -441,7 +447,7 @@ body.light-mode .auth-divider::before, body.light-mode .auth-divider::after { bo
     script.type = 'module';
     script.textContent = `
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
       const firebaseConfig = ${JSON.stringify(firebaseConfig)};
       const app = initializeApp(firebaseConfig);
@@ -471,13 +477,21 @@ body.light-mode .auth-divider::before, body.light-mode .auth-divider::after { bo
         const email = document.getElementById('auth-email').value;
         const password = document.getElementById('auth-password').value;
         if (!email || !password) return alert('Vui lòng nhập đầy đủ Email và Mật khẩu!');
-        signInWithEmailAndPassword(auth, email, password).catch(err => {
-          if (err.code === 'auth/invalid-credential') {
-            alert("Sai email hoặc mật khẩu! Vui lòng kiểm tra lại.");
-          } else {
-            alert("Lỗi đăng nhập: " + err.message);
-          }
-        });
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            if (!userCredential.user.emailVerified) {
+              sendEmailVerification(userCredential.user).then(() => {
+                alert("Đăng nhập thành công nhưng tài khoản chưa xác thực. Hệ thống đã tự động gửi email xác thực, vui lòng kiểm tra hộp thư!");
+              }).catch(err => console.log("Lỗi gửi mail:", err));
+            }
+          })
+          .catch(err => {
+            if (err.code === 'auth/invalid-credential') {
+              alert("Sai email hoặc mật khẩu! Vui lòng kiểm tra lại.");
+            } else {
+              alert("Lỗi đăng nhập: " + err.message);
+            }
+          });
       };
 
       window.registerEmail = () => {
@@ -485,13 +499,40 @@ body.light-mode .auth-divider::before, body.light-mode .auth-divider::after { bo
         const password = document.getElementById('auth-password').value;
         if (!email || !password) return alert('Vui lòng nhập đầy đủ Email và Mật khẩu!');
         if (password.length < 6) return alert('Mật khẩu phải có ít nhất 6 ký tự!');
-        createUserWithEmailAndPassword(auth, email, password).catch(err => {
-          if (err.code === 'auth/email-already-in-use') {
-            alert("Email này đã được đăng ký rồi. Vui lòng chuyển sang nút 'Đăng nhập' hoặc sử dụng email khác.");
-          } else {
-            alert("Lỗi đăng ký: " + err.message);
-          }
-        });
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            sendEmailVerification(userCredential.user);
+            alert("Đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản.");
+          })
+          .catch(err => {
+            if (err.code === 'auth/email-already-in-use') {
+              alert("Email này đã được đăng ký rồi. Vui lòng chuyển sang nút 'Đăng nhập' hoặc sử dụng email khác.");
+            } else {
+              alert("Lỗi đăng ký: " + err.message);
+            }
+          });
+      };
+
+      window.resendVerificationEmail = () => {
+        if (auth.currentUser) {
+          sendEmailVerification(auth.currentUser)
+            .then(() => alert("Đã gửi lại email xác thực!"))
+            .catch(err => alert("Lỗi: " + err.message));
+        }
+      };
+
+      window.checkVerificationStatus = () => {
+        if (auth.currentUser) {
+          auth.currentUser.reload().then(() => {
+            if (auth.currentUser.emailVerified) {
+              document.getElementById('auth-gate').style.display = 'none';
+              document.getElementById('logoutBtn').style.display = 'block';
+              document.body.style.overflow = '';
+            } else {
+              alert("Tài khoản chưa được xác thực. Vui lòng kiểm tra lại email.");
+            }
+          });
+        }
       };
 
       window.logout = () => signOut(auth);
@@ -499,14 +540,29 @@ body.light-mode .auth-divider::before, body.light-mode .auth-divider::after { bo
       onAuthStateChanged(auth, (user) => {
         const gate = document.getElementById('auth-gate');
         const logoutBtn = document.getElementById('logoutBtn');
+        const formView = document.getElementById('auth-form-view');
+        const verifyView = document.getElementById('auth-verify-view');
         
         if (user) {
-          if (gate) gate.style.display = 'none';
-          if (logoutBtn) logoutBtn.style.display = 'block';
-          document.body.style.overflow = '';
+          const isPasswordUser = user.providerData.some(p => p.providerId === 'password');
+          
+          if (isPasswordUser && !user.emailVerified) {
+            gate.style.display = 'flex';
+            formView.style.display = 'none';
+            verifyView.style.display = 'flex';
+            document.getElementById('verify-email-text').textContent = user.email;
+            logoutBtn.style.display = 'none';
+            document.body.style.overflow = 'hidden';
+          } else {
+            gate.style.display = 'none';
+            logoutBtn.style.display = 'block';
+            document.body.style.overflow = '';
+          }
         } else {
-          if (gate) gate.style.display = 'flex';
-          if (logoutBtn) logoutBtn.style.display = 'none';
+          gate.style.display = 'flex';
+          formView.style.display = 'flex';
+          verifyView.style.display = 'none';
+          logoutBtn.style.display = 'none';
           document.body.style.overflow = 'hidden';
         }
       });
