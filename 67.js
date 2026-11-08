@@ -448,17 +448,36 @@ body.light-mode .auth-divider::before, body.light-mode .auth-divider::after { bo
       const auth = getAuth(app);
 
       window.loginGoogle = () => {
-        signInWithPopup(auth, new GoogleAuthProvider()).catch(err => alert(err.message));
+        signInWithPopup(auth, new GoogleAuthProvider()).catch(err => {
+          if (err.code === 'auth/account-exists-with-different-credential') {
+            alert("Email này đã được đăng ký bằng phương thức khác (ví dụ: Email/Mật khẩu hoặc GitHub). Vui lòng đăng nhập bằng phương thức đó!");
+          } else {
+            alert(err.message);
+          }
+        });
       };
+      
       window.loginGithub = () => {
-        signInWithPopup(auth, new GithubAuthProvider()).catch(err => alert(err.message));
+        signInWithPopup(auth, new GithubAuthProvider()).catch(err => {
+          if (err.code === 'auth/account-exists-with-different-credential') {
+            alert("Email này đã được đăng ký bằng phương thức khác (ví dụ: Email/Mật khẩu hoặc Google). Vui lòng đăng nhập bằng phương thức đó!");
+          } else {
+            alert(err.message);
+          }
+        });
       };
       
       window.loginEmail = () => {
         const email = document.getElementById('auth-email').value;
         const password = document.getElementById('auth-password').value;
         if (!email || !password) return alert('Vui lòng nhập đầy đủ Email và Mật khẩu!');
-        signInWithEmailAndPassword(auth, email, password).catch(err => alert("Lỗi đăng nhập: " + err.message));
+        signInWithEmailAndPassword(auth, email, password).catch(err => {
+          if (err.code === 'auth/invalid-credential') {
+            alert("Sai email hoặc mật khẩu! Vui lòng kiểm tra lại.");
+          } else {
+            alert("Lỗi đăng nhập: " + err.message);
+          }
+        });
       };
 
       window.registerEmail = () => {
@@ -466,7 +485,13 @@ body.light-mode .auth-divider::before, body.light-mode .auth-divider::after { bo
         const password = document.getElementById('auth-password').value;
         if (!email || !password) return alert('Vui lòng nhập đầy đủ Email và Mật khẩu!');
         if (password.length < 6) return alert('Mật khẩu phải có ít nhất 6 ký tự!');
-        createUserWithEmailAndPassword(auth, email, password).catch(err => alert("Lỗi đăng ký: " + err.message));
+        createUserWithEmailAndPassword(auth, email, password).catch(err => {
+          if (err.code === 'auth/email-already-in-use') {
+            alert("Email này đã được đăng ký rồi. Vui lòng chuyển sang nút 'Đăng nhập' hoặc sử dụng email khác.");
+          } else {
+            alert("Lỗi đăng ký: " + err.message);
+          }
+        });
       };
 
       window.logout = () => signOut(auth);
