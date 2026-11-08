@@ -56,6 +56,125 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
 @media (max-width:400px){.__sf_panel{width:96vw;max-width:96vw}.__sf_sw{width:40px;height:22px}.__sf_sw::after{width:16px;height:16px}.__sf_sw.active::after{transform:translateX(18px)}}
 @media (max-height:520px) and (orientation:landscape){.__sf_panel{width:55vw;max-width:55vw;padding:14px;padding-top:calc(14px + env(safe-area-inset-top,0px));padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));gap:8px}.__sf_row{padding:8px 10px}.__sf_body{gap:8px}}
 @media (hover:none) and (pointer:coarse){.__sf_btn{min-width:40px;min-height:40px}.__sf_sw{min-width:46px;min-height:26px}}
+
+#auth-gate {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 13, 22, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 999999;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #F8FAFC;
+  font-family: system-ui, -apple-system, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+body.light-mode #auth-gate {
+  background: rgba(238, 242, 247, 0.85);
+  color: #0f172a;
+}
+.auth-title {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+.auth-input {
+  width: 260px;
+  padding: 12px;
+  margin: 6px 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+.auth-input::placeholder { color: rgba(255,255,255,0.6); }
+body.light-mode .auth-input {
+  background: rgba(255,255,255,0.8);
+  color: #0f172a;
+  border-color: rgba(15,23,42,0.1);
+}
+body.light-mode .auth-input::placeholder { color: rgba(15,23,42,0.5); }
+
+.auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 260px;
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.auth-btn:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+.auth-btn.google { background: rgba(219, 68, 55, 0.15); border-color: rgba(219, 68, 55, 0.3); }
+.auth-btn.google:hover { background: rgba(219, 68, 55, 0.3); }
+.auth-btn.github { background: rgba(51, 51, 51, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+.auth-btn.github:hover { background: rgba(51, 51, 51, 0.8); }
+.auth-btn.email {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.4);
+  color: #60A5FA;
+}
+.auth-btn.email:hover { background: rgba(59, 130, 246, 0.4); color: #fff; }
+
+body.light-mode .auth-btn { color: #0f172a; border-color: rgba(15,23,42,0.1); background: rgba(255,255,255,0.8); }
+body.light-mode .auth-btn:hover { background: #fff; }
+body.light-mode .auth-btn.email { color: #2563eb; }
+body.light-mode .auth-btn.email:hover { color: #fff; }
+
+.auth-divider {
+  width: 260px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 10px 0;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+}
+.auth-divider::before, .auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.auth-divider::before { margin-right: 10px; }
+.auth-divider::after { margin-left: 10px; }
+body.light-mode .auth-divider { color: rgba(15,23,42,0.5); }
+body.light-mode .auth-divider::before, body.light-mode .auth-divider::after { border-bottom-color: rgba(15,23,42,0.2); }
+
+#logoutBtn {
+  display: none;
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: calc(60px + env(safe-area-inset-right, 0px));
+  z-index: 100000;
+  padding: 8px 14px;
+  border-radius: 99px;
+  background: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+  border: 1px solid #EF4444;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+#logoutBtn:hover { background: #EF4444; color: #fff; }
 `;
     document.head.appendChild(st);
   }
@@ -272,6 +391,104 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
     });
   }
 
+  function injectAuthUI() {
+    if (document.getElementById('auth-gate')) return;
+
+    var gate = document.createElement('div');
+    gate.id = 'auth-gate';
+    gate.innerHTML = `
+      <div class="auth-title">Vui lòng đăng nhập để tiếp tục</div>
+      
+      <input type="email" id="auth-email" class="auth-input" placeholder="Email...">
+      <input type="password" id="auth-password" class="auth-input" placeholder="Mật khẩu...">
+      <div style="display:flex; gap:10px; width:260px; margin-bottom: 12px;">
+        <button class="auth-btn email" style="width:100%; margin:0;" onclick="loginEmail()">
+          Đăng nhập
+        </button>
+        <button class="auth-btn email" style="width:100%; margin:0; background:rgba(255,255,255,0.05);" onclick="registerEmail()">
+          Đăng ký
+        </button>
+      </div>
+
+      <div class="auth-divider">hoặc</div>
+
+      <button class="auth-btn google" onclick="loginGoogle()">
+        <i class="fa-brands fa-google" style="color:#DB4437"></i> Đăng nhập bằng Google
+      </button>
+      <button class="auth-btn github" onclick="loginGithub()">
+        <i class="fa-brands fa-github"></i> Đăng nhập bằng GitHub
+      </button>
+    `;
+    document.body.appendChild(gate);
+
+    var logoutBtn = document.createElement('button');
+    logoutBtn.id = 'logoutBtn';
+    logoutBtn.textContent = 'Đăng xuất';
+    logoutBtn.onclick = function() { window.logout(); };
+    document.body.appendChild(logoutBtn);
+
+    var firebaseConfig = {
+      apiKey: "AIzaSyBKjpiV_gqTE-j8cBgBX0g-7zFClQMd33I",
+      authDomain: "chisaki167-72a4c.firebaseapp.com",
+      projectId: "chisaki167-72a4c",
+      storageBucket: "chisaki167-72a4c.firebasestorage.app",
+      messagingSenderId: "354655646874",
+      appId: "1:354655646874:web:07f1347296a52fc723db23",
+      measurementId: "G-9QQXRDRHYF"
+    };
+
+    var script = document.createElement('script');
+    script.type = 'module';
+    script.textContent = `
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+      const firebaseConfig = ${JSON.stringify(firebaseConfig)};
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      window.loginGoogle = () => {
+        signInWithPopup(auth, new GoogleAuthProvider()).catch(err => alert(err.message));
+      };
+      window.loginGithub = () => {
+        signInWithPopup(auth, new GithubAuthProvider()).catch(err => alert(err.message));
+      };
+      
+      window.loginEmail = () => {
+        const email = document.getElementById('auth-email').value;
+        const password = document.getElementById('auth-password').value;
+        if (!email || !password) return alert('Vui lòng nhập đầy đủ Email và Mật khẩu!');
+        signInWithEmailAndPassword(auth, email, password).catch(err => alert("Lỗi đăng nhập: " + err.message));
+      };
+
+      window.registerEmail = () => {
+        const email = document.getElementById('auth-email').value;
+        const password = document.getElementById('auth-password').value;
+        if (!email || !password) return alert('Vui lòng nhập đầy đủ Email và Mật khẩu!');
+        if (password.length < 6) return alert('Mật khẩu phải có ít nhất 6 ký tự!');
+        createUserWithEmailAndPassword(auth, email, password).catch(err => alert("Lỗi đăng ký: " + err.message));
+      };
+
+      window.logout = () => signOut(auth);
+
+      onAuthStateChanged(auth, (user) => {
+        const gate = document.getElementById('auth-gate');
+        const logoutBtn = document.getElementById('logoutBtn');
+        
+        if (user) {
+          if (gate) gate.style.display = 'none';
+          if (logoutBtn) logoutBtn.style.display = 'block';
+          document.body.style.overflow = '';
+        } else {
+          if (gate) gate.style.display = 'flex';
+          if (logoutBtn) logoutBtn.style.display = 'none';
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    `;
+    document.body.appendChild(script);
+  }
+
   window.toggleSettingsPanel = togglePanel;
   window.toggleBackground = toggleBG;
   window.toggleGlass = toggleGlass;
@@ -284,6 +501,7 @@ body.light-mode .__sf_ft{border-top-color:rgba(15,23,42,.1);color:#64748b}
     injectUI();
     applySettings();
     initLiquidGlassTilt();
+    injectAuthUI();
   }
   
   if (document.readyState === 'loading') {
